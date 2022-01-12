@@ -1,11 +1,11 @@
 import { ThemeProvider } from "styled-components";
 import theme from "./theme/mainTheme";
-import { Button } from "./components/Button/Button";
+import { Home } from "./views/Home/Home";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
-      <Button child="CLICK!" />
+      <Home />
     </ThemeProvider>
   </>
 );
