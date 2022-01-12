@@ -47,6 +47,7 @@
     "@testing-library/cypress": "^8.0.2",
     "cypress": "^9.2.1",
     "eslint": "^8.6.0",
-    "jest": "^27.4.7"
+    "jest": "^27.4.7",
+    "prettier": "2.5.1"
   }
 }
