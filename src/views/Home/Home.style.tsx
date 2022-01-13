@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledHomeWrapper = styled.section`
+export const StyledPageWrapper = styled.section`
   height: 100vh;
   display: flex;
   flex-direction: column;

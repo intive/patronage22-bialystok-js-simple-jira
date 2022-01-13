@@ -1,10 +1,13 @@
-import { StyledHomeWrapper } from "./Home.style";
+import { StyledPageWrapper } from "./Home.style";
+import { Link } from "react-router-dom";
 import { Button } from "../../components/Button/Button";
 
 export const Home = () => (
-  <StyledHomeWrapper>
+  <StyledPageWrapper>
     <p>If button is nice and smooth - Material UI works</p>
-    <Button child="Click here to check if React Router works" />
+    <Link to="/second">
+      <Button child="Click here to check if React Router works" />
+    </Link>
     <p>If colors are black and white - Styled components works</p>
-  </StyledHomeWrapper>
+  </StyledPageWrapper>
 );
