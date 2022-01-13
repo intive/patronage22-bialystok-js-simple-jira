@@ -1,10 +1,12 @@
-import { DefaultTheme } from "styled-components";
+import { createTheme } from "@mui/material/styles";
 
-const mainTheme: DefaultTheme = {
-  colors: {
-    white: "#fff",
-    black: "#0d0d0d",
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#fff",
+    },
+    secondary: {
+      main: "#0d0d0d",
+    },
   },
-};
-
-export default mainTheme;
+});
