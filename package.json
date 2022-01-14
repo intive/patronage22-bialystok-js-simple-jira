@@ -7,11 +7,16 @@
     "@mui/lab": "latest",
     "@mui/material": "latest",
     "@mui/styled-engine-sc": "latest",
+    "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@testing-library/user-event": "latest",
+    "@types/react-redux": "^7.1.22",
+    "cypress": "^9.2.1",
+    "i18next": "^21.6.6",
     "react": "latest",
     "react-dom": "latest",
+    "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "latest",
     "styled-components": "latest"
@@ -21,7 +26,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "npx prettier --write ."
   },
   "browserslist": {
     "production": [
@@ -42,6 +48,7 @@
     "@types/react-dom": "latest",
     "@types/styled-components": "latest",
     "craco-alias": "^3.0.1",
+    "prettier": "2.5.1",
     "typescript": "latest"
   }
 }
