@@ -1,25 +1,26 @@
 import { StyledPageWrapper } from "./Home.style";
 import { Link } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 
+import { useTranslation } from "react-i18next";
+
+import { Button } from "../../components/Button/Button";
+
 export const Home = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { adding } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <StyledPageWrapper>
-      <p>If button is nice and smooth - Material UI works</p>
+      <p>{t("paragraph1")}</p>
       <Link to="/second">
-        <Button
-          adding={adding}
-          child="Click here to check if React Router works"
-        />
+        <Button adding={adding} child={t("button1")} />
       </Link>
-      <p>If colors are black and white - Styled components works</p>
+      <p>{t("paragraph2")}</p>
     </StyledPageWrapper>
   );
 };

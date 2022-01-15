@@ -1,20 +1,23 @@
 import { StyledPageWrapper } from "../Home/Home.style";
 import { Link } from "react-router-dom";
-import { Button } from "../../components/Button/Button";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import { useTranslation } from "react-i18next";
+
+import { Button } from "../../components/Button/Button";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const { adding } = bindActionCreators(actionCreators, dispatch);
 
   return (
     <StyledPageWrapper>
-      <p>If you see this page - React Router works</p>
+      <p>{t("paragraph3")}</p>
       <Link to="/">
-        <Button adding={adding} child="click to return to the previous page" />
+        <Button adding={adding} child={t("button2")} />
       </Link>
     </StyledPageWrapper>
   );
