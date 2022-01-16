@@ -16,7 +16,7 @@ export const SecondPage = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph3")}</p>
-      <Link to="/">
+      <Link to="/" style={{ textDecoration: "none" }}>
         <Button adding={adding} child={t("button2")} />
       </Link>
     </StyledPageWrapper>

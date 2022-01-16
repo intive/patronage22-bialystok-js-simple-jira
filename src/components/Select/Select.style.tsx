@@ -1,14 +1,13 @@
-import { styled } from "@mui/material/styles";
-import Button from "@mui/material/Button";
+import { styled as styledmui } from "@mui/material/styles";
+import styled from "styled-components";
+import Select from "@mui/material/Select";
 
-export const StyledSelect = styled(Button)`
-  background-color: ${({ theme }) => theme.palette.secondary.main};
-  color: ${({ theme }) => theme.palette.primary.main};
-  border: 1px solid ${({ theme }) => theme.palette.secondary.main};
+export const SelectWrapper = styled.div`
+  position: absolute;
+  top: 1%;
+  right: 5%;
+`;
 
-  &:hover {
-    color: ${({ theme }) => theme.palette.secondary.main};
-    background-color: ${({ theme }) => theme.palette.primary.main};
-    border: 1px solid ${({ theme }) => theme.palette.secondary.main};
-  }
+export const StyledSelect = styledmui(Select)`
+  max-height: 50px;
 `;

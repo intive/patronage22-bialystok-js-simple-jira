@@ -17,7 +17,7 @@ export const Home = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph1")}</p>
-      <Link to="/second">
+      <Link to="/second" style={{ textDecoration: "none" }}>
         <Button adding={adding} child={t("button1")} />
       </Link>
       <p>{t("paragraph2")}</p>

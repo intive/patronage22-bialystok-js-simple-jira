@@ -18,6 +18,7 @@ i18next.use(initReactI18next).init({
         paragraph3: "If you see this page - React Router works",
         paragraph4:
           "If it's countig here when you're\nswitching pages - Redux works",
+        paragraph5: "Check here if i18n works",
         button1: "Click here to check if React Router works",
         button2: "click to return to the previous page",
       },
@@ -29,6 +30,7 @@ i18next.use(initReactI18next).init({
         paragraph3: "Jeśli widzisz tę stronę - React Router działa",
         paragraph4:
           "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
+        paragraph5: "Sprawdź tutaj czy i18n działa",
         button1: "kliknij żeby sprawdzić czy React Router działa",
         button2: "kliknij by powrócić do poprzedniej strony",
       },
