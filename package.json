@@ -67,7 +67,8 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run format:fix",
-      "npm run validate"
+      "npm run lint",
+      "npm run format:check"
     ]
   }
 }
