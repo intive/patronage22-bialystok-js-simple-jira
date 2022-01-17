@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import MountainsIcon from "../../icons/MountainsIcon";
+import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
@@ -81,7 +81,7 @@ const Nav = () => {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            <MountainsIcon />
+            <InsertPhotoOutlinedIcon fontSize="large" />
           </IconButton>
           <Menu
             id="menu-appbar"
@@ -98,8 +98,12 @@ const Nav = () => {
             open={Boolean(anchorEl)}
             onClose={() => setAnchorEl(null)}
           >
-            <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
-            <MenuItem onClick={() => handleMenuClick("about")}>About</MenuItem>
+            <Typography color="common.black">
+              <MenuItem onClick={() => handleMenuClick("/")}>Home</MenuItem>
+              <MenuItem onClick={() => handleMenuClick("about")}>
+                About
+              </MenuItem>
+            </Typography>
           </Menu>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {data.title}
