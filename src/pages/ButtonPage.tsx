@@ -1,8 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import styled from "styled-components";
+import incrementClickCount from "../actions";
 
 interface Props {
   text: string;
@@ -17,9 +20,13 @@ const StyledBox = styled(Box)`
 `;
 
 function ButtonPage({ text }: Props): any {
+  const dispatch = useDispatch();
   return (
     <StyledBox>
-      <Button variant='contained'>
+      <Button
+        onClick={() => dispatch(incrementClickCount())}
+        variant='contained'
+      >
         <Typography>{text}</Typography>
       </Button>
     </StyledBox>

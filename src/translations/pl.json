@@ -1,0 +1,9 @@
+{
+  "common": {
+    "clickMe": "Kliknij mnie!",
+    "clickCount": "Liczba kliknięć:",
+    "button": "przycisk",
+    "text": "tekst",
+    "language": "język"
+  }
+}
