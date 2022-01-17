@@ -48,6 +48,9 @@
     "@types/react-dom": "latest",
     "@types/styled-components": "latest",
     "craco-alias": "^3.0.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-react": "^7.28.0",
     "prettier": "2.5.1",
     "typescript": "latest"
   }

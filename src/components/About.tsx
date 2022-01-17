@@ -1,8 +1,4 @@
-import React from "react";
-
-interface Props {}
-
-const About = (props: Props) => {
+const About = () => {
   return (
     <div>
       <h1>About Page</h1>
