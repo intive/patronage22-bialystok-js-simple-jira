@@ -5,8 +5,6 @@ import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
-import { Router } from "react-router-dom";
-import Home from "./Home";
 import MainApp from "./MainApp";
 
 ReactDOM.render(
