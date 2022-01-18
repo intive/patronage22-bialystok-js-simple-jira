@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { StyledLink } from "./StyledLink";
 
 interface ButtonLinkProps {
   label?: string;
@@ -9,9 +9,9 @@ interface ButtonLinkProps {
 
 const ButtonLink = ({ label = "Click me!", to, buttonVariant }: ButtonLinkProps) => {
   return (
-    <Link to={to}>
+    <StyledLink to={to}>
       <Button variant={buttonVariant}>{label}</Button>
-    </Link>
+    </StyledLink>
   );
 };
 
