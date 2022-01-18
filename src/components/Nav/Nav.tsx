@@ -8,14 +8,17 @@ import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import InsertPhotoOutlinedIcon from "@mui/icons-material/InsertPhotoOutlined";
+
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+
 import { useNavigate } from "react-router-dom";
 
 const data = { title: "Task management tool" };
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
+  margin: theme.spacing(2, 2),
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
   "&:hover": {
@@ -23,6 +26,7 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginLeft: 0,
   width: "100%",
+  minHeight: "56px",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -47,6 +51,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
+    height: "100%",
+    lineHeight: 3,
     [theme.breakpoints.up("sm")]: {
       width: "12ch",
       "&:focus": {
@@ -56,12 +62,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Nav = () => {
+interface Props {
+  children: any;
+}
+
+const Nav = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const navigate = useNavigate();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+  const handleDarkModeToggle = () => {
+    console.log("Mode Toggle works");
   };
 
   const handleMenuClick = (pageURL: string) => {
@@ -109,17 +122,16 @@ const Nav = () => {
             {data.title}
           </Typography>
 
-          <div>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
-            </Search>
-          </div>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+            />
+          </Search>
+          {props.children}
         </Toolbar>
       </AppBar>
     </Box>
