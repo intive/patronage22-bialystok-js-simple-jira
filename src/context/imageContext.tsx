@@ -1,20 +1,24 @@
-import React, { useState, createContext, FC } from 'react';
+import React, { useState, createContext, FC, Dispatch, SetStateAction } from 'react';
 
 
+type ImageCounterContext = {
+  counter: number;
+  setCounter: Dispatch<SetStateAction<number>>;
+}
+
+export const ImageCounterContext = createContext<ImageCounterContext | undefined>(undefined);
 
 
-export const ImageCounterContext = createContext<number>(0);
-
-
-
-
- export const ImageCounterProvider: FC = ({ children }) => {
+export const ImageCounterProvider: FC = ({ children }) => {
 
   const [imageCounter, setImageCounter] = useState<number>(0);
 
   return (
-    <ImageCounterContext.Provider value={[imageCounter, setImageCounter]}>
+    <ImageCounterContext.Provider value={{
+      counter: imageCounter, 
+      setCounter: setImageCounter
+      }}>
       {children}
-    </ImageCounterContext.Provider>
+    </ImageCounterContext.Provider> 
   );
 }

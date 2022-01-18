@@ -1,4 +1,4 @@
-
+import { useContext } from "react";
 import {useNavigate} from 'react-router-dom';
 import CardMedia from '@mui/material/CardMedia';
 import Card from '@mui/material/Card';
@@ -6,15 +6,20 @@ import { CardActionArea } from '@mui/material';
 import ButtonStyled from '../components/Button/Button';
 import Grid from '@mui/material/Grid';
 
-import album from '../assets/album.png';
+import {ImageCounterContext} from "../context/imageContext"
+import click from '../assets/click.png';
 
 
 
 export const ImagePage = () => {
  
+  const context = useContext(ImageCounterContext);
+
+
   const navigation = useNavigate();
 
   const handleImageClick = () => {
+      context?.setCounter(context.counter + 1);
       navigation(`/`);
   }
 
@@ -24,7 +29,7 @@ export const ImagePage = () => {
       <CardActionArea>
         <CardMedia
           component="img"
-          image={album}
+          image={click}
           alt="horse"
         />
         </CardActionArea>

@@ -1,5 +1,9 @@
 import { styled } from '@mui/system';
 import Button from "@mui/material/Button";
+import { useDispatch } from 'react-redux';
+import { increment } from '../../redux/actionCreators/actionCreators';
+
+
 
 
 const StyledButton = styled(Button)`
@@ -12,5 +16,8 @@ const StyledButton = styled(Button)`
 
 
 export default function ButtonStyled() {
-    return <StyledButton>Clik me instead!</StyledButton>;
+  const dispatch= useDispatch()
+
+
+    return <StyledButton onClick={() => dispatch(increment)}>Clik me instead!</StyledButton>;
   }
