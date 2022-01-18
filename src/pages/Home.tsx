@@ -1,6 +1,8 @@
+import React from "react";
 import Container from "@mui/material/Container";
 import NewProject from "../components/NewProject/NewProject";
-
+import { theme } from "../theme/theme";
+import Paper from "@mui/material/Paper";
 // const projects = [""];
 
 const Home = () => {
