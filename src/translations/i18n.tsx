@@ -1,5 +1,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
+import { TRANSLATIONS_EN } from "./en";
+import { TRANSLATIONS_PL } from "./pl";
 
 i18next.use(initReactI18next).init({
   react: {
@@ -12,28 +14,10 @@ i18next.use(initReactI18next).init({
   },
   resources: {
     en: {
-      translation: {
-        paragraph1: "If button looks nice and smooth - Material UI works",
-        paragraph2: "If colors are black and white - Styled components works",
-        paragraph3: "If you see this page - React Router works",
-        paragraph4:
-          "If it's countig here when you're\nswitching pages - Redux works",
-        paragraph5: "Check here if i18n works",
-        button1: "Click here to check if React Router works",
-        button2: "click to return to the previous page",
-      },
+      translation: TRANSLATIONS_EN,
     },
     pl: {
-      translation: {
-        paragraph1: "Jeśli przycisk wygląda ładnie - Material UI działa",
-        paragraph2: "Jeśli kolory to czarny i biały - Styled components działa",
-        paragraph3: "Jeśli widzisz tę stronę - React Router działa",
-        paragraph4:
-          "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
-        paragraph5: "Sprawdź tutaj czy i18n działa",
-        button1: "kliknij żeby sprawdzić czy React Router działa",
-        button2: "kliknij by powrócić do poprzedniej strony",
-      },
+      translation: TRANSLATIONS_PL,
     },
   },
 });
