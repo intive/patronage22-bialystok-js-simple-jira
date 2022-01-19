@@ -1,9 +1,13 @@
-import * as React from 'react';
+import React from 'react';
 
-export default function Second() {
-  return (
-    <div>
-      <h1>Second Page</h1>
-    </div>
-  );
+// the hook
+import { useTranslation } from 'react-i18next';
+
+export default function Second () {
+  const { t } = useTranslation();
+
+  return(    
+    <h1>{t("Second page text")}</h1>
+  ) 
+
 }
