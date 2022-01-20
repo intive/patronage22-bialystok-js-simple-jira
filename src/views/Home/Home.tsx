@@ -7,6 +7,7 @@ import { actionCreators } from "../../state";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "../../components/Button/Button";
+import { links } from "../../links/links";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ export const Home = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph1")}</p>
-      <Link to="/second" style={{ textDecoration: "none" }}>
+      <Link to={links[1].url} style={{ textDecoration: "none" }}>
         <Button adding={adding} child={t("button1")} />
       </Link>
       <p>{t("paragraph2")}</p>
