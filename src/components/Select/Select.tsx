@@ -1,42 +1,36 @@
-import { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import { StyledSelect, SelectWrapper } from "./Select.style";
-import { useTranslation } from "react-i18next";
+import { StyledSelect, StyledMenuItem } from "./Select.style";
+import { SelectChangeEvent } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-// interface SelectProps {
-//   switch: () => void;
-// }
+interface SelectProps {
+  value: string;
+  options: string[];
+  handleSelect: (e: SelectChangeEvent<unknown>) => void;
+}
 
-export const Select = () => {
-  const [lang, setLang] = useState("en");
-  const { t, i18n } = useTranslation();
-
-  const handleChangeLang = (e: any) => {
-    setLang(e.target.value);
-    i18n.changeLanguage(e.target.value);
-  };
-
+export const Select: React.FC<SelectProps> = ({
+  value,
+  options,
+  handleSelect,
+}) => {
   return (
-    <SelectWrapper>
-      <p>{t("paragraph5")}</p>
-      <Box sx={{ maxWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id="lang-changer">Language</InputLabel>
-          <StyledSelect
-            labelId="ang-changer"
-            id="demo-simple-select"
-            label="Language"
-            value={lang}
-            onChange={handleChangeLang}
-          >
-            <MenuItem value={"en"}>english</MenuItem>
-            <MenuItem value={"pl"}>polski</MenuItem>
-          </StyledSelect>
-        </FormControl>
-      </Box>
-    </SelectWrapper>
+    <FormControl>
+      <StyledSelect
+        onChange={handleSelect}
+        value={value}
+        renderValue={(value: any) => value}
+        IconComponent={KeyboardArrowDownIcon}
+      >
+        {options.map(
+          (option) =>
+            option !== value && (
+              <StyledMenuItem value={option} key={option}>
+                {option}
+              </StyledMenuItem>
+            )
+        )}
+      </StyledSelect>
+    </FormControl>
   );
 };

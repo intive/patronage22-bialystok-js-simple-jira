@@ -1,13 +1,17 @@
-import { styled as styledmui } from "@mui/material/styles";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
-export const SelectWrapper = styled.div`
-  position: absolute;
-  top: 1%;
-  right: 5%;
+export const StyledSelect = styled(Select)`
+  max-height: 40px;
+  background-color: ${({ theme }) => theme.palette.primary.light};
+  margin: 0;
+  padding: 8px 16px 8px 24px;
+  border-radius: 8px;
 `;
 
-export const StyledSelect = styledmui(Select)`
-  max-height: 50px;
+export const StyledMenuItem = styled(MenuItem)`
+  padding: 12px 16px;
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  min-width: 218px;
 `;
