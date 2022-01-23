@@ -1,7 +1,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
-import { TRANSLATIONS_EN } from "./en";
-import { TRANSLATIONS_PL } from "./pl";
+import en from "./en.json";
+import pl from "./pl.json";
 
 i18next.use(initReactI18next).init({
   react: {
@@ -14,10 +14,10 @@ i18next.use(initReactI18next).init({
   },
   resources: {
     en: {
-      translation: TRANSLATIONS_EN,
+      translation: en,
     },
     pl: {
-      translation: TRANSLATIONS_PL,
+      translation: pl,
     },
   },
 });
