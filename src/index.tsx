@@ -1,16 +1,19 @@
-import * as React from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import CssBaseline from "@mui/material/CssBaseline";
-import { BrowserRouter } from "react-router-dom";
+import "./index.css";
 import App from "./App";
+import { Provider } from "react-redux";
+import { store } from "./state/index";
+import { BrowserRouter } from "react-router-dom";
+import "./translations/i18n";
 
 ReactDOM.render(
-  <React.Fragment>
-    <BrowserRouter>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
-      <App />
-    </BrowserRouter>
-  </React.Fragment>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
