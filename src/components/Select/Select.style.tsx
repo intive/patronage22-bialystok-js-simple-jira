@@ -13,5 +13,6 @@ export const StyledSelect = styled(Select)`
 export const StyledMenuItem = styled(MenuItem)`
   padding: 12px 16px;
   background-color: ${({ theme }) => theme.palette.primary.main};
-  min-width: 218px;
+  width: 218px;
+  white-space: inherit;
 `;
