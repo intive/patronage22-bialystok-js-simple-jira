@@ -7,7 +7,7 @@ import { actionCreators } from "../../state";
 import { useTranslation } from "react-i18next";
 
 import { Button } from "../../components/Button/Button";
-import { Pages } from "../../pages/pages";
+import { Pages } from "../pages";
 
 export const Home = () => {
   const dispatch = useDispatch();
