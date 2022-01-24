@@ -22,8 +22,8 @@ export const Background = styled(Box)({
 
 export const ProjectName = styled((props) => <Typography {...props} />)`
   color: #515151;
-  lineheight: 24px;
-  fontsize: 16px;
+  line-height: 24px;
+  font-size: 16px;
 `;
 
 export const StyledCardActions = styled(CardActions)({
