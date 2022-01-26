@@ -5,14 +5,16 @@ import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Counter } from "./components/Counter/Counter";
 import { Select } from "./components/Select/Select";
+import ThreeDotsMenu from "./components/ThreeDotsMenu/ThreeDotsMenu";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
       <Select />
+      <ThreeDotsMenu />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="second" element={<SecondPage />} />
+        <Route path='second' element={<SecondPage />} />
       </Routes>
       <Counter />
     </ThemeProvider>
