@@ -41,7 +41,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
       </IconButton>
       {menuItems && (
         <StyledMenu
-          // elevation={2}
+          elevation={2}
           id='basic-menu'
           anchorEl={anchorEl}
           open={open}
