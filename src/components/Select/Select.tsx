@@ -5,8 +5,9 @@ import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import { StyledSelect, SelectWrapper } from "./Select.style";
 import { useTranslation } from "react-i18next";
-import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
 
+import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
+import { mockMenuItems } from "../../mockData/menuItems";
 // interface SelectProps {
 //   switch: () => void;
 // }
@@ -22,7 +23,7 @@ export const Select = () => {
 
   return (
     <SelectWrapper>
-      <ThreeDotsMenu />
+      <ThreeDotsMenu menuItems={mockMenuItems} />
       <p>{t("paragraph5")}</p>
       <Box sx={{ maxWidth: 120 }}>
         <FormControl fullWidth>
