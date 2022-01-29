@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
 export const CounterWrapper = styled.div`
   position: absolute;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
 export const StyledPageWrapper = styled.section`
   height: 90vh;

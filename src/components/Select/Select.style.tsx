@@ -1,8 +1,7 @@
 import { styled as styledmui } from "@mui/material/styles";
-import styled from "styled-components";
 import Select from "@mui/material/Select";
 
-export const SelectWrapper = styled.div`
+export const SelectWrapper = styledmui.div`
   position: absolute;
   top: 1%;
   right: 5%;
