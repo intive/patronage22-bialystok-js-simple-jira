@@ -4,15 +4,15 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Counter } from "./components/Counter/Counter";
-import { Select } from "./components/Select/Select";
+import PageHeader from "./components/PageHeader/PageHeader";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
-      <Select />
+      <PageHeader />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="second" element={<SecondPage />} />
+        <Route path='second' element={<SecondPage />} />
       </Routes>
       <Counter />
     </ThemeProvider>
