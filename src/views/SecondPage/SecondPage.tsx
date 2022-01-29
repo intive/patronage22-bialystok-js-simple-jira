@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
-import { StyledButton } from "../../components/Button/StyledButton";
+import { Pages } from "../pages";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ export const SecondPage = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph3")}</p>
-      <Link to='/' style={{ textDecoration: "none" }}>
-        {t("button2")}
+      <Link to={Pages.Home} style={{ textDecoration: "none" }}>
+        <Button adding={adding} child={t("button2")} />
       </Link>
       <Button size='long' clickHandler={clickHandler}>
         Works?

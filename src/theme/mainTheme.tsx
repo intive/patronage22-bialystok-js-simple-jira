@@ -29,15 +29,15 @@ export const theme = createTheme({
       main: "#0d0d0d",
     },
     grey: {
-      "50": "#F7F7F7", //1
-      "100": "#E1E1E1", //2
-      "200": "#CFCFCF", //3
-      "300": "#B1B1B1", //4
-      "400": "#9E9E9E", //5
-      "500": "#7E7E7E", //6
-      "600": "#626262", //7
-      "700": "#515151", //8
-      "800": "#3B3B3B", //9
+      "50": "#F7F7F7",
+      "100": "#E1E1E1",
+      "200": "#CFCFCF",
+      "300": "#B1B1B1",
+      "400": "#9E9E9E",
+      "500": "#7E7E7E",
+      "600": "#626262",
+      "700": "#515151",
+      "800": "#3B3B3B",
       "900": "#222222",
     },
   },
@@ -51,7 +51,7 @@ export const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 4,
+    borderRadius: 8,
   },
   shadows: boxShadows as Shadows,
 });
