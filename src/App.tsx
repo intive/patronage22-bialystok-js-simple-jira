@@ -11,12 +11,18 @@ import { SelectChangeEvent } from "@mui/material";
 
 const App = () => {
   const [selectValue, setSelectValue] = useState("en");
+  const [secondSelectValue, setSecondSelectValue] = useState("");
   const { i18n } = useTranslation();
 
   const handleChangeLang = (e: SelectChangeEvent<unknown>) => {
     const value = e.target.value as string;
     setSelectValue(value);
     i18n.changeLanguage(value);
+  };
+
+  const secondHandleChangeLang = (e: SelectChangeEvent<unknown>) => {
+    const value = e.target.value as string;
+    setSecondSelectValue(value);
   };
 
   return (
@@ -26,6 +32,17 @@ const App = () => {
           value={selectValue}
           options={["en", "pl"]}
           handleSelect={handleChangeLang}
+        />
+        <Select
+          label='Choose project'
+          value={secondSelectValue}
+          options={[
+            "Awesome project",
+            "Another project",
+            "And another project",
+          ]}
+          handleSelect={secondHandleChangeLang}
+          secondary
         />
         <Routes>
           <Route index element={<Home />} />
