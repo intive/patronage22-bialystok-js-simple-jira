@@ -1,10 +1,15 @@
-import { styled, css } from "@mui/material/styles";
+import { styled, css } from "@mui/system";
+import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
 interface StyledSelectProps {
   secondary?: boolean;
 }
+
+export const StyledFormControl = styled(FormControl)`
+  margin: 20px 5px;
+`;
 
 export const StyledSelect = styled(Select)<StyledSelectProps>`
   height: 40px;
@@ -16,7 +21,6 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
-  /* margin: 20px 2px; */
 
   &:hover {
     background-color: ${({ theme }) => theme.palette.grey[400]};
@@ -34,13 +38,6 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
         background-color: ${({ theme }) => theme.palette.grey[50]};
       }
     `}
-
-  & .MuiPaper-root {
-    box-shadow: ${({ theme }) => theme.shadows[2]};
-  }
-  &.MuiInputLabel-root {
-    display: hidden;
-  }
 `;
 
 export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
@@ -57,4 +54,9 @@ export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
       background-color: ${({ theme }) => theme.palette.primary.main};
       padding: 12px 24px 12px 16px;
     `}
+  &ul
+    <
+    li {
+    padding-top: 0;
+  }
 `;

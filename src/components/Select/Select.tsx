@@ -1,5 +1,9 @@
 import FormControl from "@mui/material/FormControl";
-import { StyledSelect, StyledMenuItem } from "./Select.style";
+import {
+  StyledSelect,
+  StyledMenuItem,
+  StyledFormControl,
+} from "./Select.style";
 import { InputLabel, SelectChangeEvent } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -19,11 +23,9 @@ export const Select: React.FC<SelectProps> = ({
   label,
 }) => {
   return (
-    <FormControl>
-      {label && <InputLabel id='select-label'>{label}</InputLabel>}
+    <StyledFormControl>
+      {label && <InputLabel id={`${label}'-label'`}>{label}</InputLabel>}
       <StyledSelect
-        labelId='select-label'
-        id='imple-select'
         onChange={handleSelect}
         value={value}
         renderValue={(value: any) => value}
@@ -40,6 +42,6 @@ export const Select: React.FC<SelectProps> = ({
             )
         )}
       </StyledSelect>
-    </FormControl>
+    </StyledFormControl>
   );
 };
