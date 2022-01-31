@@ -22,7 +22,7 @@ export default function PageHeader({
   return (
     <Box>
       <StyledContainer>
-        <StyledGrid container justifyContent='space-between' height='152px'>
+        <StyledGrid container>
           <Grid item>
             <Title>{pageTitle}</Title>
           </Grid>
