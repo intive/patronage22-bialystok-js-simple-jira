@@ -1,5 +1,4 @@
-import { styled as styledmui } from "@mui/material/styles";
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 import Select from "@mui/material/Select";
 
 export const SelectWrapper = styled.div`
@@ -8,6 +7,6 @@ export const SelectWrapper = styled.div`
   right: 5%;
 `;
 
-export const StyledSelect = styledmui(Select)`
+export const StyledSelect = styled(Select)`
   max-height: 50px;
 `;
