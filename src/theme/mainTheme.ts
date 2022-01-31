@@ -29,11 +29,8 @@ const boxShadows = [
   "0px 8px 16px rgba(98, 98, 98, 0.24)",
 ];
 
-export const theme = createTheme({
+let theme = createTheme({
   palette: {
-    primary: {
-      main: "#fff",
-    },
     secondary: {
       main: "#0d0d0d",
     },
@@ -76,7 +73,17 @@ export const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 3,
   },
   shadows: boxShadows as Shadows,
 });
+
+theme = createTheme(theme, {
+  palette: {
+    text: {
+      primary: theme.palette.grey[900],
+      secondary: "#ffffff",
+    },
+  },
+});
+export { theme };

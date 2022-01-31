@@ -24,11 +24,11 @@ export const Select = () => {
       <p>{t("paragraph5")}</p>
       <Box sx={{ maxWidth: 120 }}>
         <FormControl fullWidth>
-          <InputLabel id="lang-changer">Language</InputLabel>
+          <InputLabel id='lang-changer'>Language</InputLabel>
           <StyledSelect
-            labelId="ang-changer"
-            id="demo-simple-select"
-            label="Language"
+            labelId='ang-changer'
+            id='demo-simple-select'
+            label='Language'
             value={lang}
             onChange={handleChangeLang}
           >

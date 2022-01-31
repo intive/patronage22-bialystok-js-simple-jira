@@ -5,5 +5,8 @@
   "paragraph4": "If it's countig here when you're\nswitching pages - Redux works",
   "paragraph5": "Check here if i18n works",
   "button1": "Click here to check if React Router works",
-  "button2": "click to return to the previous page"
+  "button2": "click to return to the previous page",
+  "cancelBtn": "Cancel",
+  "continueBtn": "Continue",
+  "createIssueBtn": "Create Issue"
 }
