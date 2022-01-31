@@ -4,7 +4,7 @@ import { StyledTextField } from "./Input.style";
 
 interface Input extends BaseTextFieldProps {
   value: string;
-  rows?: string;
+  rows?: number;
   required?: boolean;
   onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
