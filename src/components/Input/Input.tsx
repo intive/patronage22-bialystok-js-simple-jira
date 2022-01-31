@@ -20,7 +20,7 @@ const Input = ({
     <StyledTextField
       value={value}
       onChange={onChangeHandler}
-      multiline={rows > 0}
+      multiline={rows > 1}
       rows={rows}
       fullWidth
       required={required}
