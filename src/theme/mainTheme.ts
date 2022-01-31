@@ -4,16 +4,22 @@ import { Shadows } from "@mui/material/styles/shadows";
 declare module "@mui/material/styles" {
   interface TypographyVariants {
     capitalHeader: React.CSSProperties;
+    ticketHeader: React.CSSProperties;
+    ticketText: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
     capitalHeader?: React.CSSProperties;
+    ticketHeader: React.CSSProperties;
+    ticketText: React.CSSProperties;
   }
 }
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     capitalHeader: true;
+    ticketHeader: true;
+    ticketText: true;
   }
 }
 
@@ -48,6 +54,22 @@ let theme = createTheme({
       fontSize: "12px",
       lineHeight: "24px",
       textTransform: "uppercase",
+    },
+    ticketHeader: {
+      fontFamily: "'Roboto', sans-serif",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: "16px",
+      lineHeight: "24px",
+      display: "inline-block",
+    },
+    ticketText: {
+      fontFamily: "'Roboto', sans-serif",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: "12px",
+      lineHeight: "16px",
+      display: "inline-block",
     },
   },
   shape: {
