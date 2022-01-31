@@ -6,7 +6,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Counter } from "./components/Counter/Counter";
-import PageHeader from "./components/PageHeader/PageHeader";
+
 import Input from "./components/Input/Input";
 
 const App = () => {
@@ -19,7 +19,6 @@ const App = () => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <PageHeader />
         <Input value={field} onChangeHandler={handler} />
         <Routes>
           <Route index element={<Home />} />
