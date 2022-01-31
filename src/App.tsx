@@ -7,19 +7,10 @@ import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Counter } from "./components/Counter/Counter";
 
-import Input from "./components/Input/Input";
-
 const App = () => {
-  const [field, setField] = useState<string>("");
-  const handler = (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => {
-    setField(event.target.value);
-  };
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Input value={field} onChangeHandler={handler} />
         <Routes>
           <Route index element={<Home />} />
           <Route path='second' element={<SecondPage />} />
