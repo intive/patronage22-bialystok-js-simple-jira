@@ -1,39 +1,50 @@
-import { Button as MuiButton, ThemeProvider } from "@mui/material";
+import { Button as MuiButton, SxProps, Theme } from "@mui/material";
 // import { theme } from "../../theme/mainTheme";
 interface ButtonProps {
   children?: string;
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
   color?: string;
-  size?: string;
+  size?: "small" | "large" | "medium";
   variant?: "contained" | "text" | "outlined";
+  long?: boolean;
+  style?: SxProps<Theme>;
 }
 
 export const Button: React.FC<ButtonProps> = ({
   children,
   clickHandler,
-  size,
+  size = "small",
   variant = "contained",
+  long,
+  style,
 }) => (
-  // <ThemeProvider theme={theme}>
   <MuiButton
     sx={{
+      ...style,
       backgroundColor: (theme) =>
         variant === "text" ? "transparent" : theme.palette.grey[800],
       py: "8px",
-      px: size === "long" ? "52px" : "24px",
+      px: long ? "52px" : "24px",
+      mx: "5px",
       fontSize: 16,
+      lineHeight: "24px",
       fontWeight: 400,
-      borderRadius: 2,
+      borderRadius: (theme) => theme.shape.borderRadius,
+      color:
+        variant === "text"
+          ? (theme) => theme.palette.text.primary
+          : (theme) => theme.palette.text.secondary,
       "&:hover": {
-        backgroundColor: (theme) => theme.palette.grey[700],
+        backgroundColor:
+          variant === "text"
+            ? (theme) => theme.palette.grey[100]
+            : (theme) => theme.palette.grey[700],
       },
     }}
-    size='small'
+    size={size}
     variant={variant}
     onClick={clickHandler}
   >
     {children}
   </MuiButton>
-  // </ThemeProvider>
 );
-//TODO: Check BaseButton since theres a lot to override. Also try solution with styled()
