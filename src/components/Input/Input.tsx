@@ -1,30 +1,39 @@
-import { styled, TextField } from "@mui/material";
-import Typography from "@mui/material/Typography";
-import { useState } from "react";
-
-interface IssuesCardProps {
-  title: string;
-  children?: React.ReactNode;
-}
+import { BaseTextFieldProps, styled, TextField } from "@mui/material";
+import { ChangeEventHandler } from "react";
 
 export const StyledTextField = styled(TextField)(({ theme }) => ({
-  // margin: theme.spacing(9, 5, 0, 0),
-  width: "100%",
+  minHeight: "48px",
   padding: "12px, 24px, 12px, 16px",
-  backgroundColor: theme.palette.grey[700],
+  backgroundColor: theme.palette.grey[50],
   borderRadius: "8px",
-  textTransform: "capitalize",
+  border: "none",
+  "& .MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
 }));
+interface Input extends BaseTextFieldProps {
+  value: string;
+  rows?: string;
+  required?: boolean;
+  onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+}
 
-const Input = () => {
-  const [text, setText] = useState("");
-
+const Input = ({
+  value,
+  rows,
+  required,
+  onChangeHandler,
+  ...extraProps
+}: Input) => {
   return (
-    <TextField
-      id='outlined-name'
-      label='Name'
-      onChange={(e) => setText(e.target.value)}
-      required
+    <StyledTextField
+      value={value}
+      onChange={onChangeHandler}
+      multiline={Boolean(rows)}
+      rows={rows}
+      fullWidth
+      required={required}
+      {...extraProps}
     />
   );
 };
