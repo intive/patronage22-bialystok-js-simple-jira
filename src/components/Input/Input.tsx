@@ -11,7 +11,7 @@ interface Input extends BaseTextFieldProps {
 
 const Input = ({
   value,
-  rows,
+  rows= 0,
   required,
   onChangeHandler,
   ...extraProps
@@ -20,7 +20,7 @@ const Input = ({
     <StyledTextField
       value={value}
       onChange={onChangeHandler}
-      multiline={Boolean(rows)}
+      multiline={rows > 0}
       rows={rows}
       fullWidth
       required={required}
