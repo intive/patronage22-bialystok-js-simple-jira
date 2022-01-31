@@ -23,6 +23,8 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 export const StyledGrid = styled(Grid)(({ theme }) => ({
   background: theme.palette.primary.main,
   borderBottom: `1px solid ${theme.palette.grey[100]}`,
+  justifyContent:'space-between',
+  height:'152px'
 }));
 
 export const StyledContainer = styled(Container)({
