@@ -5,5 +5,8 @@
   "paragraph4": "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
   "paragraph5": "Sprawdź tutaj czy i18n działa",
   "button1": "kliknij żeby sprawdzić czy React Router działa",
-  "button2": "kliknij by powrócić do poprzedniej strony"
+  "button2": "kliknij by powrócić do poprzedniej strony",
+  "cancelBtn": "Anuluj",
+  "continueBtn": "Dalej",
+  "createIssueBtn": "Dodaj Zadanie"
 }
