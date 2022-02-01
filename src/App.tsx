@@ -5,9 +5,9 @@ import { Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
-import { Counter } from "./components/Counter/Counter";
 import { Select } from "./components/Select/Select";
 import { SelectChangeEvent } from "@mui/material";
+import { Counter } from "./components/Counter/Counter";
 
 const App = () => {
   const [selectValue, setSelectValue] = useState("en");

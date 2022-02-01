@@ -11,7 +11,9 @@ export const StyledFormControl = styled(FormControl)`
   margin: 20px 5px;
 `;
 
-export const StyledSelect = styled(Select)<StyledSelectProps>`
+export const StyledSelect = styled(({ secondary, ...props }) => (
+  <Select {...props} />
+))<StyledSelectProps>`
   height: 40px;
   background-color: ${({ theme }) => theme.palette.grey[200]};
   margin: 0;
@@ -40,7 +42,9 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
     `}
 `;
 
-export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
+export const StyledMenuItem = styled(({ secondary, ...props }) => (
+  <MenuItem {...props} />
+))<StyledSelectProps>`
   padding: 12px 16px;
   background-color: ${({ theme }) => theme.palette.primary.main};
   width: 218px;
@@ -54,9 +58,5 @@ export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
       background-color: ${({ theme }) => theme.palette.primary.main};
       padding: 12px 24px 12px 16px;
     `}
-  &ul
-    <
-    li {
-    padding-top: 0;
   }
 `;
