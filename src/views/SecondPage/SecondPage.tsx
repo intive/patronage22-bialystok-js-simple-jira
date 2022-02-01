@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
-import { Counter } from "../../components/Counter/Counter";
 import { SyntheticEvent } from "react";
 //Store
 import { useDispatch } from "react-redux";
@@ -44,7 +43,6 @@ export const SecondPage = () => {
       <Button style={{ my: 2 }} clickHandler={clickHandler}>
         {t("createIssueBtn")}
       </Button>
-      <Counter />
     </StyledPageWrapper>
   );
 };

@@ -3,7 +3,6 @@ import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Counter } from "../../components/Counter/Counter";
 //Store
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -26,7 +25,6 @@ export const Home = () => {
         <Button clickHandler={clickHandler} children={t("button1")} />
       </Link>
       <p>{t("paragraph2")}</p>
-      <Counter />
     </StyledPageWrapper>
   );
 };
