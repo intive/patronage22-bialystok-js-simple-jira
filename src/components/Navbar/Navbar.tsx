@@ -1,11 +1,12 @@
-import { styled, alpha } from "@mui/material/styles";
+import React from "react";
+import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import { ReactComponent as Logo } from "../../assets/image_black_24dp 1.svg";
-import { ReactComponent as MoonIcon } from "../../assets/dark_mode_black_24dp-2 1.svg";
-import { ReactComponent as SearchIcon } from "../../assets/search_black_24dp 1.svg";
 import { NavbarWrapper, StyledAppBar, StyledToolbar } from "./Navbar.style";
+import Logo from "./Logo";
+import SearchIcon from "./SearchIcon";
+import DarkModeIcon from "./DarkModeIcon";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -72,7 +73,7 @@ export default function Navbar() {
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
-            <MoonIcon />
+            <DarkModeIcon />
           </NavbarWrapper>
         </StyledToolbar>
       </StyledAppBar>
