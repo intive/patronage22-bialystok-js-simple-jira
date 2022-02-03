@@ -4,7 +4,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 
-import { StyledMenu } from "./ThreeDotsMenu.style";
+import { StyledMenu, StyledIconButton } from "./ThreeDotsMenu.style";
 
 interface MenuItemsType {
   id: number;
@@ -30,7 +30,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
 
   return (
     <div>
-      <IconButton
+      <StyledIconButton
         id='basic-button'
         {...(open && { "aria-controls": "basic-menu" })}
         {...(open && { "aria-expanded": true })}
@@ -38,7 +38,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
         onClick={handleClick}
       >
         <MoreHorizIcon />
-      </IconButton>
+      </StyledIconButton>
       <StyledMenu
         elevation={2}
         id='basic-menu'
