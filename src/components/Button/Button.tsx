@@ -1,5 +1,4 @@
-import { Button as MuiButton, SxProps, Theme } from "@mui/material";
-// import { theme } from "../../theme/mainTheme";
+import { Button as MuiButton } from "@mui/material";
 interface ButtonProps {
   children?: string;
   clickHandler?: React.MouseEventHandler<HTMLButtonElement>;
@@ -7,7 +6,6 @@ interface ButtonProps {
   size?: "small" | "large" | "medium";
   variant?: "contained" | "text" | "outlined";
   long?: boolean;
-  style?: SxProps<Theme>;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -16,11 +14,9 @@ export const Button: React.FC<ButtonProps> = ({
   size = "small",
   variant = "contained",
   long,
-  style,
 }) => (
   <MuiButton
     sx={{
-      ...style,
       backgroundColor: (theme) =>
         variant === "text" ? "transparent" : theme.palette.grey[800],
       py: "8px",
