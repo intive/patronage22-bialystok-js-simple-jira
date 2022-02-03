@@ -31,8 +31,8 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
   return (
     <div>
       <StyledIconButton
-        id='basic-button'
-        {...(open && { "aria-controls": "basic-menu" })}
+        id='three-dots-menu-button'
+        {...(open && { "aria-controls": "three-dots-menu" })}
         {...(open && { "aria-expanded": true })}
         aria-haspopup='true'
         onClick={handleClick}
@@ -41,12 +41,12 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
       </StyledIconButton>
       <StyledMenu
         elevation={2}
-        id='basic-menu'
+        id='three-dots-menu'
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          "aria-labelledby": "basic-button",
+          "aria-labelledby": "three-dots-menu-button",
         }}
         anchorOrigin={{
           vertical: "bottom",
