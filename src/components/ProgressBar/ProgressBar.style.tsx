@@ -1,8 +1,8 @@
 import { styled } from "@mui/material/styles";
-import ProgressBar from "./ProgressBar";
+import LinearProgress from "@mui/material/LinearProgress";
 import Box from "@mui/material/Box";
 
-export const StyledProgressBar = styled(ProgressBar)({
+export const StyledProgressBar = styled(LinearProgress)({
   width: "80%",
   mx: "auto",
 });
