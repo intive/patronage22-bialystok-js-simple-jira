@@ -28,22 +28,18 @@ export const SecondPage = () => {
       </Link>
       <p>Buttons SX</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
-        <Button style={{ my: 2 }} variant='text' clickHandler={clickHandler}>
+        <Button variant='text' clickHandler={clickHandler}>
           Home
         </Button>
       </Link>
-      <Button style={{ my: 2 }} variant='text' clickHandler={clickHandler}>
+      <Button variant='text' clickHandler={clickHandler}>
         {t("cancelBtn")}
       </Button>
-      <Button style={{ my: 2 }} clickHandler={clickHandler}>
-        {t("continueBtn")}
-      </Button>
-      <Button style={{ my: 2 }} long clickHandler={clickHandler}>
+      <Button clickHandler={clickHandler}>{t("continueBtn")}</Button>
+      <Button long clickHandler={clickHandler}>
         New Project
       </Button>
-      <Button style={{ my: 2 }} clickHandler={clickHandler}>
-        {t("createIssueBtn")}
-      </Button>
+      <Button clickHandler={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
     </StyledPageWrapper>
   );

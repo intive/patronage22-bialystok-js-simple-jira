@@ -73,7 +73,7 @@ let theme = createTheme({
     },
   },
   shape: {
-    borderRadius: 3,
+    borderRadius: 8,
   },
   shadows: boxShadows as Shadows,
   spacing: 8,
