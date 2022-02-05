@@ -11,7 +11,7 @@ interface Input extends BaseTextFieldProps {
 
 const Input = ({
   value,
-  rows= 0,
+  rows = 0,
   required,
   onChangeHandler,
   ...extraProps
