@@ -76,6 +76,7 @@ let theme = createTheme({
     borderRadius: 3,
   },
   shadows: boxShadows as Shadows,
+  spacing: 8,
 });
 
 theme = createTheme(theme, {
