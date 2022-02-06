@@ -1,33 +1,31 @@
+import CardActions from "@mui/material/CardActions";
+
 import {
   Background,
   CardContent,
   ProjectName,
   StyledCard,
-  StyledCardActions,
   Wrapper,
 } from "./styled";
+import { truncateText } from "./truncateText";
 
 interface ProjectCardProps {
   name: string;
   menuComponent?: React.ReactNode;
 }
 
-const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => {
-  return (
-    <StyledCard>
-      <Background />
+const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
+  <StyledCard>
+    <Background />
 
-      <Wrapper>
-        <CardContent>
-          <ProjectName component='h3'>{name}</ProjectName>
-        </CardContent>
+    <Wrapper>
+      <CardContent>
+        <ProjectName component='h3'>{truncateText(name)}</ProjectName>
+      </CardContent>
 
-        {!!menuComponent && (
-          <StyledCardActions>{menuComponent}</StyledCardActions>
-        )}
-      </Wrapper>
-    </StyledCard>
-  );
-};
+      {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
+    </Wrapper>
+  </StyledCard>
+);
 
 export default ProjectCard;
