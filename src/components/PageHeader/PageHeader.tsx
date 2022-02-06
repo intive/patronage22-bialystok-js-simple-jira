@@ -9,8 +9,8 @@ import {
 } from "./PageHeader.style";
 
 interface SectionProps {
-  pageTitle?: string;
-  buttonText?: string;
+  pageTitle: string;
+  buttonText: string;
   buttonHandler?: MouseEventHandler;
 }
 
