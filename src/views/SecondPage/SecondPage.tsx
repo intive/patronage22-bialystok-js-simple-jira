@@ -4,11 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
 import { Counter } from "../../components/Counter/Counter";
-import { SyntheticEvent } from "react";
 //Store
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import ProjectCard from "../../components/ProjectCard";
+import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
+import { mockMenuItems } from "../../mockData/menuItems";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -41,6 +43,13 @@ export const SecondPage = () => {
       </Button>
       <Button clickHandler={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
+      {/* temporary div for component presentation */}
+      <div style={{ alignSelf: "stretch", padding: 20 }}>
+        <ProjectCard
+          name='Awesome project sdfs adf f sdfsdfsdfasdffasd as dasdf sdf sdf sdf sdf sdf sdf sdf sdf sdf sdf sdfasdf s'
+          menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
+        />
+      </div>
     </StyledPageWrapper>
   );
 };
