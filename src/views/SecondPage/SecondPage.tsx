@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
 import { Counter } from "../../components/Counter/Counter";
-import { SyntheticEvent } from "react";
 //Store
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import TasksCard from "../../components/TasksCard";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -41,6 +41,10 @@ export const SecondPage = () => {
       </Button>
       <Button clickHandler={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
+      {/* temporary div for component presentation */}
+      <div style={{ alignSelf: "stretch", padding: 20 }}>
+        <TasksCard title='to do' />
+      </div>
     </StyledPageWrapper>
   );
 };
