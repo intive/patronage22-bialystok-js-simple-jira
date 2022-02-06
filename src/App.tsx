@@ -4,11 +4,13 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Select } from "./components/Select/Select";
+import PageHeader from "./components/PageHeader/PageHeader";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
-      <Select />
+      <PageHeader pageTitle={"Projects"} buttonText={"New project"} />
+      {/* <Select /> */}
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />

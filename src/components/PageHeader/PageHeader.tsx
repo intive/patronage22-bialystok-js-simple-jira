@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import {
   StyledButton,
-  StyledContainer,
+  // StyledContainer,
   StyledGrid,
   Title,
 } from "./PageHeader.style";
@@ -21,16 +21,16 @@ export default function PageHeader({
 }: SectionProps) {
   return (
     <Box>
-      <StyledContainer>
-        <StyledGrid container>
-          <Grid item>
-            <Title>{pageTitle}</Title>
-          </Grid>
-          <Grid item>
-            <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
-          </Grid>
-        </StyledGrid>
-      </StyledContainer>
+      {/* <StyledContainer> */}
+      <StyledGrid container>
+        <Grid item>
+          <Title>{pageTitle}</Title>
+        </Grid>
+        <Grid item>
+          <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
+        </Grid>
+      </StyledGrid>
+      {/* </StyledContainer> */}
     </Box>
   );
 }
