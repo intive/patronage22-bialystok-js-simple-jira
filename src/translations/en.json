@@ -8,5 +8,7 @@
   "button2": "click to return to the previous page",
   "cancelBtn": "Cancel",
   "continueBtn": "Continue",
-  "createIssueBtn": "Create Issue"
+  "createIssueBtn": "Create Issue",
+  "createBtn": "Create",
+  "dialogCreateProjectTitle": "Name your project"
 }
