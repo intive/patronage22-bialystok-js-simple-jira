@@ -24,22 +24,24 @@ export const SecondPage = () => {
     <StyledPageWrapper>
       <p>{t("paragraph3")}</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
-        <Button clickHandler={clickHandler}>{t("button2")}</Button>
+        <Button onClick={clickHandler}>{t("button2")}</Button>
       </Link>
       <p>Buttons SX</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
-        <Button variant='text' clickHandler={clickHandler}>
+        <Button variant='text' onClick={clickHandler}>
           Home
         </Button>
       </Link>
-      <Button variant='text' clickHandler={clickHandler}>
+      <Button variant='text' onClick={clickHandler}>
         {t("cancelBtn")}
       </Button>
-      <Button clickHandler={clickHandler}>{t("continueBtn")}</Button>
-      <Button long clickHandler={clickHandler}>
+      <Button disabled={true} onClick={clickHandler}>
+        {t("continueBtn")}
+      </Button>
+      <Button long onClick={clickHandler}>
         New Project
       </Button>
-      <Button clickHandler={clickHandler}>{t("createIssueBtn")}</Button>
+      <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
     </StyledPageWrapper>
   );
