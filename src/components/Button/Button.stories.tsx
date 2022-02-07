@@ -8,6 +8,7 @@ export default {
   component: Button,
   argTypes: {
     clickHandler: { action: "clicked" },
+    variant: { options: ["text", "contained"] },
   },
 } as ComponentMeta<typeof Button>;
 
@@ -17,20 +18,16 @@ const Template: ComponentStory<typeof Button> = (args) => (
   </ThemeProvider>
 );
 
-export const Continue = Template.bind({});
-export const NewProject = Template.bind({});
-export const Cancel = Template.bind({});
+export const Basic = Template.bind({});
 
-Continue.args = {
+Basic.args = {
   children: "Continue",
 };
 
-NewProject.args = {
-  children: "New Project",
-  long: true,
-};
-
-Cancel.args = {
-  children: "Cancel",
-  variant: "text",
+Basic.parameters = {
+  controls: {
+    exclude: ["size"],
+    include: ["long", "variant", "children", "clickHandler"],
+    sort: "alpha",
+  },
 };
