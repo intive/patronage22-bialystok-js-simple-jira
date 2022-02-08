@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import { Button as MuiButton } from "@mui/material";
 
-export const StyledButton = styled(MuiButton, {
+export const StyledButton = styled((props) => <MuiButton {...props} />, {
   shouldForwardProp: (prop) => prop !== "long" && prop !== "variant",
 })<{ long?: boolean; variant?: string }>(({ theme, long, variant }) => ({
   backgroundColor: variant === "text" ? "transparent" : theme.palette.grey[700],

@@ -1,19 +1,4 @@
 import { createTheme } from "@mui/material/styles";
-import { Shadows } from "@mui/material/styles/shadows";
-
-declare module "@mui/material/styles" {
-  interface TypographyVariants {
-    capitalHeader: React.CSSProperties;
-    ticketHeader: React.CSSProperties;
-    ticketText: React.CSSProperties;
-  }
-
-  interface TypographyVariantsOptions {
-    capitalHeader?: React.CSSProperties;
-    ticketHeader: React.CSSProperties;
-    ticketText: React.CSSProperties;
-  }
-}
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
@@ -23,11 +8,21 @@ declare module "@mui/material/Typography" {
   }
 }
 
-const boxShadows = [
-  "none",
-  "0px 1px 3px rgba(98, 98, 98, 0.24)",
-  "0px 8px 16px rgba(98, 98, 98, 0.24)",
-];
+declare module "@mui/material/styles" {
+  interface Theme {
+    customShadows: {
+      primary: string;
+      secondary: string;
+    };
+  }
+
+  interface ThemeOptions {
+    customShadows?: {
+      primary?: string;
+      secondary?: string;
+    };
+  }
+}
 
 let theme = createTheme({
   palette: {
@@ -45,6 +40,18 @@ let theme = createTheme({
       "700": "#515151",
       "800": "#3B3B3B",
       "900": "#222222",
+    },
+  },
+  shape: {
+    borderRadius: 8,
+  },
+});
+
+theme = createTheme(theme, {
+  palette: {
+    text: {
+      primary: theme.palette.grey[900],
+      secondary: "#ffffff",
     },
   },
   typography: {
@@ -72,18 +79,11 @@ let theme = createTheme({
       display: "inline-block",
     },
   },
-  shape: {
-    borderRadius: 8,
+  customShadows: {
+    primary: "0px 1px 3px rgba(98, 98, 98, 0.24)",
+    secondary: "0px 8px 16px rgba(98, 98, 98, 0.24)",
   },
-  shadows: boxShadows as Shadows,
+  spacing: 8,
 });
 
-theme = createTheme(theme, {
-  palette: {
-    text: {
-      primary: theme.palette.grey[900],
-      secondary: "#ffffff",
-    },
-  },
-});
 export { theme };

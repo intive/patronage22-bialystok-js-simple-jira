@@ -9,6 +9,7 @@ export default {
   argTypes: {
     clickHandler: { action: "clicked" },
     variant: { options: ["text", "contained"] },
+    disabled: { controls: "boolean" },
   },
 } as ComponentMeta<typeof Button>;
 
@@ -22,12 +23,12 @@ export const Basic = Template.bind({});
 
 Basic.args = {
   children: "Continue",
+  disabled: false,
 };
 
 Basic.parameters = {
   controls: {
-    exclude: ["size"],
-    include: ["long", "variant", "children", "clickHandler"],
+    include: ["long", "variant", "children", "clickHandler", "disabled"],
     sort: "alpha",
   },
 };

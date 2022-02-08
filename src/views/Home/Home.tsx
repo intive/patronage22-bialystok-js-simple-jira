@@ -23,7 +23,7 @@ export const Home = () => {
     <StyledPageWrapper>
       <p>{t("paragraph1")}</p>
       <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
-        <Button clickHandler={clickHandler} children={t("button1")} />
+        <Button onClick={clickHandler} children={t("button1")} />
       </Link>
       <p>{t("paragraph2")}</p>
       <Counter />
