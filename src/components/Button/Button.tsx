@@ -1,6 +1,5 @@
-import { ButtonProps } from "@mui/material";
 import { StyledButton } from "./Button.style";
-export interface StyledButtonProps extends ButtonProps {
+export interface StyledButtonProps {
   children?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   size?: "small" | "large" | "medium";
@@ -18,6 +17,6 @@ export interface StyledButtonProps extends ButtonProps {
   disabled?: boolean | undefined;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => (
+export const Button: React.FC<StyledButtonProps> = (props) => (
   <StyledButton {...props}>{props.children}</StyledButton>
 );

@@ -7,7 +7,7 @@ export default {
   title: "Button",
   component: Button,
   argTypes: {
-    clickHandler: { action: "clicked" },
+    onClick: { action: "clicked" },
     variant: { options: ["text", "contained"] },
     disabled: { controls: "boolean" },
   },
@@ -28,7 +28,7 @@ Basic.args = {
 
 Basic.parameters = {
   controls: {
-    include: ["long", "variant", "children", "clickHandler", "disabled"],
+    include: ["long", "variant", "children", "onClick", "disabled"],
     sort: "alpha",
   },
 };
