@@ -45,6 +45,7 @@ let theme = createTheme({
   shape: {
     borderRadius: 8,
   },
+  spacing: 8,
 });
 
 theme = createTheme(theme, {
@@ -83,7 +84,6 @@ theme = createTheme(theme, {
     primary: "0px 1px 3px rgba(98, 98, 98, 0.24)",
     secondary: "0px 8px 16px rgba(98, 98, 98, 0.24)",
   },
-  spacing: 8,
 });
 
 export { theme };
