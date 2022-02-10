@@ -1,9 +1,4 @@
-import {
-  BaseTextFieldProps,
-  Box,
-  FormControl,
-  InputLabel,
-} from "@mui/material";
+import { BaseTextFieldProps } from "@mui/material";
 import { ChangeEventHandler } from "react";
 import { StyledTextField, StyledInputLabel } from "./Input.style";
 
