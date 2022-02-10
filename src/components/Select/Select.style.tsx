@@ -3,6 +3,10 @@ import Select from "@mui/material/Select";
 
 export const StyledSelect = styled(Select)({
   maxHeight: "50px",
+  "& ul .MuiList-root-fZzEFe": {
+    paddingTop: "0",
+    backgroundColor: "red",
+  },
 });
 
 export const SelectWrapper = styled("div")({
