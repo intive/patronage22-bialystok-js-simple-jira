@@ -27,7 +27,7 @@ const Input = ({
 }: Input) => {
   return (
     <>
-      <StyledInputLabel shrink htmlFor='styled-text-input'>
+      <StyledInputLabel htmlFor='styled-text-input'>
         {helperText}
       </StyledInputLabel>
       <StyledTextField

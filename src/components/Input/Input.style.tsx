@@ -1,3 +1,4 @@
+import { NoEncryptionTwoTone } from "@mui/icons-material";
 import { InputLabel, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -21,5 +22,7 @@ export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
   // "&.MuiInputLabel-root": {
   color: theme.palette.grey[600],
   fontSize: 12,
+  lineHeight: "16px",
+  marginBottom: theme.spacing(0.5),
   // },
 }));
