@@ -9,7 +9,8 @@ import Input from "./components/Input/Input";
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
-      <Input value='' />
+      <Input helperText='Shiteeet' value='' />
+
       {/* <Select /> */}
       <Routes>
         <Route path='/' element={<Home />} />
