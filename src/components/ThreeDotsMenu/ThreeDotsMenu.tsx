@@ -4,7 +4,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import IconButton from "@mui/material/IconButton";
 import MenuItem from "@mui/material/MenuItem";
 
-import { StyledMenu } from "./ThreeDotsMenu.style";
+import { StyledMenu, StyledIconButton } from "./ThreeDotsMenu.style";
 
 interface MenuItemsType {
   id: number;
@@ -30,42 +30,40 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
 
   return (
     <div>
-      <IconButton
-        id='basic-button'
-        {...(open && { "aria-controls": "basic-menu" })}
+      <StyledIconButton
+        id='three-dots-menu-button'
+        {...(open && { "aria-controls": "three-dots-menu" })}
         {...(open && { "aria-expanded": true })}
         aria-haspopup='true'
         onClick={handleClick}
       >
         <MoreHorizIcon />
-      </IconButton>
-      {menuItems && (
-        <StyledMenu
-          elevation={2}
-          id='basic-menu'
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            "aria-labelledby": "basic-button",
-          }}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-        >
-          {menuItems.map((item: MenuItemsType) => (
-            <MenuItem key={item.id} onClick={handleClose}>
-              {item.icon}
-              {item.label}
-            </MenuItem>
-          ))}
-        </StyledMenu>
-      )}
+      </StyledIconButton>
+      <StyledMenu
+        elevation={2}
+        id='three-dots-menu'
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          "aria-labelledby": "three-dots-menu-button",
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        {menuItems.map((item: MenuItemsType) => (
+          <MenuItem key={item.id} onClick={handleClose}>
+            {item.icon}
+            {item.label}
+          </MenuItem>
+        ))}
+      </StyledMenu>
     </div>
   );
 }

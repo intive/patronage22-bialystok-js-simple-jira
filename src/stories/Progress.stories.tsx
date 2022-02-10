@@ -1,4 +1,3 @@
-import { LinearProgressProps } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LinearIndeterminate from "../components/ProgressBar/ProgressBar";
 
