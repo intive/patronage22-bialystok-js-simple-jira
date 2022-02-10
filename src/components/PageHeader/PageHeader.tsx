@@ -1,12 +1,7 @@
 import { MouseEventHandler } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import {
-  StyledButton,
-  // StyledContainer,
-  StyledGrid,
-  Title,
-} from "./PageHeader.style";
+import { StyledButton, StyledGrid, Title } from "./PageHeader.style";
 
 interface SectionProps {
   pageTitle: string;
@@ -21,7 +16,6 @@ export default function PageHeader({
 }: SectionProps) {
   return (
     <Box>
-      {/* <StyledContainer> */}
       <StyledGrid container>
         <Grid item>
           <Title>{pageTitle}</Title>
@@ -30,7 +24,6 @@ export default function PageHeader({
           <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
         </Grid>
       </StyledGrid>
-      {/* </StyledContainer> */}
     </Box>
   );
 }
