@@ -4,17 +4,16 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Select } from "./components/Select/Select";
-import Input from "./components/Input/Input";
+import { Owl_components } from "./views/Owl/Owl";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
-      <Input helperText='Label of something' value='' />
-
       <Select />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />
+        <Route path='owl' element={<Owl_components />} />
       </Routes>
     </ThemeProvider>
   </>
