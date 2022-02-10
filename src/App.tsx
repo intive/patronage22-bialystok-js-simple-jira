@@ -11,7 +11,7 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <Input helperText='Shiteeet' value='' />
 
-      {/* <Select /> */}
+      <Select />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />
