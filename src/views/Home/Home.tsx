@@ -8,6 +8,7 @@ import { Counter } from "../../components/Counter/Counter";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import Navbar from "../../components/Navbar/Navbar";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,16 @@ export const Home = () => {
   };
 
   return (
-    <StyledPageWrapper>
-      <p>{t("paragraph1")}</p>
-      <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
-        <Button onClick={clickHandler} children={t("button1")} />
-      </Link>
-      <p>{t("paragraph2")}</p>
-      <Counter />
-    </StyledPageWrapper>
+    <div>
+      <StyledPageWrapper>
+        <Navbar />
+        <p>{t("paragraph1")}</p>
+        <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
+          <Button onClick={clickHandler} children={t("button1")} />
+        </Link>
+        <p>{t("paragraph2")}</p>
+        <Counter />
+      </StyledPageWrapper>
+    </div>
   );
 };
