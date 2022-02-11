@@ -9,6 +9,7 @@ import { SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import Navbar from "../../components/Navbar/Navbar";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ export const SecondPage = () => {
 
   return (
     <StyledPageWrapper>
+      <Navbar />
       <p>{t("paragraph3")}</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
         <Button onClick={clickHandler}>{t("button2")}</Button>
