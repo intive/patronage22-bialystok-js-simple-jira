@@ -10,5 +10,7 @@
   "continueBtn": "Dalej",
   "createIssueBtn": "Dodaj Zadanie",
   "createBtn": "Utwórz",
-  "dialogCreateProjectTitle": "Wpisz nazwę projektu"
+  "dialogCreateProjectTitle": "Wpisz nazwę projektu",
+  "projectsViewTitle": "Projekty",
+  "newProjectBtn": "Nowy Projekt"
 }

@@ -10,5 +10,7 @@
   "continueBtn": "Continue",
   "createIssueBtn": "Create Issue",
   "createBtn": "Create",
-  "dialogCreateProjectTitle": "Name your project"
+  "dialogCreateProjectTitle": "Name your project",
+  "projectsViewTitle": "Projects",
+  "newProjectBtn": "New Project"
 }

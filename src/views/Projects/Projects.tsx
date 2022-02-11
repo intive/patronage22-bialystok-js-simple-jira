@@ -1,19 +1,18 @@
-import Navbar from "../../components/Navbar/Navbar";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { StyledProjectList } from "./Projects.style";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
-import AccessibilityIcon from "@mui/icons-material/Accessibility";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { mockProjects } from "../../mockData/mockProjects";
+import { useTranslation } from "react-i18next";
 
 export const Projects = () => {
+  const { t } = useTranslation();
   return (
     <>
       <PageHeader
-        pageTitle='SomePage'
-        buttonText='New Project'
+        pageTitle={t("projectsViewTitle")}
+        buttonText={t("newProjectBtn")}
         buttonHandler={() => console.log("works")}
       />
       <StyledProjectList>
