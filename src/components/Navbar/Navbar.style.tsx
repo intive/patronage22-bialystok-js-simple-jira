@@ -8,6 +8,7 @@ export const StyledAppBar = styledmui(AppBar)(({ theme }) => ({
 }));
 
 export const StyledToolbar = styledmui(Toolbar)(({ theme }) => ({
+  minHeight: "0",
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-between",
