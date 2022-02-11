@@ -5,8 +5,8 @@ import { useTranslation } from "react-i18next";
 import { StyledButton, StyledGrid, Title } from "./PageHeader.style";
 
 interface SectionProps {
-  pageTitle: "Projects" | "Boards";
-  buttonText: "New Board" | "New project";
+  pageTitle: string;
+  buttonText: string;
   buttonHandler?: MouseEventHandler;
 }
 
