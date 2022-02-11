@@ -1,5 +1,5 @@
 export enum Pages {
   Home = "/",
   Secondary = "/second",
-  Owl_components = "/owl",
+  Owl_componentsInput = "/owlinput",
 }
