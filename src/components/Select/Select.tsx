@@ -8,22 +8,30 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 interface SelectProps {
   value?: string;
-  label?: string;
   options: string[];
   handleSelect: (e: SelectChangeEvent<unknown>) => void;
   secondary?: boolean;
   fullWidth?: boolean;
+  blankValue?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
-  value,
   options,
   handleSelect,
   secondary,
-  label,
+  value,
   fullWidth,
+  blankValue,
   ...props
 }) => {
+  const MenuProps = {
+    MenuListProps: {
+      style: {
+        padding: 0,
+      },
+    },
+  };
+
   return (
     <StyledFormControl secondary={secondary}>
       <StyledSelect
@@ -32,7 +40,9 @@ export const Select: React.FC<SelectProps> = ({
         renderValue={(value: any) => value}
         IconComponent={KeyboardArrowDownIcon}
         secondary={secondary}
-        placeholder={label}
+        blankValue={blankValue}
+        MenuProps={MenuProps}
+        {...props}
       >
         {options.map(
           (option) =>

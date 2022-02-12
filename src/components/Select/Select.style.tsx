@@ -6,16 +6,25 @@ import MenuItem from "@mui/material/MenuItem";
 interface StyledSelectProps {
   secondary?: boolean;
   fullWidth?: boolean;
+  blankValue?: boolean;
 }
 
 export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
   margin: 20px 5px;
+  border-color: transparent;
 
   & .MuiSvgIcon-root {
+    right: 0;
     fill: ${({ theme, secondary }) =>
       secondary ? theme.palette.grey[400] : theme.palette.grey[800]};
-    right: 0;
     padding-right: 20px;
+    padding-left: 10px;
+    border-color: transparent;
+  }
+
+  & .MuiSelect-iconOpen {
+    padding-right: 10px;
+    padding-left: 20px;
   }
 `;
 
@@ -29,6 +38,10 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
+
+  & .MuiOutlinedInput-notchedOutline {
+    border: none;
+  }
 
   &:hover {
     background-color: ${({ theme }) => theme.palette.grey[400]};
@@ -44,7 +57,7 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
       padding: 12px 24px 12px 16px;
 
       &:hover {
-        background-color: ${({ theme }) => theme.palette.grey[50]};
+        background-color: ${({ theme }) => theme.palette.grey[100]};
       }
 
       & label {
@@ -57,11 +70,15 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
     css`
       width: 50%;
     `}
+
+  ${({ blankValue }) =>
+    blankValue &&
+    css`
+      color: ${({ theme }) => theme.palette.grey[400]};
+    `}
 `;
 
-export const StyledMenuItem = styled((props) => (
-  <MenuItem {...props} />
-))<StyledSelectProps>`
+export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
   padding: 12px 16px;
   background-color: #fff;
   width: 218px;
@@ -75,6 +92,4 @@ export const StyledMenuItem = styled((props) => (
       background-color: #fff;
       padding: 12px 24px 12px 16px;
     `}
-
-  }
 `;

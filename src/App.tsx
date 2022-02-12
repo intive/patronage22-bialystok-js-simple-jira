@@ -34,7 +34,6 @@ const App = () => {
           handleSelect={handleChangeLang}
         />
         <Select
-          label='Choose project'
           value={secondSelectValue}
           options={[
             "Awesome project",

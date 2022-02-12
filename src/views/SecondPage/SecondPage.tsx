@@ -9,6 +9,7 @@ import { SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import Navbar from "../../components/Navbar/Navbar";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -22,28 +23,27 @@ export const SecondPage = () => {
 
   return (
     <StyledPageWrapper>
+      <Navbar />
       <p>{t("paragraph3")}</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
-        <Button clickHandler={clickHandler}>{t("button2")}</Button>
+        <Button onClick={clickHandler}>{t("button2")}</Button>
       </Link>
       <p>Buttons SX</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
-        <Button style={{ my: 2 }} variant='text' clickHandler={clickHandler}>
+        <Button variant='text' onClick={clickHandler}>
           Home
         </Button>
       </Link>
-      <Button style={{ my: 2 }} variant='text' clickHandler={clickHandler}>
+      <Button variant='text' onClick={clickHandler}>
         {t("cancelBtn")}
       </Button>
-      <Button style={{ my: 2 }} clickHandler={clickHandler}>
+      <Button disabled={true} onClick={clickHandler}>
         {t("continueBtn")}
       </Button>
-      <Button style={{ my: 2 }} long clickHandler={clickHandler}>
+      <Button long onClick={clickHandler}>
         New Project
       </Button>
-      <Button style={{ my: 2 }} clickHandler={clickHandler}>
-        {t("createIssueBtn")}
-      </Button>
+      <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
     </StyledPageWrapper>
   );
