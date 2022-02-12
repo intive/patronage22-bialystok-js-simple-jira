@@ -1,42 +1,51 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import ButtonGroup from "@mui/material/ButtonGroup";
-import { StyledDialog, IconBox } from "./BasicModal.style";
+import {
+  StyledDialog,
+  IconBox,
+  ButtonBox,
+  StyledDialogTitle,
+} from "./BasicModal.style";
+import DialogContent from "@mui/material/DialogContent";
 
 interface BasicModalProps {
   headerIcon?: JSX.Element;
   children?: JSX.Element | JSX.Element[];
-  onConfirm?: () => void;
-  canOverFlow: Boolean;
+  buttons: JSX.Element[];
+  handleClose?: () => void;
+  isOpen: boolean;
+  paddings: Array<number>;
+  title?: string;
+  alignTitle: "center" | "end" | "start";
+  titleMargin?: string;
+  buttonsTopMargin?: string;
 }
 
 export default function BasicModal({
   children,
   headerIcon,
-  onConfirm,
-  canOverFlow,
+  isOpen,
+  handleClose,
+  paddings,
+  title,
+  alignTitle,
+  titleMargin = "16px",
+  buttons,
+  buttonsTopMargin = "32px",
 }: BasicModalProps) {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClose = () => setOpen(false);
-
   return (
-    <div>
-      <StyledDialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          elevation: 2,
-          sx: { overflow: canOverFlow ? "visible" : "auto" },
-        }}
-      >
-        {headerIcon && <IconBox>{headerIcon}</IconBox>}
-        {children}
-        <ButtonGroup variant='contained'>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={onConfirm}>Confirm</Button>
-        </ButtonGroup>
-      </StyledDialog>
-    </div>
+    <StyledDialog
+      paddings={paddings}
+      open={isOpen}
+      onClose={handleClose}
+      PaperProps={{
+        elevation: 2,
+      }}
+    >
+      {headerIcon && <IconBox>{headerIcon}</IconBox>}
+      <StyledDialogTitle alignTitle={alignTitle} titleMargin={titleMargin}>
+        {title}
+      </StyledDialogTitle>
+      <DialogContent>{children}</DialogContent>
+      <ButtonBox buttonsTopMargin={buttonsTopMargin}>{buttons}</ButtonBox>
+    </StyledDialog>
   );
 }
