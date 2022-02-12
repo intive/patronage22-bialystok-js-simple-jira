@@ -66,8 +66,9 @@ export const SecondPage = () => {
       <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
       {/* temporary div for component presentation */}
-      <div style={{ alignSelf: "stretch", padding: 20 }}>
-        <TasksCard title='to do' children={TicketList} />
+      <div style={{ display: "flex", gap: "20px", padding: 20 }}>
+        <TasksCard title='to do' />
+        <TasksCard title='done' children={TicketList} />
       </div>
     </StyledPageWrapper>
   );
