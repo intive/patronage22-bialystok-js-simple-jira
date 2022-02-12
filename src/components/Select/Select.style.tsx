@@ -5,15 +5,21 @@ import MenuItem from "@mui/material/MenuItem";
 
 interface StyledSelectProps {
   secondary?: boolean;
+  fullWidth?: boolean;
 }
 
-export const StyledFormControl = styled(FormControl)`
+export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
   margin: 20px 5px;
+
+  & .MuiSvgIcon-root {
+    fill: ${({ theme, secondary }) =>
+      secondary ? theme.palette.grey[400] : theme.palette.grey[800]};
+    right: 0;
+    padding-right: 20px;
+  }
 `;
 
-export const StyledSelect = styled(({ secondary, ...props }) => (
-  <Select {...props} />
-))<StyledSelectProps>`
+export const StyledSelect = styled(Select)<StyledSelectProps>`
   height: 40px;
   background-color: ${({ theme }) => theme.palette.grey[200]};
   margin: 0;
@@ -31,6 +37,7 @@ export const StyledSelect = styled(({ secondary, ...props }) => (
   ${({ secondary }) =>
     secondary &&
     css`
+      color: #000;
       height: 48px;
       width: 264px;
       background-color: ${({ theme }) => theme.palette.grey[50]};
@@ -39,14 +46,24 @@ export const StyledSelect = styled(({ secondary, ...props }) => (
       &:hover {
         background-color: ${({ theme }) => theme.palette.grey[50]};
       }
+
+      & label {
+        color: #000;
+      }
+    `}
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      width: 50%;
     `}
 `;
 
-export const StyledMenuItem = styled(({ secondary, ...props }) => (
+export const StyledMenuItem = styled((props) => (
   <MenuItem {...props} />
 ))<StyledSelectProps>`
   padding: 12px 16px;
-  background-color: ${({ theme }) => theme.palette.primary.main};
+  background-color: #fff;
   width: 218px;
   white-space: inherit;
 
@@ -55,8 +72,9 @@ export const StyledMenuItem = styled(({ secondary, ...props }) => (
     css`
       height: 48px;
       width: 264px;
-      background-color: ${({ theme }) => theme.palette.primary.main};
+      background-color: #fff;
       padding: 12px 24px 12px 16px;
     `}
+
   }
 `;

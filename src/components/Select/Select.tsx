@@ -1,10 +1,9 @@
-import FormControl from "@mui/material/FormControl";
 import {
   StyledSelect,
   StyledMenuItem,
   StyledFormControl,
 } from "./Select.style";
-import { InputLabel, SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 interface SelectProps {
@@ -13,6 +12,7 @@ interface SelectProps {
   options: string[];
   handleSelect: (e: SelectChangeEvent<unknown>) => void;
   secondary?: boolean;
+  fullWidth?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -21,22 +21,28 @@ export const Select: React.FC<SelectProps> = ({
   handleSelect,
   secondary,
   label,
+  fullWidth,
+  ...props
 }) => {
   return (
-    <StyledFormControl>
-      {label && <InputLabel id={`${label}'-label'`}>{label}</InputLabel>}
+    <StyledFormControl secondary={secondary}>
       <StyledSelect
         onChange={handleSelect}
         value={value}
         renderValue={(value: any) => value}
         IconComponent={KeyboardArrowDownIcon}
         secondary={secondary}
-        label={label}
+        placeholder={label}
       >
         {options.map(
           (option) =>
             option !== value && (
-              <StyledMenuItem value={option} key={option} secondary={secondary}>
+              <StyledMenuItem
+                value={option}
+                key={option}
+                secondary={secondary}
+                fullWidth={fullWidth}
+              >
                 {option}
               </StyledMenuItem>
             )
