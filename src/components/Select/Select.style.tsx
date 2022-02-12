@@ -11,6 +11,6 @@ export const StyledSelect = styled(Select)({
 
 export const SelectWrapper = styled("div")({
   position: "absolute",
-  top: "1%",
+  top: "15%",
   right: "5%",
 });

@@ -11,5 +11,6 @@
   "createIssueBtn": "Create Issue",
   "createBtn": "Create",
   "dialogCreateProjectTitle": "Name your project",
-  "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace"
+  "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace",
+  "search": "Search..."
 }
