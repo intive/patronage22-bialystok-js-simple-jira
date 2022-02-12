@@ -1,58 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import InputBase from "@mui/material/InputBase";
-import { NavbarWrapper, StyledAppBar, StyledToolbar } from "./Navbar.style";
+import {
+  NavbarWrapper,
+  NavbarRightSideWrapper,
+  StyledAppBar,
+  StyledToolbar,
+} from "./Navbar.style";
 import Logo from "./Logo";
-import SearchIcon from "./SearchIcon";
-import DarkModeIcon from "./DarkModeIcon";
+import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
+import Input from "../Input/Input";
+import SearchIcon from "@mui/icons-material/Search";
+import { useTranslation } from "react-i18next";
+import LogoutIcon from "@mui/icons-material/Logout";
 
-const Search = styled("div")(({ theme }) => ({
+const Search = styled(Box)(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.grey[50],
   marginLeft: 0,
+  padding: "0 20px",
   width: "100%",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: theme.palette.grey[400],
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
-
 export default function Navbar() {
+  const [query, setQuery] = React.useState("");
+  const handleChangeQuery = (event: any) => {
+    setQuery(event.target.value);
+  };
+  const { t, i18n } = useTranslation();
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <StyledAppBar position='static'>
-        <StyledToolbar sx={{ backgroundColor: "grey.800", color: "grey.100" }}>
-          <NavbarWrapper sx={{ gap: "1vw" }}>
+    <Box>
+      <StyledAppBar>
+        <StyledToolbar>
+          <NavbarWrapper>
             <Logo />
             <Typography
               variant='h6'
@@ -63,18 +53,20 @@ export default function Navbar() {
               Task management tool
             </Typography>
           </NavbarWrapper>
-          <NavbarWrapper sx={{ gap: "5vw" }}>
+          <NavbarRightSideWrapper>
             <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder='Search…'
-                inputProps={{ "aria-label": "search" }}
+              <SearchIcon sx={{ color: "grey.300" }} />
+              <Input
+                placeholder={t("search")}
+                value={query}
+                onChangeHandler={handleChangeQuery}
               />
             </Search>
-            <DarkModeIcon />
-          </NavbarWrapper>
+            <NavbarWrapper>
+              <DarkModeTwoToneIcon />
+              <LogoutIcon />
+            </NavbarWrapper>
+          </NavbarRightSideWrapper>
         </StyledToolbar>
       </StyledAppBar>
     </Box>
