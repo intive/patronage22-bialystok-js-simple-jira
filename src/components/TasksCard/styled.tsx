@@ -10,5 +10,5 @@ export const StyledTasksCard = styled(Card)(({ theme }) => ({
 
 export const TaskList = styled(List)({
   height: "100%",
-  overflow: "auto",
+  overflow: "visible",
 });

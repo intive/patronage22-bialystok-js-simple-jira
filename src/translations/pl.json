@@ -11,5 +11,7 @@
   "createIssueBtn": "Dodaj Zadanie",
   "createBtn": "Utwórz",
   "dialogCreateProjectTitle": "Wpisz nazwę projektu",
-  "search": "Szukaj..."
+  "search": "Szukaj...",
+  "unassigned": "Nie przypisano",
+  "assignedTo": "Przypisano do:"
 }

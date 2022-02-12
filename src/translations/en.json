@@ -11,5 +11,7 @@
   "createIssueBtn": "Create Issue",
   "createBtn": "Create",
   "dialogCreateProjectTitle": "Name your project",
-  "search": "Search..."
+  "search": "Search...",
+  "unassigned": "Unassigned",
+  "assignedTo": "Assigned to:"
 }

@@ -10,6 +10,9 @@ import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
 import Navbar from "../../components/Navbar/Navbar";
+import ProjectCard from "../../components/ProjectCard";
+import TasksCard from "../../components/TasksCard";
+import Ticket from "../../components/Ticket/Ticket";
 
 export const SecondPage = () => {
   const dispatch = useDispatch();
@@ -20,6 +23,24 @@ export const SecondPage = () => {
     adding();
   };
   const { adding } = bindActionCreators(actionCreators, dispatch);
+
+  const generateKey = (pre: any) => {
+    return `${pre}_${new Date().getTime()}`;
+  };
+
+  const TicketList = [
+    <Ticket title={"Unassigned task"} key={generateKey("task1")} />,
+    <Ticket
+      title={"Example task"}
+      assignedTo={"John Doe"}
+      key={generateKey("task2")}
+    />,
+    <Ticket
+      title={"Very long title Very long title Very long title Very long title"}
+      assignedTo={"Very long name Very long name Very long name Very long name"}
+      key={generateKey("task3")}
+    />,
+  ];
 
   return (
     <StyledPageWrapper>
@@ -45,6 +66,7 @@ export const SecondPage = () => {
       </Button>
       <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
+      <TasksCard title={"title"} children={TicketList} />
     </StyledPageWrapper>
   );
 };
