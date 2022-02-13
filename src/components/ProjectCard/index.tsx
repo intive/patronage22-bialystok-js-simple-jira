@@ -7,8 +7,6 @@ import {
   StyledCard,
   Wrapper,
 } from "./styled";
-import { truncateText } from "./truncateText";
-
 interface ProjectCardProps {
   name: string;
   menuComponent?: React.ReactNode;
@@ -20,7 +18,7 @@ const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
 
     <Wrapper>
       <CardContent>
-        <ProjectName component='h3'>{truncateText(name)}</ProjectName>
+        <ProjectName component='h3'>{name}</ProjectName>
       </CardContent>
 
       {!!menuComponent && <CardActions>{menuComponent}</CardActions>}

@@ -12,6 +12,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
 
 export const CardContent = styled("div")({
   padding: 16,
+  maxWidth: "calc(100% - 84px)",
 });
 
 export const Background = styled(Box)(({ theme }) => ({
@@ -24,6 +25,9 @@ export const ProjectName = styled((props) => <Typography {...props} />)(
     color: theme.palette.grey[700],
     lineHeight: "24px",
     fontSize: 16,
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
   })
 );
 
