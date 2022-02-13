@@ -26,7 +26,6 @@ export const SecondPage = () => {
 
   return (
     <StyledPageWrapper>
-      <Navbar />
       <p>{t("paragraph3")}</p>
       <NewProjectDialog />
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
