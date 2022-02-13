@@ -3,4 +3,5 @@ export enum Pages {
   Secondary = "/second",
   Projects = "/projects",
   Owl_components = "/owl",
+  Owl_componentsInput = "/owlinput",
 }

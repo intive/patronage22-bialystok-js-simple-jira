@@ -19,5 +19,7 @@
   "dialogCreateProjectHelperText": "Nazwa projektu musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
   "projectsTitle": "Projekty",
   "newBoardBtn": "New tablica",
-  "boardsTitle": "Tablice"
+  "boardsTitle": "Tablice",
+  "labelSummary": "Podsumowanie",
+  "labelDescription": "Opis"
 }
