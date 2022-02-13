@@ -1,34 +1,8 @@
 import { StyledPageWrapper } from "./Home.style";
-import { Button } from "../../components/Button/Button";
-import { Pages } from "../pages";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
-import { Counter } from "../../components/Counter/Counter";
-//Store
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state";
+import { WelcomeScreen } from "../../modules/WelcomeScreen/WelcomeScreen";
 
-export const Home = () => {
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
-  const { adding } = bindActionCreators(actionCreators, dispatch);
-
-  const clickHandler = () => {
-    console.log("Button works");
-    adding();
-  };
-
-  return (
-    <div>
-      <StyledPageWrapper>
-        <p>{t("paragraph1")}</p>
-        <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
-          <Button onClick={clickHandler} children={t("button1")} />
-        </Link>
-        <p>{t("paragraph2")}</p>
-        <Counter />
-      </StyledPageWrapper>
-    </div>
-  );
-};
+export const Home = () => (
+  <StyledPageWrapper>
+    <WelcomeScreen />
+  </StyledPageWrapper>
+);
