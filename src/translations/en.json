@@ -19,7 +19,7 @@
   "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace",
   "projectsTitle": "Projects",
   "newBoardBtn": "New board",
-  "boardsTitle": "Boards"
+  "boardsTitle": "Boards",
   "labelSummary": "Summary",
   "labelDescription": "Description"
 }
