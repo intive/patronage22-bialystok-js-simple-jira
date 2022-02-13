@@ -1,34 +1,35 @@
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-export const StyledCard = styled(Card)({
+export const StyledCard = styled(Card)(({ theme }) => ({
   maxWidth: 416,
-  borderRadius: 8,
-  boxShadow: "0px 1px 3px rgba(98, 98, 98, 0.24)",
-  marginTop: 23,
-});
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.customShadows.primary,
+  marginTop: 24,
+}));
 
 export const CardContent = styled("div")({
   padding: 16,
+  maxWidth: "calc(100% - 84px)",
 });
 
-export const Background = styled(Box)({
-  backgroundColor: "#E1E1E1",
-  minHeight: "224px",
-});
+export const Background = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.grey[100],
+  minHeight: 224,
+}));
 
-export const ProjectName = styled((props) => <Typography {...props} />)`
-  color: #515151;
-  line-height: 24px;
-  font-size: 16px;
-`;
-
-export const StyledCardActions = styled(CardActions)({
-  padding: 20,
-});
+export const ProjectName = styled((props) => <Typography {...props} />)(
+  ({ theme }) => ({
+    color: theme.palette.grey[700],
+    lineHeight: "24px",
+    fontSize: 16,
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  })
+);
 
 export const Wrapper = styled(Box)({
   display: "flex",
