@@ -8,5 +8,8 @@
   "button2": "kliknij by powrócić do poprzedniej strony",
   "cancelBtn": "Anuluj",
   "continueBtn": "Dalej",
-  "createIssueBtn": "Dodaj Zadanie"
+  "createIssueBtn": "Dodaj Zadanie",
+  "createBtn": "Utwórz",
+  "dialogCreateProjectTitle": "Wpisz nazwę projektu",
+  "search": "Szukaj..."
 }
