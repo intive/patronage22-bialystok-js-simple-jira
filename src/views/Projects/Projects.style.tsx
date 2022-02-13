@@ -2,14 +2,9 @@ import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const StyledProjectList = styled(Box)(({ theme }) => ({
-  display: "flex",
-  [theme.breakpoints.down(1060)]: {
-    flexDirection: "column",
+  padding: "47px 64px",
+  [theme.breakpoints.up(2000)]: {
+    width: 2000,
+    margin: "0 auto",
   },
-  flexWrap: "wrap",
-  justifyContent: "space-between",
-  [theme.breakpoints.between(970, 10308)]: {
-    justifyContent: "space-around",
-  },
-  padding: "0 32px",
 }));
