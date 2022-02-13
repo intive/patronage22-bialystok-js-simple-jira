@@ -13,6 +13,7 @@ const App = () => (
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />
+        
         <Route path='owl' element={<Owl_components />} />
       </Routes>
     </ThemeProvider>
