@@ -10,15 +10,16 @@
   "continueBtn": "Continue",
   "createIssueBtn": "Create Issue",
   "createBtn": "Create",
-  "dialogCreateProjectTitle": "Name your project",
+  "search": "Search...",
+  "unassigned": "Unassigned",
+  "assignedTo": "Assigned to:",
   "projectsViewTitle": "Projects",
   "newProjectBtn": "New Project",
+  "dialogCreateProjectTitle": "Name your project",
   "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace",
-  "search": "Search...",
-  "newProjectBtn": "New project",
   "projectsTitle": "Projects",
   "newBoardBtn": "New board",
-  "boardsTitle": "Boards"
+  "boardsTitle": "Boards",
   "labelSummary": "Summary",
   "labelDescription": "Description"
 }

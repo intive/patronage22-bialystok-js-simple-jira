@@ -1,62 +1,46 @@
-import Typography from "@mui/material/Typography";
-import { StyledTicket, StyledTicketContent } from "./Ticket.style";
-import Icon from "@mui/material/Icon";
-import Box from "@mui/material/Box";
-
+import React, { useState } from "react";
+import {
+  AssignedTo,
+  Assignee,
+  StyledTicket,
+  StyledTicketContent,
+  StyledTicketContentText,
+  StyledTicketHeader,
+  Title,
+  CardContentNoPadding,
+} from "./Ticket.style";
+import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
+import { mockMenuItems } from "../../mockData/menuItems";
+import { useTranslation } from "react-i18next";
 interface TicketProps {
   title: string;
-  assignedTo: string;
+  assignedTo?: string;
 }
 
-const Ticket = ({ title, assignedTo }: TicketProps) => {
+const Ticket = (props: TicketProps) => {
+  const [isAssigned, setIsAssigned] = React.useState(
+    props.assignedTo ? true : false
+  );
+  const { t, i18n } = useTranslation();
+  const defaultProps = {
+    assignedTo: t("unassigned"),
+  };
+  props = { ...defaultProps, ...props };
+
   return (
-    <StyledTicket sx={{ boxShadow: 1 }}>
-      <StyledTicketContent>
-        <Box sx={{ display: "flex", overflow: "hidden" }}>
-          <Typography
-            sx={{ color: "grey.700" }}
-            component='h4'
-            variant='ticketHeader'
-            noWrap
-          >
-            {title}
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "baseline",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "flex-start",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-            }}
-          >
-            <Typography
-              sx={{ color: "grey.300" }}
-              component='p'
-              variant='ticketText'
-            >
-              Assigned to:&nbsp;
-            </Typography>
-            <Typography
-              sx={{ color: "grey.500" }}
-              component='p'
-              variant='ticketText'
-              noWrap
-            >
-              {assignedTo}
-            </Typography>
-          </Box>
-          {/* component below - three dot menu if available */}
-          <Icon>...</Icon>
-        </Box>
-      </StyledTicketContent>
+    <StyledTicket>
+      <CardContentNoPadding>
+        <StyledTicketHeader>
+          <Title>{props.title}</Title>
+        </StyledTicketHeader>
+        <StyledTicketContent>
+          <StyledTicketContentText>
+            {isAssigned && <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>}
+            <Assignee>{props.assignedTo}</Assignee>
+          </StyledTicketContentText>
+          <ThreeDotsMenu menuItems={mockMenuItems} />
+        </StyledTicketContent>
+      </CardContentNoPadding>
     </StyledTicket>
   );
 };
