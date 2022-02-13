@@ -13,7 +13,9 @@ export default {
 
 const Template: ComponentStory<typeof ProjectCard> = (args) => (
   <ThemeProvider theme={theme}>
-    <ProjectCard {...args} />
+    <div style={{ maxWidth: 416 }}>
+      <ProjectCard {...args} />
+    </div>
   </ThemeProvider>
 );
 
