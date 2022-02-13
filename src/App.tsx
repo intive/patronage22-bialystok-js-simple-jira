@@ -3,16 +3,19 @@ import { theme } from "./theme/mainTheme";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
-import { Counter } from "./components/Counter/Counter";
+import { Projects } from "./views/Projects/Projects";
+
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
+      <Navbar />
       <Routes>
         <Route index element={<Home />} />
         <Route path='second' element={<SecondPage />} />
+        <Route path='projects' element={<Projects />} />
       </Routes>
-      <Counter />
     </ThemeProvider>
   </>
 );

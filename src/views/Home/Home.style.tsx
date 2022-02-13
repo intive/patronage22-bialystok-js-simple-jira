@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledPageWrapper = styled.section`
-  height: 90vh;
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   justify-content: center;
