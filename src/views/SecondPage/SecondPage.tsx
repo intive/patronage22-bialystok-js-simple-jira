@@ -12,6 +12,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
+import Ticket from "../../components/Ticket/Ticket";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../../mockData/menuItems";
@@ -25,6 +26,24 @@ export const SecondPage = () => {
     adding();
   };
   const { adding } = bindActionCreators(actionCreators, dispatch);
+
+  const generateKey = (pre: any) => {
+    return `${pre}_${new Date().getTime()}`;
+  };
+
+  const TicketList = [
+    <Ticket title={"Unassigned task"} key={generateKey("task1")} />,
+    <Ticket
+      title={"Example task"}
+      assignedTo={"John Doe"}
+      key={generateKey("task2")}
+    />,
+    <Ticket
+      title={"Very long title Very long title Very long title Very long title"}
+      assignedTo={"Very long name Very long name Very long name Very long name"}
+      key={generateKey("task3")}
+    />,
+  ];
 
   return (
     <StyledPageWrapper>
@@ -57,8 +76,9 @@ export const SecondPage = () => {
           menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
         />
       </div>
-      <div style={{ alignSelf: "stretch", padding: 20 }}>
+      <div style={{ display: "flex", gap: "20px", padding: 20 }}>
         <TasksCard title='to do' />
+        <TasksCard title='done' children={TicketList} />
       </div>
     </StyledPageWrapper>
   );
