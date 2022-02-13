@@ -1,6 +1,4 @@
-import Typography from "@mui/material/Typography";
-
-import { StyledTasksCard, TaskList } from "./styled";
+import { StyledTasksCard, TaskList, Title } from "./styled";
 
 interface IssuesCardProps {
   title: string;
@@ -9,14 +7,10 @@ interface IssuesCardProps {
 
 const TasksCard = ({ title, children }: IssuesCardProps) => {
   return (
-    <StyledTasksCard sx={{ boxShadow: 1 }}>
-      <Typography
-        sx={{ color: "grey.300" }}
-        variant='capitalHeader'
-        component='h3'
-      >
+    <StyledTasksCard>
+      <Title variant='capitalHeader' component='h3'>
         {title}
-      </Typography>
+      </Title>
 
       <TaskList>{children}</TaskList>
     </StyledTasksCard>
