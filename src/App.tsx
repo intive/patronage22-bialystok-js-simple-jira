@@ -9,7 +9,6 @@ import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 
-
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
