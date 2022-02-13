@@ -39,12 +39,19 @@ export const IconBox = styled(Box)(({ theme }) => ({
 
 export const StyledDialog = styled(Dialog)<DialogProps>(
   ({ paddings, theme }) => ({
+    overflowY: "auto",
+
+    "& .MuiDialog-container": {
+      height: "auto",
+      minHeight: "100vh",
+    },
+
     "& .MuiPaper-root": {
       boxSizing: "border-box",
-      marginBottom: "16px",
+      marginBottom: "68px",
+      marginTop: "68px",
       minWidth: "544px",
       minHeight: "304px",
-      maxHeight: "60vh",
       display: "flex",
       alignItems: "center",
       flexDirection: "column",
@@ -58,9 +65,9 @@ export const StyledDialog = styled(Dialog)<DialogProps>(
     },
 
     "& .MuiDialogContent-root": {
-      boxSizing: "border-box",
-      width: "100%",
       padding: 0,
+      minWidth: "100%",
+      width: 0,
     },
   })
 );
@@ -74,7 +81,7 @@ export const ButtonBox = styled(({ buttonsTopMargin, ...props }) => (
   border: "none",
 
   "& .MuiButtonBase-root:first-of-type": {
-    marginRight: "6px",
+    marginRight: "5px",
   },
 }));
 

@@ -6,10 +6,13 @@ import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Select } from "./components/Select/Select";
 import { Projects } from "./views/Projects/Projects";
 
+import Navbar from "./components/Navbar/Navbar";
+
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
       <Select />
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />
