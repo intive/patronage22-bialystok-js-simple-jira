@@ -9,6 +9,7 @@ import Input from "../Input/Input";
 import { LoadingButton } from "@mui/lab";
 
 import { Pages } from "../../views/pages";
+import { createNewProjectPattern } from "../../validation/patterns.const";
 
 export default function NewProjectDialog() {
   const { t } = useTranslation();
@@ -51,9 +52,7 @@ export default function NewProjectDialog() {
     const { value } = e.target;
     setError("");
     setInputValue(value);
-    const reg = new RegExp(/^[-a-zA-Z0-9-()]+(\s+[-a-zA-Z0-9-()]+)*$/).test(
-      value
-    );
+    const reg = new RegExp(createNewProjectPattern).test(value);
     if (!reg) {
       setError(t("dialogCreateProjectHelperText"));
     }
