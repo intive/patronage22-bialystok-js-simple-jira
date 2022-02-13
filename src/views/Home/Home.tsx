@@ -20,13 +20,15 @@ export const Home = () => {
   };
 
   return (
-    <StyledPageWrapper>
-      <p>{t("paragraph1")}</p>
-      <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
-        <Button onClick={clickHandler} children={t("button1")} />
-      </Link>
-      <p>{t("paragraph2")}</p>
-      <Counter />
-    </StyledPageWrapper>
+    <div>
+      <StyledPageWrapper>
+        <p>{t("paragraph1")}</p>
+        <Link to={Pages.Secondary} style={{ textDecoration: "none" }}>
+          <Button onClick={clickHandler} children={t("button1")} />
+        </Link>
+        <p>{t("paragraph2")}</p>
+        <Counter />
+      </StyledPageWrapper>
+    </div>
   );
 };
