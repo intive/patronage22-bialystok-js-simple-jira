@@ -10,8 +10,13 @@ interface StyledSelectProps {
 }
 
 export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
-  margin: 20px 5px;
   border-color: transparent;
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      width: 100%;
+    `}
 
   & .MuiSvgIcon-root {
     right: 0;
@@ -52,7 +57,6 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
     css`
       color: #000;
       height: 48px;
-      width: 264px;
       background-color: ${({ theme }) => theme.palette.grey[50]};
       padding: 12px 24px 12px 16px;
 
@@ -63,12 +67,6 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
       & label {
         color: #000;
       }
-    `}
-
-  ${({ fullWidth }) =>
-    fullWidth &&
-    css`
-      width: 50%;
     `}
 
   ${({ blankValue }) =>

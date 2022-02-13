@@ -33,7 +33,7 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   return (
-    <StyledFormControl secondary={secondary}>
+    <StyledFormControl secondary={secondary} fullWidth={fullWidth}>
       <StyledSelect
         onChange={handleSelect}
         value={value}

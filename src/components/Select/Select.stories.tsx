@@ -9,11 +9,12 @@ export default {
   component: Select,
   args: {
     secondary: true,
+    fullWidth: false,
   },
 };
 
 export const SelectStoryNoValue = ({ ...args }) => {
-  const [{ secondary }] = useArgs();
+  const [{ secondary, fullWidth }] = useArgs();
   const [selectValue, setSelectValue] = useState("");
   const handleChange = (e: SelectChangeEvent<unknown>) => {
     e.preventDefault();
@@ -30,6 +31,7 @@ export const SelectStoryNoValue = ({ ...args }) => {
         handleSelect={handleChange}
         secondary={secondary}
         blankValue={selectValue ? false : true}
+        fullWidth={fullWidth}
       />
     </ThemeProvider>
   );
