@@ -4,10 +4,8 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 export const StyledCard = styled(Card)(({ theme }) => ({
-  maxWidth: 416,
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.customShadows.primary,
-  marginTop: 24,
 }));
 
 export const CardContent = styled("div")({
