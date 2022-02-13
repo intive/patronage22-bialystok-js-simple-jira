@@ -12,5 +12,6 @@
   "createBtn": "Create",
   "dialogCreateProjectTitle": "Name your project",
   "projectsViewTitle": "Projects",
-  "newProjectBtn": "New Project"
+  "newProjectBtn": "New Project",
+  "search": "Search..."
 }

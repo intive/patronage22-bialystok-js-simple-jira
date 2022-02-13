@@ -1,14 +1,22 @@
 import { StyledButton } from "./Button.style";
-export interface ButtonProps {
+export interface StyledButtonProps {
   children?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  color?: string;
   size?: "small" | "large" | "medium";
   variant?: "contained" | "text" | "outlined";
+  color?:
+    | "inherit"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "error"
+    | "info"
+    | "warning"
+    | undefined;
   long?: boolean;
   disabled?: boolean | undefined;
 }
 
-export const Button: React.FC<ButtonProps> = (props) => (
+export const Button: React.FC<StyledButtonProps> = (props) => (
   <StyledButton {...props}>{props.children}</StyledButton>
 );
