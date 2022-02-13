@@ -8,7 +8,6 @@ export const StyledButton = styled((props) => <MuiButton {...props} />, {
   padding: "8px",
   paddingLeft: long ? "52px" : "24px",
   paddingRight: long ? "52px" : "24px",
-  margin: "0 5px",
   fontSize: 16,
   lineHeight: "24px",
   fontWeight: 400,

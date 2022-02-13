@@ -5,10 +5,13 @@ import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Select } from "./components/Select/Select";
 
+import Navbar from "./components/Navbar/Navbar";
+
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
       <Select />
+      <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='second' element={<SecondPage />} />
