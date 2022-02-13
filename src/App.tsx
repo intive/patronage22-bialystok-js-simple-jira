@@ -7,6 +7,7 @@ import { Select } from "./components/Select/Select";
 import { Projects } from "./views/Projects/Projects";
 import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
+import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
         <Route path='second' element={<SecondPage />} />
         <Route path='projects' element={<Projects />} />
         <Route path='owl' element={<Owl_components />} />
+        <Route path='owlinput' element={<Owl_componentsInput />} />
       </Routes>
     </ThemeProvider>
   </>

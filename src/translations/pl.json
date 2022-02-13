@@ -19,5 +19,7 @@
   "newProjectBtn": "Nowy projekt",
   "projectsTitle": "Projekty",
   "newBoardBtn": "New tablica",
-  "boardsTitle": "Tablice"
+  "boardsTitle": "Tablice",
+  "labelSummary": "Podsumowanie",
+  "labelDescription": "Opis"
 }

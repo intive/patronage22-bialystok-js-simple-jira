@@ -1,13 +1,25 @@
-import { TextField } from "@mui/material";
+import { InputLabel, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
 export const StyledTextField = styled(TextField)(({ theme }) => ({
-  minHeight: "48px",
-  padding: "12px, 24px, 12px, 16px",
-  backgroundColor: theme.palette.grey[50],
-  borderRadius: "8px",
-  border: "none",
-  "& .MuiOutlinedInput-notchedOutline": {
+  "& .MuiInputBase-root": {
+    color: theme.palette.grey[800],
+    minHeight: "48px",
+    backgroundColor: theme.palette.grey[50],
+    borderRadius: theme.shape.borderRadius,
     border: "none",
   },
+  ".MuiInputBase-input": {
+    padding: theme.spacing(1.5, 3, 1.5, 2),
+  },
+  ".MuiOutlinedInput-notchedOutline": {
+    border: "none",
+  },
+}));
+
+export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
+  color: theme.palette.grey[600],
+  fontSize: 12,
+  lineHeight: "16px",
+  marginBottom: theme.spacing(0.5),
 }));
