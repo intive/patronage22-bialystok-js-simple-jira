@@ -18,7 +18,8 @@ export const Title = styled((props) => <Typography {...props} />)(
   })
 );
 
-export const TaskList = styled(List)({
-  height: "100%",
-  overflow: "visible",
-});
+export const TaskList = styled(List)(({ theme }) => ({
+  height: "calc(100% - 22px)",
+  overflow: "auto",
+  padding: "6px",
+}));
