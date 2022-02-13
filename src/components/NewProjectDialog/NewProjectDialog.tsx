@@ -71,7 +71,11 @@ export default function NewProjectDialog() {
           {t("cancelBtn")}
         </Button>,
         isLoading ? (
-          <LoadingButton key='btn-2' loading={true} />
+          <LoadingButton
+            sx={{ minWidth: "98.77px" }}
+            key='btn-2'
+            loading={true}
+          />
         ) : (
           <Button
             disabled={!!error || !!!inputValue}
