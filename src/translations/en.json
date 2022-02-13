@@ -16,5 +16,10 @@
   "projectsViewTitle": "Projects",
   "newProjectBtn": "New Project",
   "dialogCreateProjectTitle": "Name your project",
-  "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace"
+  "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace",
+  "search": "Search...",
+  "newProjectBtn": "New project",
+  "projectsTitle": "Projects",
+  "newBoardBtn": "New board",
+  "boardsTitle": "Boards"
 }
