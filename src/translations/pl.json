@@ -15,5 +15,9 @@
   "newProjectBtn": "Nowy Projekt",
   "dialogCreateProjectTitle": "Podaj nazwę projektu",
   "dialogCreateProjectHelperText": "Nazwa projektu musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
-  "search": "Szukaj..."
+  "search": "Szukaj...",
+  "newProjectBtn": "Nowy projekt",
+  "projectsTitle": "Projekty",
+  "newBoardBtn": "New tablica",
+  "boardsTitle": "Tablice"
 }
