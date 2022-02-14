@@ -7,11 +7,15 @@ import { Projects } from "./views/Projects/Projects";
 import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
+import { Select } from "./components/Select/Select";
 
 const App = () => (
   <>
     <ThemeProvider theme={theme}>
       <Navbar />
+      <div style={{ position: "absolute", bottom: "50px", right: "50px" }}>
+        <Select />
+      </div>
       <Routes>
         <Route index element={<Home />} />
         <Route path='second' element={<SecondPage />} />

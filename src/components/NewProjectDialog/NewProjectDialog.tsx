@@ -30,7 +30,7 @@ export default function NewProjectDialog() {
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      navigate(Pages.Home);
+      navigate(Pages.Projects);
       setIsLoading(false);
       setOpen(false);
     }, 1000);
