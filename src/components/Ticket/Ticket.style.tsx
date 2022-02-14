@@ -1,15 +1,65 @@
-import { styled as styledmui } from "@mui/system";
-import { Card, CardContent } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
-export const StyledTicket = styledmui(Card)(({ theme }) => ({
-  maxWidth: "384px;",
-  height: "8vh",
+export const StyledTicket = styled(Card)(({ theme }) => ({
+  padding: "16px",
+  margin: "12px 0px",
+  boxShadow: "0px 2px 6px rgba(98, 98, 98, 0.21)",
   borderRadius: theme.shape.borderRadius,
-  padding: "1vh",
-  margin: "2vh",
-  fontFamily: "Roboto",
 }));
 
-export const StyledTicketContent = styledmui(CardContent)(() => ({
-  maxWidth: "352px",
+export const CardContentNoPadding = styled(CardContent)(({ theme }) => ({
+  padding: "0",
+  "&:last-child": {
+    paddingBottom: "10px",
+  },
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+}));
+
+export const StyledTicketHeader = styled(Box)(({ theme }) => ({
+  display: "flex",
+  overflow: "hidden",
+  padding: "0",
+}));
+
+export const StyledTicketContent = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "baseline",
+}));
+
+export const StyledTicketContentText = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "flex-start",
+  overflow: "hidden",
+  whiteSpace: "nowrap",
+}));
+
+export const Title = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grey[700],
+  fontStyle: "normal",
+  fontWeight: "normal",
+  fontSize: "16px",
+  lineHeight: "24px",
+  display: "inline-block",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+}));
+
+export const AssignedTo = styled(Typography)(({ theme }) => ({
+  color: theme.palette.grey[300],
+  fontStyle: "normal",
+  fontWeight: "normal",
+  fontSize: "12px",
+  lineHeight: "16px",
+  display: "inline-block",
+}));
+
+export const Assignee = styled(AssignedTo)(({ theme }) => ({
+  color: theme.palette.grey[500],
+  overflow: "hidden",
+  textOverflow: "ellipsis",
 }));

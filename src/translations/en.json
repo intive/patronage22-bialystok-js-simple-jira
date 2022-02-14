@@ -1,6 +1,6 @@
 {
-  "paragraph1": "If button looks nice and smooth - Material UI works",
-  "paragraph2": "If colors are black and white - Styled components works",
+  "welcomeBoardButton": "New Project",
+  "welcomeBoardParagraph": "Start creating projects now. Add your first project, don't wait for someone to do it for you.",
   "paragraph3": "If you see this page - React Router works",
   "paragraph4": "If it's countig here when you're\nswitching pages - Redux works",
   "paragraph5": "Check here if i18n works",
@@ -10,9 +10,16 @@
   "continueBtn": "Continue",
   "createIssueBtn": "Create Issue",
   "createBtn": "Create",
-  "dialogCreateProjectTitle": "Name your project",
+  "search": "Search...",
+  "unassigned": "Unassigned",
+  "assignedTo": "Assigned to:",
   "projectsViewTitle": "Projects",
   "newProjectBtn": "New Project",
+  "dialogCreateProjectTitle": "Name your project",
   "dialogCreateProjectHelperText": "Project title has to be at least one character long and cannot begin/end with a whitespace",
-  "search": "Search..."
+  "projectsTitle": "Projects",
+  "newBoardBtn": "New board",
+  "boardsTitle": "Boards",
+  "labelSummary": "Summary",
+  "labelDescription": "Description"
 }

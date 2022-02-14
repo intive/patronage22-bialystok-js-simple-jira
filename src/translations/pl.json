@@ -1,6 +1,6 @@
 {
-  "paragraph1": "Jeśli przycisk wygląda ładnie - Material UI działa",
-  "paragraph2": "Jeśli kolory to czarny i biały - Styled components działa",
+  "welcomeBoardButton": "Nowy Projekt",
+  "welcomeBoardParagraph": "Zacznij tworzyć projekty już teraz. Dodaj swój pierwszy projekt, nie czekaj aż kto zrobi to za Ciebie.",
   "paragraph3": "Jeśli widzisz tę stronę - React Router działa",
   "paragraph4": "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
   "paragraph5": "Sprawdź tutaj czy i18n działa",
@@ -10,10 +10,16 @@
   "continueBtn": "Dalej",
   "createIssueBtn": "Dodaj Zadanie",
   "createBtn": "Utwórz",
-  "dialogCreateProjectTitle": "Wpisz nazwę projektu",
+  "search": "Szukaj...",
+  "unassigned": "Nie przypisano",
+  "assignedTo": "Przypisano do:",
   "projectsViewTitle": "Projekty",
   "newProjectBtn": "Nowy Projekt",
   "dialogCreateProjectTitle": "Podaj nazwę projektu",
   "dialogCreateProjectHelperText": "Nazwa projektu musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
-  "search": "Szukaj..."
+  "projectsTitle": "Projekty",
+  "newBoardBtn": "New tablica",
+  "boardsTitle": "Tablice",
+  "labelSummary": "Podsumowanie",
+  "labelDescription": "Opis"
 }
