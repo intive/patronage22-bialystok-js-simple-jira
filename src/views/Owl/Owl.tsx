@@ -20,7 +20,10 @@ export const Owl_components = () => {
         buttonText={t("newProjectBtn")}
       />
       <StyledBox>
-        <LoginComponent />
+        <LoginComponent
+          LoginLabel={t("LoginHelperText")}
+          PasswordLabel={t("PasswordHelperText")}
+        />
       </StyledBox>
     </Box>
   );

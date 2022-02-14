@@ -21,5 +21,7 @@
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
   "labelSummary": "Summary",
-  "labelDescription": "Description"
+  "labelDescription": "Description",
+  "LoginHelperText": "Login",
+  "PasswordHelperText": "Password"
 }
