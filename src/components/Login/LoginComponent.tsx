@@ -1,11 +1,11 @@
-import { Box } from "@mui/material";
 import { useState } from "react";
 
 import {
   StyledLoginTextField,
   StyledLoginInputLabel,
   StyledFormControl,
-  StyledBox,
+  StyledBoxLogin,
+  StyledBoxPassword,
 } from "./LoginComponent.style";
 
 interface LoginProps {
@@ -19,7 +19,7 @@ export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
 
   return (
     <StyledFormControl>
-      <StyledBox>
+      <StyledBoxLogin>
         <StyledLoginInputLabel htmlFor='login-login-input'>
           {LoginLabel}
         </StyledLoginInputLabel>
@@ -27,8 +27,8 @@ export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
           onChange={(e) => setLogin(e.target.value)}
           id='login-login-input'
         />
-      </StyledBox>
-      <Box>
+      </StyledBoxLogin>
+      <StyledBoxPassword>
         <StyledLoginInputLabel htmlFor='login-password-input'>
           {PasswordLabel}
         </StyledLoginInputLabel>
@@ -37,7 +37,7 @@ export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
           id='login-password-input'
           type='password'
         />
-      </Box>
+      </StyledBoxPassword>
     </StyledFormControl>
   );
 };

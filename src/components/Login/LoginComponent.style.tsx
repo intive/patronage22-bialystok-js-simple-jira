@@ -27,7 +27,7 @@ export const StyledLoginInputLabel = styled(InputLabel)(({ theme }) => ({
 export const StyledFormControl = styled(FormControl)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  alignItems: "center",
+  alignItems: "flex-start",
   width: "416px",
   height: "248px",
   borderRadius: "8px",
@@ -35,6 +35,10 @@ export const StyledFormControl = styled(FormControl)(({ theme }) => ({
   boxShadow: theme.customShadows.primary,
 }));
 
-export const StyledBox = styled(Box)(({ theme }) => ({
+export const StyledBoxLogin = styled(Box)(({ theme }) => ({
   margin: theme.spacing(4, 4, 2, 4),
+}));
+
+export const StyledBoxPassword = styled(Box)(({ theme }) => ({
+  margin: theme.spacing(0, 4, 5, 4),
 }));
