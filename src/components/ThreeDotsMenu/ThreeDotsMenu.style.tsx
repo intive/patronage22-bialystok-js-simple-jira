@@ -1,4 +1,4 @@
-import { styled } from "@mui/system";
+import { styled } from "@mui/material/styles";
 import Menu from "@mui/material/Menu";
 import IconButton from "@mui/material/IconButton";
 
