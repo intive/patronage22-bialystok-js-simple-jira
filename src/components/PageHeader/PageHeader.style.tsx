@@ -15,7 +15,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   width: "134px",
   height: "40px",
   padding: theme.spacing(1, 3, 1, 3),
-  color: theme.palette.text.secondary,
+  color: theme.palette.common.white,
   backgroundColor: theme.palette.grey[700],
   borderRadius: 8,
   textTransform: "none",
@@ -23,7 +23,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
 }));
 
 export const StyledGrid = styled(Grid)(({ theme }) => ({
-  background: theme.palette.text.secondary,
+  background: theme.palette.common.white,
   borderBottom: `1px solid ${theme.palette.grey[100]}`,
   justifyContent: "space-between",
   height: "152px",

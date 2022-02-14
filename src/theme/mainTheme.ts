@@ -41,6 +41,9 @@ let theme = createTheme({
       "800": "#3B3B3B",
       "900": "#222222",
     },
+    common: {
+      white: "#ffffff",
+    },
   },
   shape: {
     borderRadius: 8,
