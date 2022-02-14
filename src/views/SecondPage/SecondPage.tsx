@@ -1,13 +1,12 @@
-import { StyledPageWrapper } from "../Home/Home.style";
+import { StyledPageWrapper } from "./SecondPage.style";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
 import { Counter } from "../../components/Counter/Counter";
 import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
-import { SyntheticEvent } from "react";
 import TasksCard from "../../components/TasksCard";
-import Navbar from "../../components/Navbar/Navbar";
+
 //Store
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -52,7 +51,6 @@ export const SecondPage = () => {
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
         <Button onClick={clickHandler}>{t("button2")}</Button>
       </Link>
-      <p>Buttons SX</p>
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
         <Button variant='text' onClick={clickHandler}>
           Home
@@ -64,13 +62,15 @@ export const SecondPage = () => {
       <Button disabled={true} onClick={clickHandler}>
         {t("continueBtn")}
       </Button>
-      <Button long onClick={clickHandler}>
-        New Project
-      </Button>
+      <Link to={Pages.Projects} style={{ textDecoration: "none" }}>
+        <Button long onClick={clickHandler}>
+          Projects
+        </Button>
+      </Link>
       <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
       {/* temporary divs for component presentation */}
-      <div style={{ alignSelf: "stretch", padding: 20 }}>
+      <div style={{ alignSelf: "center", padding: 20 }}>
         <ProjectCard
           name='Awesome project sdfs adf f sdfsdfsdfasdffasd as dasdf sdf sdf sdf sdf sdf sdf sdf sdf sdf sdf sdfasdf s'
           menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
