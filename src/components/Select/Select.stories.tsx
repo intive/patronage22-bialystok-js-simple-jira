@@ -53,7 +53,6 @@ export const SelectStory = ({ ...args }) => {
         options={["Option 1", "Option 2", "Option 3"]}
         handleSelect={handleChange}
         blankValue={selectValue ? false : true}
-        secondary={false}
       />
     </ThemeProvider>
   );

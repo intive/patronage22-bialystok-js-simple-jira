@@ -12,6 +12,12 @@ interface StyledSelectProps {
 export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
   border-color: transparent;
 
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      width: 264px;
+    `}
+
   ${({ fullWidth }) =>
     fullWidth &&
     css`
@@ -36,13 +42,16 @@ export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
 export const StyledSelect = styled(Select)<StyledSelectProps>`
   height: 40px;
   background-color: ${({ theme }) => theme.palette.grey[200]};
-  margin: 0;
-  padding: 8px 16px 8px 24px;
   border: none;
-  border-radius: ${({ theme }) => theme.shape.borderRadius};
+  border-radius: ${({ theme }) => theme.shape.borderRadius + "px"};
   font-weight: 400;
   font-size: 16px;
   cursor: pointer;
+  color: ${({ theme }) => theme.palette.grey[800]};
+
+  & .MuiSelect-select {
+    padding: 8px 44px 8px 24px !important;
+  }
 
   & .MuiOutlinedInput-notchedOutline {
     border: none;
@@ -55,17 +64,11 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
   ${({ secondary }) =>
     secondary &&
     css`
-      color: #000;
       height: 48px;
       background-color: ${({ theme }) => theme.palette.grey[50]};
-      padding: 12px 24px 12px 16px;
 
       &:hover {
         background-color: ${({ theme }) => theme.palette.grey[100]};
-      }
-
-      & label {
-        color: #000;
       }
     `}
 
@@ -77,17 +80,20 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
 `;
 
 export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
-  padding: 12px 16px;
   background-color: #fff;
-  width: 218px;
   white-space: inherit;
+  color: ${({ theme }) => theme.palette.grey[600]};
 
   ${({ secondary }) =>
     secondary &&
     css`
-      height: 48px;
       width: 264px;
-      background-color: #fff;
-      padding: 12px 24px 12px 16px;
+      height: 48px;
+    `}
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      width: 100%;
     `}
 `;
