@@ -13,7 +13,7 @@ const App = () => (
     <ThemeProvider theme={theme}>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route index element={<Home />} />
         <Route path='second' element={<SecondPage />} />
         <Route path='projects' element={<Projects />} />
         <Route path='owl' element={<Owl_components />} />

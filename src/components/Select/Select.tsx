@@ -1,45 +1,63 @@
-import { useState } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
-import Box from "@mui/material/Box";
-import { StyledSelect, SelectWrapper } from "./Select.style";
-import { useTranslation } from "react-i18next";
+import {
+  StyledSelect,
+  StyledMenuItem,
+  StyledFormControl,
+} from "./Select.style";
+import { SelectChangeEvent } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
-import { mockMenuItems } from "../../mockData/menuItems";
-// interface SelectProps {
-//   switch: () => void;
-// }
+interface SelectProps {
+  value?: string;
+  options: string[];
+  handleSelect: (e: SelectChangeEvent<unknown>) => void;
+  secondary?: boolean;
+  fullWidth?: boolean;
+  blankValue?: boolean;
+}
 
-export const Select = () => {
-  const [lang, setLang] = useState("en");
-  const { t, i18n } = useTranslation();
-
-  const handleChangeLang = (e: any) => {
-    setLang(e.target.value);
-    i18n.changeLanguage(e.target.value);
+export const Select: React.FC<SelectProps> = ({
+  options,
+  handleSelect,
+  secondary,
+  value,
+  fullWidth,
+  blankValue,
+  ...props
+}) => {
+  const MenuProps = {
+    MenuListProps: {
+      style: {
+        padding: 0,
+      },
+    },
   };
 
   return (
-    <SelectWrapper>
-      <ThreeDotsMenu menuItems={mockMenuItems} />
-      <p>{t("paragraph5")}</p>
-      <Box sx={{ maxWidth: 120 }}>
-        <FormControl fullWidth>
-          <InputLabel id='lang-changer'>Language</InputLabel>
-          <StyledSelect
-            labelId='ang-changer'
-            id='demo-simple-select'
-            label='Language'
-            value={lang}
-            onChange={handleChangeLang}
-          >
-            <MenuItem value={"en"}>english</MenuItem>
-            <MenuItem value={"pl"}>polski</MenuItem>
-          </StyledSelect>
-        </FormControl>
-      </Box>
-    </SelectWrapper>
+    <StyledFormControl secondary={secondary} fullWidth={fullWidth}>
+      <StyledSelect
+        onChange={handleSelect}
+        value={value}
+        renderValue={(value: any) => value}
+        IconComponent={KeyboardArrowDownIcon}
+        secondary={secondary}
+        blankValue={blankValue}
+        MenuProps={MenuProps}
+        {...props}
+      >
+        {options.map(
+          (option) =>
+            option !== value && (
+              <StyledMenuItem
+                value={option}
+                key={option}
+                secondary={secondary}
+                fullWidth={fullWidth}
+              >
+                {option}
+              </StyledMenuItem>
+            )
+        )}
+      </StyledSelect>
+    </StyledFormControl>
   );
 };
