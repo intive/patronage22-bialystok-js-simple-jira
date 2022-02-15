@@ -3,7 +3,7 @@ import { useState } from "react";
 import {
   StyledLoginTextField,
   StyledLoginInputLabel,
-  StyledFormControl,
+  StyledBoxForm,
   StyledBoxLogin,
   StyledBoxPassword,
 } from "./LoginComponent.style";
@@ -18,7 +18,7 @@ export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
   const [password, setPassword] = useState("");
 
   return (
-    <StyledFormControl>
+    <StyledBoxForm component='form'>
       <StyledBoxLogin>
         <StyledLoginInputLabel htmlFor='login-login-input'>
           {LoginLabel}
@@ -38,6 +38,6 @@ export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
           type='password'
         />
       </StyledBoxPassword>
-    </StyledFormControl>
+    </StyledBoxForm>
   );
 };

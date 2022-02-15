@@ -1,5 +1,4 @@
 import { Box, InputLabel, TextField } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
 import { styled } from "@mui/material/styles";
 
 export const StyledLoginTextField = styled(TextField)(({ theme }) => ({
@@ -24,7 +23,7 @@ export const StyledLoginInputLabel = styled(InputLabel)(({ theme }) => ({
   transform: "none",
 }));
 
-export const StyledFormControl = styled(FormControl)(({ theme }) => ({
+export const StyledBoxForm = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
