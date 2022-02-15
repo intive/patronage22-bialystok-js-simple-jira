@@ -2,7 +2,7 @@ import { BaseTextFieldProps } from "@mui/material";
 import { ChangeEventHandler } from "react";
 import { StyledTextField, StyledInputLabel } from "./Input.style";
 
-interface Input extends BaseTextFieldProps {
+export interface Input extends BaseTextFieldProps {
   helperText?: string;
   value: string;
   rows?: number;
