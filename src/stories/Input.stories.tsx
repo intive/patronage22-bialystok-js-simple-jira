@@ -11,3 +11,8 @@ const Template: ComponentStory<typeof Input> = (args: any) => (
 );
 
 export const InputStory = Template.bind({});
+export const InputStoryText = Template.bind({});
+
+InputStoryText.args = {
+  helperText: "Description",
+};
