@@ -10,7 +10,7 @@ export const StyledCard = styled(Card)(({ theme }) => ({
 
 export const CardContent = styled("div")({
   padding: 16,
-  maxWidth: "calc(100% - 84px)",
+  maxWidth: "calc(100% - 88px)",
 });
 
 export const Background = styled(Box)(({ theme }) => ({

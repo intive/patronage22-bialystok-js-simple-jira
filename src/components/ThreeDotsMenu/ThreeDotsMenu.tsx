@@ -10,6 +10,7 @@ interface MenuItemsType {
   id: number;
   icon: JSX.Element;
   label: string;
+  onClick: () => void;
 }
 interface ThreeDotsMenuProps {
   menuItems: MenuItemsType[];
@@ -58,7 +59,12 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
         }}
       >
         {menuItems.map((item: MenuItemsType) => (
-          <MenuItem key={item.id} onClick={handleClose}>
+          <MenuItem
+            key={item.id}
+            onClick={() => {
+              handleClose(), item.onClick();
+            }}
+          >
             {item.icon}
             {item.label}
           </MenuItem>

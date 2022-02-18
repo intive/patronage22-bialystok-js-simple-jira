@@ -1,11 +1,9 @@
-import styled from "styled-components";
+import { styled } from "@mui/material/styles";
 
-export const StyledPageWrapper = styled.section`
-  margin-top: 100px;
+export const StyledPageWrapper = styled("div")`
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 20px;
-  text-align: center;
+  width: 100%;
+  height: 100vh;
 `;

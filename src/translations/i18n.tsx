@@ -8,7 +8,7 @@ i18next.use(initReactI18next).init({
     transWrapTextNodes: "span",
   },
   debug: true,
-  fallbackLng: "en",
+  fallbackLng: "pl",
   interpolation: {
     escapeValue: false,
   },
