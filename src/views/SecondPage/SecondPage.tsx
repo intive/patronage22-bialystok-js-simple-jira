@@ -4,8 +4,9 @@ import { useTranslation } from "react-i18next";
 import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
 import { Counter } from "../../components/Counter/Counter";
-import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
+import CreateIssueDialog from "../../modules/CreateIssueDialog/CreateIssueDialog";
 import TasksCard from "../../components/TasksCard";
+import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
 
 //Store
 import { useDispatch } from "react-redux";
@@ -47,6 +48,7 @@ export const SecondPage = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph3")}</p>
+      <CreateIssueDialog />
       <NewProjectDialog />
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
         <Button onClick={clickHandler}>{t("button2")}</Button>
