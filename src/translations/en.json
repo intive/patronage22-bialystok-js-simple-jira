@@ -21,5 +21,7 @@
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
   "labelSummary": "Summary",
-  "labelDescription": "Description"
+  "labelDescription": "Description",
+  "noBtn": "No",
+  "yesBtn": "Yes"
 }
