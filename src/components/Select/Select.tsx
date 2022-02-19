@@ -2,6 +2,8 @@ import {
   StyledSelect,
   StyledMenuItem,
   StyledFormControl,
+  StyledInputLabel,
+  StyledFormHelperText,
 } from "./Select.style";
 import { SelectChangeEvent } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -13,6 +15,10 @@ interface SelectProps {
   secondary?: boolean;
   fullWidth?: boolean;
   blankValue?: boolean;
+  inputProps?: {};
+  helperText?: string;
+  labelText?: string;
+  disabled?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -22,6 +28,10 @@ export const Select: React.FC<SelectProps> = ({
   value,
   fullWidth,
   blankValue,
+  inputProps,
+  helperText,
+  labelText,
+  disabled,
   ...props
 }) => {
   const MenuProps = {
@@ -33,7 +43,12 @@ export const Select: React.FC<SelectProps> = ({
   };
 
   return (
-    <StyledFormControl secondary={secondary} fullWidth={fullWidth}>
+    <StyledFormControl
+      secondary={secondary}
+      fullWidth={fullWidth}
+      disabled={disabled}
+    >
+      <StyledInputLabel>{labelText}</StyledInputLabel>
       <StyledSelect
         onChange={handleSelect}
         value={value}
@@ -42,22 +57,22 @@ export const Select: React.FC<SelectProps> = ({
         secondary={secondary}
         blankValue={blankValue}
         MenuProps={MenuProps}
+        inputProps={inputProps}
         {...props}
       >
-        {options.map(
-          (option) =>
-            option !== value && (
-              <StyledMenuItem
-                value={option}
-                key={option}
-                secondary={secondary}
-                fullWidth={fullWidth}
-              >
-                {option}
-              </StyledMenuItem>
-            )
-        )}
+        <StyledMenuItem value=''>Empty</StyledMenuItem>
+        {options?.map((option) => (
+          <StyledMenuItem
+            value={option}
+            key={option}
+            secondary={secondary}
+            fullWidth={fullWidth}
+          >
+            {option}
+          </StyledMenuItem>
+        ))}
       </StyledSelect>
+      <StyledFormHelperText>{helperText}</StyledFormHelperText>
     </StyledFormControl>
   );
 };
