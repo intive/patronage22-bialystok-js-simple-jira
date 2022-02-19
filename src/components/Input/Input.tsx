@@ -12,7 +12,6 @@ export interface Input extends BaseTextFieldProps {
 }
 
 const Input = ({
-  helperText,
   value,
   rows = 0,
   required,
@@ -23,7 +22,7 @@ const Input = ({
   return (
     <>
       <StyledInputLabel htmlFor='styled-text-input'>
-        {helperText}
+        {labelText}
       </StyledInputLabel>
       <StyledTextField
         value={value}
