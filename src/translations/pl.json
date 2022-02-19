@@ -21,5 +21,10 @@
   "newBoardBtn": "New tablica",
   "boardsTitle": "Tablice",
   "labelSummary": "Podsumowanie",
-  "labelDescription": "Opis"
+  "labelDescription": "Opis",
+  "labelProject": "Projekt",
+  "labelReporter": "Zgłaszający",
+  "labelAssignee": "Osoba przypisana",
+  "labelLinkedIssues": "Zadania powiązane",
+  "createIssue": "Stwórz zadanie"
 }
