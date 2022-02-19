@@ -26,5 +26,7 @@
   "labelReporter": "Reporter",
   "labelAssignee": "Assignee",
   "labelLinkedIssues": "Linked Issues",
-  "createIssue": "Create Issue"
+  "createIssue": "Create Issue",
+  "noBtn": "No",
+  "yesBtn": "Yes"
 }
