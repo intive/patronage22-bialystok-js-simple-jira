@@ -8,6 +8,7 @@ export interface Input extends BaseTextFieldProps {
   rows?: number;
   required?: boolean;
   error?: boolean;
+  helperText?: string;
   onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
@@ -17,6 +18,7 @@ const Input = ({
   rows = 0,
   required,
   error,
+  helperText,
   onChangeHandler,
   ...extraProps
 }: Input) => {
@@ -32,9 +34,9 @@ const Input = ({
         rows={rows}
         fullWidth
         id='styled-text-input'
-        required={required}
-        error
-        helperText='Incorrect entry'
+        required
+        error={error}
+        helperText={helperText}
         {...extraProps}
       />
     </>

@@ -15,4 +15,5 @@ export const InputStoryText = Template.bind({});
 
 InputStoryText.args = {
   labelHelperText: "Description",
+  helperText: "This is wrong!",
 };
