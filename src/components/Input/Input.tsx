@@ -3,27 +3,27 @@ import { ChangeEventHandler } from "react";
 import { StyledTextField, StyledInputLabel } from "./Input.style";
 
 export interface Input extends BaseTextFieldProps {
-  helperText?: string;
-  value: string;
+  labelHelperText?: string;
+  value?: string;
   rows?: number;
   required?: boolean;
-  labelText?: string;
+  error?: boolean;
+  helperText?: string;
   onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
 const Input = ({
-  helperText,
+  labelHelperText,
   value,
   rows = 0,
   required,
-  labelText,
   onChangeHandler,
   ...extraProps
 }: Input) => {
   return (
     <>
       <StyledInputLabel htmlFor='styled-text-input'>
-        {helperText}
+        {labelHelperText}
       </StyledInputLabel>
       <StyledTextField
         value={value}
@@ -32,7 +32,7 @@ const Input = ({
         rows={rows}
         fullWidth
         id='styled-text-input'
-        required={required}
+        required
         {...extraProps}
       />
     </>

@@ -6,7 +6,12 @@ export const Owl_componentsInput = () => {
   const { t } = useTranslation();
   return (
     <Box sx={{ marginTop: "100px" }}>
-      <Input helperText={t("labelSummary")} value='' multiline={true} />
+      <Input
+        labelHelperText={t("labelSummary")}
+        multiline={true}
+        error={true}
+        helperText='Incorrect input!'
+      />
     </Box>
   );
 };
