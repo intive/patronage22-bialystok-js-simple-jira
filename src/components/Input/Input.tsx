@@ -17,8 +17,6 @@ const Input = ({
   value,
   rows = 0,
   required,
-  error,
-  helperText,
   onChangeHandler,
   ...extraProps
 }: Input) => {
@@ -35,8 +33,6 @@ const Input = ({
         fullWidth
         id='styled-text-input'
         required
-        error={error}
-        helperText={helperText}
         {...extraProps}
       />
     </>
