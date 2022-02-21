@@ -23,5 +23,6 @@
   "labelSummary": "Summary",
   "labelDescription": "Description",
   "noBtn": "No",
-  "yesBtn": "Yes"
+  "yesBtn": "Yes",
+  "deleteProjectWarning": "Are you sure you want to delete this project?"
 }
