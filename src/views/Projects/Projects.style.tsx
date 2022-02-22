@@ -8,3 +8,7 @@ export const StyledProjectList = styled(Box)(({ theme }) => ({
     margin: "0 auto",
   },
 }));
+
+export const StyledPageWrapper = styled("div")`
+  margin-top: 80px;
+`;

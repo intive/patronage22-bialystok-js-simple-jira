@@ -1,7 +1,7 @@
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
-import { StyledProjectList } from "./Projects.style";
+import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { mockProjects } from "../../mockData/mockProjects";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,7 @@ import Grid from "@mui/material/Grid";
 export const Projects = () => {
   const { t } = useTranslation();
   return (
-    <>
+    <StyledPageWrapper>
       <PageHeader
         pageTitle={t("projectsViewTitle")}
         buttonText={t("newProjectBtn")}
@@ -28,6 +28,6 @@ export const Projects = () => {
           ))}
         </Grid>
       </StyledProjectList>
-    </>
+    </StyledPageWrapper>
   );
 };

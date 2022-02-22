@@ -68,6 +68,9 @@ export const StyledDialog = styled(Dialog)<DialogProps>(
       padding: 0,
       minWidth: "100%",
       width: 0,
+      "& .MuiFormControl-root:not(.MuiFormControl-root:last-of-type)": {
+        marginBottom: "16px",
+      },
     },
   })
 );

@@ -11,7 +11,7 @@ export const StyledTicket = styled(Card)(({ theme }) => ({
 export const CardContentNoPadding = styled(CardContent)(({ theme }) => ({
   padding: "0",
   "&:last-child": {
-    paddingBottom: "0",
+    paddingBottom: "10px",
   },
   display: "flex",
   flexDirection: "column",

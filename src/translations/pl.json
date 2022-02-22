@@ -1,6 +1,6 @@
 {
-  "paragraph1": "Jeśli przycisk wygląda ładnie - Material UI działa",
-  "paragraph2": "Jeśli kolory to czarny i biały - Styled components działa",
+  "welcomeBoardButton": "Nowy Projekt",
+  "welcomeBoardParagraph": "Zacznij tworzyć projekty już teraz. Dodaj swój pierwszy projekt, nie czekaj aż kto zrobi to za Ciebie.",
   "paragraph3": "Jeśli widzisz tę stronę - React Router działa",
   "paragraph4": "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
   "paragraph5": "Sprawdź tutaj czy i18n działa",
@@ -22,6 +22,8 @@
   "boardsTitle": "Tablice",
   "labelSummary": "Podsumowanie",
   "labelDescription": "Opis",
+  "noBtn": "Nie",
+  "yesBtn": "Tak",
   "LoginHelperText": "Login",
   "PasswordHelperText": "Hasło"
 }
