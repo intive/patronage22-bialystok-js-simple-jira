@@ -5,10 +5,9 @@ import { useTranslation } from "react-i18next";
 export const Owl_componentsInput = () => {
   const { t } = useTranslation();
   return (
-    <Box sx={{ marginTop: "100px" }}>
+    <Box sx={{ marginTop: "200px" }}>
       <Input
         labelHelperText={t("labelSummary")}
-        multiline={true}
         error={true}
         helperText='Incorrect input!'
       />

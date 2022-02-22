@@ -14,9 +14,7 @@ export interface Input extends BaseTextFieldProps {
 
 const Input = ({
   labelHelperText,
-  value,
-  rows = 0,
-  required,
+  // value,
   onChangeHandler,
   ...extraProps
 }: Input) => {
@@ -26,13 +24,10 @@ const Input = ({
         {labelHelperText}
       </StyledInputLabel>
       <StyledTextField
-        value={value}
+        // value={value}
         onChange={onChangeHandler}
-        multiline={rows > 1}
-        rows={rows}
-        fullWidth
+        // disabled
         id='styled-text-input'
-        required
         {...extraProps}
       />
     </>
