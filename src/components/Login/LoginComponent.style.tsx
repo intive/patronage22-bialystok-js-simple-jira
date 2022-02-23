@@ -7,7 +7,6 @@ export const StyledLoginTextField = styled(TextField)(({ theme }) => ({
     height: "48px",
     width: "352px",
     borderRadius: theme.shape.borderRadius,
-    border: "none",
   },
   ".MuiInputBase-input": {
     padding: theme.spacing(1.5, 2, 1.5, 2),
@@ -18,6 +17,7 @@ export const StyledLoginInputLabel = styled(InputLabel)(({ theme }) => ({
   color: theme.palette.grey[500],
   fontSize: 12,
   lineHeight: "16px",
+
   margin: theme.spacing(0, 0, 2, 0),
   position: "static",
   transform: "none",
