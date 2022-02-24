@@ -16,10 +16,10 @@ const Template: ComponentStory<typeof Input> = (args: any) => (
 
 export const InputStory = Template.bind({});
 
-export const InputStoryTextOutlined = Template.bind({});
+export const InputStoryOutlined = Template.bind({});
 export const InputStoryFilled = Template.bind({});
 
-InputStoryTextOutlined.args = {
+InputStoryOutlined.args = {
   labelHelperText: "Description",
   helperText: "This is wrong!",
   multiline: false,
