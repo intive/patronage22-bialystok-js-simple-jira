@@ -15,11 +15,24 @@ const Template: ComponentStory<typeof Input> = (args: any) => (
 );
 
 export const InputStory = Template.bind({});
-export const InputStoryText = Template.bind({});
 
-InputStoryText.args = {
+export const InputStoryTextOutlined = Template.bind({});
+export const InputStoryFilled = Template.bind({});
+
+InputStoryTextOutlined.args = {
   labelHelperText: "Description",
   helperText: "This is wrong!",
   multiline: false,
   disabled: false,
+  variant: "outlined",
+  error: false,
+};
+
+InputStoryFilled.args = {
+  labelHelperText: "Description",
+  helperText: "This is wrong!",
+  multiline: false,
+  disabled: false,
+  variant: "filled",
+  error: false,
 };
