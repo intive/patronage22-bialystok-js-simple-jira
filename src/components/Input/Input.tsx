@@ -7,16 +7,21 @@ export interface Input extends BaseTextFieldProps {
   onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
 }
 
-const Input = ({ labelHelperText, onChangeHandler, ...extraProps }: Input) => {
+const Input = ({
+  labelHelperText,
+  onChangeHandler,
+  variant,
+  ...extraProps
+}: Input) => {
   return (
     <>
-      <StyledInputLabel htmlFor='styled-text-input'>
+      <StyledInputLabel htmlFor='styled-text-input' className={variant}>
         {labelHelperText}
       </StyledInputLabel>
       <StyledTextField
         onChange={onChangeHandler}
-        disabled
         id='styled-text-input'
+        variant={variant}
         {...extraProps}
       />
     </>
