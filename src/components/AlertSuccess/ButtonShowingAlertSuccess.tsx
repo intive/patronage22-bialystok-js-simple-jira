@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import { Button } from "../Button/Button";
 import AlertSuccess from "./AlertSuccess";
 
-export default function ButtonShowingSuccessAlert() {
+export default function ButtonShowingAlertSuccess() {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {

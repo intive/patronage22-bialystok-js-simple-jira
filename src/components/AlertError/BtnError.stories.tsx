@@ -11,4 +11,4 @@ const Template: ComponentStory<typeof ButtonShowingAlertError> = (
   args: any
 ) => <ButtonShowingAlertError {...args} />;
 
-export const ButtonShowingErrorAlertStory = Template.bind({});
+export const ButtonShowingAlertErrorStory = Template.bind({});
