@@ -5,10 +5,12 @@ import Typography from "@mui/material/Typography";
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
   maxWidth: 416,
   height: "67vh",
+  width: "100%",
   borderRadius: theme.shape.borderRadius,
   padding: 16,
   boxShadow: theme.customShadows.primary,
   overflow: "auto",
+  margin: 16,
 }));
 
 export const Title = styled((props) => <Typography {...props} />)(

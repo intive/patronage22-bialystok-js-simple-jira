@@ -15,7 +15,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
   <StyledCard>
-    <Link to={`/project/${name}`}>
+    <Link to={`/projects/${name}`}>
       <Background />
     </Link>
     <Wrapper>

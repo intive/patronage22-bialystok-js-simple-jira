@@ -1,34 +1,30 @@
 import PageHeader from "../../components/PageHeader/PageHeader";
-import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
-import { StyledBoardList } from "./Board.style";
+import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockMenuItems } from "../../mockData/menuItems";
-import { mockProjects } from "../../mockData/mockProjects";
+import { mockBoards } from "../../mockData/mockBoards";
 import { useTranslation } from "react-i18next";
-import Grid from "@mui/material/Grid";
+import TasksCard from "../../components/TasksCard";
+import { useState } from "react";
 
 export const Board = () => {
+  const [boards, setBoards] = useState(mockBoards);
   const { t } = useTranslation();
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={t("projectsViewTitle")}
-        buttonText={t("newProjectBtn")}
+        pageTitle={t("boardsTitle")}
+        buttonText={t("newIssueBtn")}
         buttonHandler={() => console.log("works")}
+        menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
+        returnLink
       />
-      <StyledBoardList>
-        <Grid container spacing={3}>
-          {mockProjects.map((project, id) => (
-            <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-              <ProjectCard
-                menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
-                name={project.name}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </StyledBoardList>
+      <TaskWrapper>
+        {boards.map((project, id) => (
+          <TasksCard title={project.name} />
+        ))}
+      </TaskWrapper>
     </StyledPageWrapper>
   );
 };
