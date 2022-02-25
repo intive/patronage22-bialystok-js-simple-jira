@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import Input from "../Input/Input";
+import { Input } from "../Input/Input";
 
 import {
   StyledLoginTextField,
@@ -16,24 +15,28 @@ interface LoginProps {
 }
 
 export const LoginComponent = ({ LoginLabel, PasswordLabel }: LoginProps) => {
-  const { t } = useTranslation();
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <StyledBoxForm component='form'>
       <StyledBoxLogin>
-        <Input
-          variant='outlined'
-          labelHelperText={t("LoginHelperText")}
-          fullWidth
+        <StyledLoginInputLabel htmlFor='login-login-input'>
+          {LoginLabel}
+        </StyledLoginInputLabel>
+        <StyledLoginTextField
+          onChange={(e) => setLogin(e.target.value)}
+          id='login-login-input'
         />
       </StyledBoxLogin>
       <StyledBoxPassword>
-        <Input
-          variant='outlined'
-          labelHelperText={t("PasswordHelperText")}
-          fullWidth
+        <StyledLoginInputLabel htmlFor='login-password-input'>
+          {PasswordLabel}
+        </StyledLoginInputLabel>
+        <StyledLoginTextField
+          onChange={(e) => setPassword(e.target.value)}
+          id='login-password-input'
+          type='password'
         />
       </StyledBoxPassword>
     </StyledBoxForm>

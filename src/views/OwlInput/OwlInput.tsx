@@ -8,7 +8,7 @@ export const Owl_componentsInput = () => {
     <Box sx={{ marginTop: "200px" }}>
       <Input
         labelHelperText={t("labelSummary")}
-        error={true}
+        // error={true}
         helperText='Incorrect input!'
       />
     </Box>
