@@ -1,16 +1,29 @@
-import { styled } from "@mui/material/styles";
+import { styled, css } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import { Button } from "../Button/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
-export const StyledGridItem = styled(Grid)(({ theme }) => ({
-  marginLeft: "64px",
-  justifyContent: "center",
-  display: "flex",
-  flexDirection: "column",
-  height: "100%",
-}));
+interface StyledWrapperProps {
+  secondary?: boolean;
+}
+
+export const StyledGridItem = styled(Grid)<StyledWrapperProps>`
+  margin-left: 64px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      margin-right: 64px;
+      flex-direction: row;
+      height: 100%;
+      align-items: center;
+    `}
+`;
 
 export const Title = styled(Typography)(({ theme }) => ({
   fontSize: "28px",
@@ -30,7 +43,6 @@ export const StyledLink = styled(Link)(() => ({
 }));
 
 export const StyledButton = styled(Button)(({ theme }) => ({
-  margin: theme.spacing(8.75, 8, 0, 0),
   height: "40px",
   padding: theme.spacing(1, 3, 1, 3),
   color: theme.palette.text.secondary,

@@ -21,8 +21,8 @@ export const Board = () => {
         returnLink
       />
       <TaskWrapper>
-        {boards.map((project, id) => (
-          <TasksCard title={project.name} />
+        {boards.map((project) => (
+          <TasksCard title={project.name} key={project.name} />
         ))}
       </TaskWrapper>
     </StyledPageWrapper>

@@ -9,6 +9,7 @@ import {
   StyledLink,
   StyledGridItem,
 } from "./PageHeader.style";
+import { CardActions } from "@mui/material";
 
 interface SectionProps {
   pageTitle: string;
@@ -23,11 +24,12 @@ export default function PageHeader({
   buttonText,
   buttonHandler = () => {},
   returnLink,
+  menuComponent,
 }: SectionProps) {
   return (
     <Box>
       <StyledGrid container>
-        <StyledGridItem item>
+        <StyledGridItem>
           {returnLink && (
             <StyledLink to='/projects'>
               <SubTitle>{"Return to Projects"}</SubTitle>
@@ -35,9 +37,10 @@ export default function PageHeader({
           )}
           <Title>{pageTitle}</Title>
         </StyledGridItem>
-        <Grid item>
+        <StyledGridItem secondary>
+          {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
           <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
-        </Grid>
+        </StyledGridItem>
       </StyledGrid>
     </Box>
   );
