@@ -1,0 +1,30 @@
+import * as React from "react";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
+
+const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+  props,
+  ref
+) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
+
+export interface AlertSuccessProps {
+  alertMsg: string;
+  handleClose?: () => void;
+  isOpen: boolean;
+}
+
+export default function AlertSuccess({
+  alertMsg,
+  isOpen,
+  handleClose,
+}: AlertSuccessProps) {
+  return (
+    <Snackbar open={isOpen} autoHideDuration={3000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity='success' sx={{ width: "100%" }}>
+        {alertMsg}
+      </Alert>
+    </Snackbar>
+  );
+}
