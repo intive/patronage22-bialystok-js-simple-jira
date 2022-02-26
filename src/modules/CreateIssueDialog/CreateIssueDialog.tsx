@@ -73,8 +73,9 @@ export default function CreateIssueDialog() {
           onChangeHandler={handleChange}
           value={values.reporter}
           name='reporter'
-          labelText={t("labelReporter")}
+          labelHelperText={t("labelReporter")}
           helperText={errors.reporter}
+          variant='filled'
           disabled
         />
         <Select
@@ -90,16 +91,18 @@ export default function CreateIssueDialog() {
           onChangeHandler={handleChange}
           value={values.summary}
           name='summary'
-          labelText={t("labelSummary")}
+          labelHelperText={t("labelSummary")}
           helperText={errors.summary}
+          variant='filled'
         />
         <LongInput
           onChangeHandler={handleChange}
           value={values.description}
           multiline
           name='description'
-          labelText={t("labelDescription")}
+          labelHelperText={t("labelDescription")}
           helperText={errors.description}
+          variant='filled'
         />
         <Select
           secondary
