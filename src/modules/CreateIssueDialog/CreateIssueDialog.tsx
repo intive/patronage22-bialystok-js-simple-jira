@@ -1,5 +1,3 @@
-import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import BasicModal from "../../components/BasicModal/BasicModal";
@@ -29,10 +27,17 @@ export const createIssueOptions = {
   assignee: ["Unassigned"],
 };
 
-export default function CreateIssueDialog() {
+interface CreateIssueDialogProps {
+  isOpen: boolean;
+  handleClose: () => void;
+}
+
+export default function CreateIssueDialog({
+  isOpen,
+  handleClose,
+}: CreateIssueDialogProps) {
   const { t } = useTranslation();
 
-  const [isOpen, setOpen] = useState<boolean>(true);
   const { handleChange, values, handleSubmit, errors } = useForm(
     initialValues,
     submitForm,
@@ -41,11 +46,8 @@ export default function CreateIssueDialog() {
 
   function submitForm() {
     console.log("submitted");
+    handleClose();
   }
-
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
     <BasicModal
