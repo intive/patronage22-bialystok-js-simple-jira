@@ -1,44 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+# Redux toolkit
 
-## Available Scripts
+"The official, opinionated, batteries-included toolset for efficient Redux development"
 
-In the project directory, you can run:
+## Example usage
 
-### `npm start`
+- [example store](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/state/storeWithToolkit.ts)
+- [example slice](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/SecondPage/countSlice.ts)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## What's included?
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+https://redux.js.org/redux-toolkit/overview#whats-included
 
-### `npm test`
+- configureStore
+- createReducer
+- createAction
+- createSlice
+- createAsyncThunk
+- createEntityAdapter
+- createSelector
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Why use toolkit?
 
-### `npm run build`
+https://redux.js.org/redux-toolkit/overview#why-you-should-use-redux-toolkit
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- do more work with less code
+- redux-thunk included
+- redux dev tools extension configured
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+- 'createSlice' simplifies creating actions, action-creators and reducer
+- 'createSlice' automatically creates actions and returns them in property 'actions'
+- 'slice' is a part of app state, f.ex. every feature has its own slice
+- thanks to 'immer' library we can write reducers code without worrying about Immutability
+- 'nanoid' out of the box
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+and much more...
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Checkout full description on [redux-toolkit website](https://redux-toolkit.js.org/) and learn how to [use it with typescript](https://redux-toolkit.js.org/tutorials/typescript)
