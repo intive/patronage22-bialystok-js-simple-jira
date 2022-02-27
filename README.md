@@ -6,6 +6,7 @@
 
 - [example store](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/state/storeWithToolkit.ts)
 - [example slice](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/SecondPage/countSlice.ts)
+- [example slice with redux-thunk](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/Projects/projectsSlice.ts)
 
 ## What's included?
 
