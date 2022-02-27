@@ -16,7 +16,7 @@ export const StyledButton = styled(Button)(({ theme }) => ({
   padding: theme.spacing(1, 3, 1, 3),
   color: theme.palette.common.white,
   backgroundColor: theme.palette.grey[700],
-  borderRadius: 8,
+  borderRadius: theme.shape.borderRadius,
   textTransform: "none",
   fontWeight: "400",
 }));
