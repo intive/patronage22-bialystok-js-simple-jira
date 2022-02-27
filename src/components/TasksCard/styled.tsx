@@ -1,6 +1,5 @@
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
 
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
@@ -9,6 +8,7 @@ export const StyledTasksCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   padding: 16,
   boxShadow: theme.customShadows.primary,
+  overflow: "auto",
 }));
 
 export const Title = styled((props) => <Typography {...props} />)(
@@ -17,9 +17,3 @@ export const Title = styled((props) => <Typography {...props} />)(
     textAlign: "initial",
   })
 );
-
-export const TaskList = styled(List)(({ theme }) => ({
-  height: "calc(100% - 22px)",
-  overflow: "auto",
-  padding: "6px",
-}));
