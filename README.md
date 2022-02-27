@@ -4,8 +4,8 @@
 
 ## Example usage
 
-[example store]()
-[example slice]()
+- [example store](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/state/storeWithToolkit.ts)
+- [example slice](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/SecondPage/countSlice.ts)
 
 ## What's included?
 
