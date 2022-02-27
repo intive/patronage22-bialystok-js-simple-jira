@@ -1,14 +1,38 @@
+import { useState, useEffect } from "react";
+
 import PageHeader from "../../components/PageHeader/PageHeader";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
 import { mockMenuItems } from "../../mockData/menuItems";
-import { mockProjects } from "../../mockData/mockProjects";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 
+let FetchProjectsAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/projects/mockProjectsApi");
+    FetchProjectsAPI = module.default;
+  } else {
+    const module = await import("../../api/projects/projectsApi");
+    FetchProjectsAPI = module.default;
+  }
+}
+
 export const Projects = () => {
   const { t } = useTranslation();
+  const [projects, setProjects] = useState<any>([]);
+
+  useEffect(() => {
+    async function fetchProjects() {
+      await importApiModule();
+      const projects = await FetchProjectsAPI.getProjects();
+      setProjects(projects);
+    }
+    fetchProjects();
+  }, []);
+
   return (
     <StyledPageWrapper>
       <PageHeader
@@ -18,7 +42,7 @@ export const Projects = () => {
       />
       <StyledProjectList>
         <Grid container spacing={3}>
-          {mockProjects.map((project, id) => (
+          {projects.map((project: any, id: number) => (
             <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <ProjectCard
                 menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
