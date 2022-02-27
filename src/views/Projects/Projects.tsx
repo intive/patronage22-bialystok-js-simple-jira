@@ -30,7 +30,7 @@ export const Projects = () => {
 
   switch (status) {
     case Status.LOADING:
-      return <div>Loading...</div>;
+      return <div style={{ marginTop: 300 }}>Loading...</div>;
 
     case Status.SUCCESS:
       return (
@@ -56,7 +56,7 @@ export const Projects = () => {
       );
 
     case Status.ERROR:
-      return <div>Error!!!</div>;
+      return <div style={{ marginTop: 300 }}>Error!!!</div>;
 
     default:
       return null;
