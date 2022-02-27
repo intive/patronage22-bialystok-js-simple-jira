@@ -6,9 +6,20 @@ import { mockMenuItems } from "../../mockData/menuItems";
 import { mockProjects } from "../../mockData/mockProjects";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
+import { useEffect, useState } from "react";
+import { getProjects } from "./getProjects";
 
 export const Projects = () => {
+  // const [projects, setProjects] = useState();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    (async () => {
+      const data = await getProjects();
+      console.log(data);
+    })();
+  }, []);
+
   return (
     <StyledPageWrapper>
       <PageHeader
