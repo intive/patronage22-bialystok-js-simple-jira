@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { StyledButton, StyledGrid, Title } from "./PageHeader.style";
 
-interface SectionProps {
+export interface SectionProps {
   pageTitle: string;
   buttonText: string;
   buttonHandler?: MouseEventHandler;
