@@ -1,4 +1,9 @@
-export const mockProjects = [
+export interface ProjectTypes {
+  name: string;
+  id: string;
+}
+
+export const mockProjects: ProjectTypes[] | [] = [
   { name: "Project1", id: "1" },
   { name: "Death Star", id: "2" },
   { name: "Conquer The World", id: "3" },
