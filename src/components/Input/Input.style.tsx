@@ -21,6 +21,9 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
       border: "none",
     },
   },
+  ".MuiFormHelperText-root": {
+    color: "red",
+  },
 }));
 
 export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
