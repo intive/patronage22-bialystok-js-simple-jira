@@ -1,7 +1,7 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
 import { Button } from "../Button/Button";
-import AlertError from "./AlertError";
+import { AlertError } from "./Alert";
 
 export default function ButtonShowingAlertError() {
   const [open, setOpen] = React.useState(false);

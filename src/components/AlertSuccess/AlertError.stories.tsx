@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
-import AlertError from "./AlertError";
+import { AlertError } from "./Alert";
 
 export default {
   title: "AlertError",
