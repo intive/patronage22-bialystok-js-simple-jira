@@ -2,6 +2,8 @@ import { styled, css } from "@mui/system";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import InputLabel from "@mui/material/InputLabel";
+import FormHelperText from "@mui/material/FormHelperText";
 
 interface StyledSelectProps {
   secondary?: boolean;
@@ -96,4 +98,21 @@ export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
     css`
       width: 100%;
     `}
+`;
+
+export const StyledInputLabel = styled(InputLabel)`
+  &.MuiFormLabel-root {
+    color: #626262;
+    font-size: 12px;
+    line-height: 16px;
+    margin-bottom: 4px;
+    position: static;
+    transform: none;
+  }
+`;
+
+export const StyledFormHelperText = styled(FormHelperText)`
+  &.MuiFormHelperText-root {
+    color: red;
+  }
 `;

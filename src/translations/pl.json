@@ -22,6 +22,11 @@
   "boardsTitle": "Tablice",
   "labelSummary": "Podsumowanie",
   "labelDescription": "Opis",
+  "labelProject": "Projekt",
+  "labelReporter": "Zgłaszający",
+  "labelAssignee": "Osoba przypisana",
+  "labelLinkedIssues": "Zadania powiązane",
+  "createIssue": "Stwórz zadanie",
   "noBtn": "Nie",
   "yesBtn": "Tak"
 }

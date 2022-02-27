@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { StyledPageWrapper } from "./SecondPage.style";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -6,6 +8,7 @@ import { Pages } from "../pages";
 import { Counter } from "../../components/Counter/Counter";
 // import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
 import TasksCard from "../../components/TasksCard";
+import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
 
 //Store
 import { useDispatch } from "react-redux";
@@ -19,6 +22,7 @@ import { mockMenuItems } from "../../mockData/menuItems";
 export const SecondPage = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [isCreateIssueModalOpen, setIsCreateIssueModalOpen] = useState(false);
 
   const clickHandler = () => {
     console.log("Button works");
@@ -67,6 +71,9 @@ export const SecondPage = () => {
           Projects
         </Button>
       </Link>
+      <Button long onClick={() => setIsCreateIssueModalOpen(true)}>
+        Issue Dialog
+      </Button>
       <Button onClick={clickHandler}>{t("createIssueBtn")}</Button>
       <Counter />
       {/* temporary divs for component presentation */}
