@@ -8,23 +8,26 @@ import { Counter } from "../../components/Counter/Counter";
 import TasksCard from "../../components/TasksCard";
 
 //Store
-import { useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state";
+// import { useDispatch } from "react-redux";
+// import { bindActionCreators } from "redux";
+// import { actionCreators } from "../../state";
 import Ticket from "../../components/Ticket/Ticket";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../../mockData/menuItems";
+import { add } from "./countSlice";
+import { useAppDispatch } from "../../state/storeHooks";
 
 export const SecondPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
 
   const clickHandler = () => {
     console.log("Button works");
-    adding();
+    // adding();
+    dispatch(add());
   };
-  const { adding } = bindActionCreators(actionCreators, dispatch);
+  // const { adding } = bindActionCreators(actionCreators, dispatch);
 
   const generateKey = (pre: any) => {
     return `${pre}_${new Date().getTime()}`;
