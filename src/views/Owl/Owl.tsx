@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import PageHeader from "../../components/PageHeader/PageHeader";
 import { useTranslation } from "react-i18next";
-import { LoginComponent } from "../../components/Login/LoginComponent";
+import { LoginView } from "../../components/Login/LoginView";
 import { styled } from "@mui/material/styles";
 
 export const StyledBox = styled(Box)(({}) => ({
@@ -20,10 +20,7 @@ export const Owl_components = () => {
         buttonText={t("newProjectBtn")}
       />
       <StyledBox>
-        <LoginComponent
-          LoginLabel={t("LoginHelperText")}
-          PasswordLabel={t("PasswordHelperText")}
-        />
+        <LoginView />
       </StyledBox>
     </Box>
   );

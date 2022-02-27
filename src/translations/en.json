@@ -24,6 +24,7 @@
   "labelDescription": "Description",
   "noBtn": "No",
   "yesBtn": "Yes",
-  "LoginHelperText": "Login",
-  "PasswordHelperText": "Password"
+  "LoginLabel": "Login",
+  "PasswordLabel": "Password",
+  "ErrorInputText": "Incorrect input!"
 }

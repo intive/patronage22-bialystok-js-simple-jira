@@ -10,6 +10,7 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
   ".MuiInputBase-input": {
     padding: theme.spacing(1.5, 3, 1.5, 2),
   },
+
   ".MuiFilledInput-root": {
     "&:hover": {
       "&:before": {
@@ -19,6 +20,11 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
     "&:after, &:before": {
       border: "none",
     },
+  },
+  "p.MuiFormHelperText-root": {
+    position: "absolute",
+    top: "48px",
+    marginTop: "0px",
   },
 }));
 

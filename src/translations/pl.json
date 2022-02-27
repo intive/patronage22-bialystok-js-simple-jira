@@ -24,6 +24,7 @@
   "labelDescription": "Opis",
   "noBtn": "Nie",
   "yesBtn": "Tak",
-  "LoginHelperText": "Login",
-  "PasswordHelperText": "Hasło"
+  "LoginLabel": "Login",
+  "PasswordLabel": "Hasło",
+  "ErrorInputText": "Błędne dane wejściowe!"
 }
