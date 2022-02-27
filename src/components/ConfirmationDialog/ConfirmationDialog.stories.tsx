@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { theme } from "../../theme/mainTheme";
-import { ConfirmationDialog } from "./ConfirmationDialog";
+
 import "../../translations/i18n";
 import { useState } from "react";
+import { ConfirmationDialog } from "./ConfirmationDialog";
 
 export default {
   title: "ConfirmationDialog",

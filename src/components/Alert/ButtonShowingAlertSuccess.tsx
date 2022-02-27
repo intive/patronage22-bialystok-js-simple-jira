@@ -1,7 +1,7 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import { Button } from "../Button/Button";
 import { AlertSuccess } from "./Alert";
+import { Button } from "@components/Button/Button";
 
 export default function ButtonShowingAlertSuccess() {
   const [open, setOpen] = React.useState(false);

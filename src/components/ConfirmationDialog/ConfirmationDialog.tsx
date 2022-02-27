@@ -1,6 +1,6 @@
 import { MouseEventHandler, SyntheticEvent, useState } from "react";
-import BasicModal, { BasicModalProps } from "../BasicModal/BasicModal";
-import { Button } from "../Button/Button";
+import BasicModal, { BasicModalProps } from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
 import { useTranslation } from "react-i18next";
 import { Typography } from "@mui/material";
 

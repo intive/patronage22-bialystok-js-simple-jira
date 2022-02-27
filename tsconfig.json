@@ -22,12 +22,15 @@
       "@testing-library/jest-dom",
       "@testing-library/cypress"
     ],
+    "baseUrl": ".",
     "paths": {
+      "@components/*": ["./src/components/*"],
       "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
     },
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true
   },
+  "exclude": ["node_modules"],
   "include": ["src", "**/*.ts"]
 }
