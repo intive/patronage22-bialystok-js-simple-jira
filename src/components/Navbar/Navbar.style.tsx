@@ -1,5 +1,5 @@
 import { styled as styledmui } from "@mui/material/styles";
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 
 export const StyledAppBar = styledmui(AppBar)(({ theme }) => ({
   width: "100%",
@@ -35,4 +35,14 @@ export const NavbarRightSideWrapper = styledmui(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   gap: "90px",
+}));
+
+export const StyledIconButton = styledmui(IconButton)(({ theme }) => ({
+  padding: "0",
+  color: theme.palette.grey[100],
+}));
+
+export const StyledSearchIconButton = styledmui(IconButton)(({ theme }) => ({
+  padding: "0",
+  color: theme.palette.grey[300],
 }));

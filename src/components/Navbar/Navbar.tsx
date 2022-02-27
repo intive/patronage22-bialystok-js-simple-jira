@@ -7,6 +7,8 @@ import {
   NavbarRightSideWrapper,
   StyledAppBar,
   StyledToolbar,
+  StyledIconButton,
+  StyledSearchIconButton,
 } from "./Navbar.style";
 import Logo from "./Logo";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
@@ -14,6 +16,7 @@ import Input from "../Input/Input";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
 import LogoutIcon from "@mui/icons-material/Logout";
+import IconButton from "@mui/material/IconButton";
 
 const Search = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -55,7 +58,9 @@ export default function Navbar() {
           </NavbarWrapper>
           <NavbarRightSideWrapper>
             <Search>
-              <SearchIcon sx={{ color: "grey.300" }} />
+              <StyledSearchIconButton>
+                <SearchIcon />
+              </StyledSearchIconButton>
               <Input
                 placeholder={t("search")}
                 value={query}
@@ -63,8 +68,12 @@ export default function Navbar() {
               />
             </Search>
             <NavbarWrapper>
-              <DarkModeTwoToneIcon />
-              <LogoutIcon />
+              <StyledIconButton>
+                <DarkModeTwoToneIcon />
+              </StyledIconButton>
+              <StyledIconButton>
+                <LogoutIcon />
+              </StyledIconButton>
             </NavbarWrapper>
           </NavbarRightSideWrapper>
         </StyledToolbar>
