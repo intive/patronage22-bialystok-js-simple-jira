@@ -21,5 +21,12 @@
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
   "labelSummary": "Summary",
-  "labelDescription": "Description"
+  "labelDescription": "Description",
+  "labelProject": "Project",
+  "labelReporter": "Reporter",
+  "labelAssignee": "Assignee",
+  "labelLinkedIssues": "Linked Issues",
+  "createIssue": "Create Issue",
+  "noBtn": "No",
+  "yesBtn": "Yes"
 }

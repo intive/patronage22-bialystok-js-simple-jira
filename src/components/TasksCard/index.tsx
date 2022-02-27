@@ -1,4 +1,5 @@
-import { StyledTasksCard, TaskList, Title } from "./styled";
+import { StyledTasksCard, Title } from "./styled";
+import List from "@mui/material/List";
 
 interface IssuesCardProps {
   title: string;
@@ -12,7 +13,7 @@ const TasksCard = ({ title, children }: IssuesCardProps) => {
         {title}
       </Title>
 
-      <TaskList>{children}</TaskList>
+      <List>{children}</List>
     </StyledTasksCard>
   );
 };

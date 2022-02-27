@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
+import { Button } from "../Button/Button";
 import Typography from "@mui/material/Typography";
 
 export const Title = styled(Typography)(({ theme }) => ({
@@ -12,7 +12,6 @@ export const Title = styled(Typography)(({ theme }) => ({
 
 export const StyledButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(8.75, 8, 0, 0),
-  width: "134px",
   height: "40px",
   padding: theme.spacing(1, 3, 1, 3),
   color: theme.palette.common.white,

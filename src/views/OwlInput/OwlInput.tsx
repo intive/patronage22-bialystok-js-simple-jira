@@ -5,8 +5,14 @@ import { useTranslation } from "react-i18next";
 export const Owl_componentsInput = () => {
   const { t } = useTranslation();
   return (
-    <Box sx={{ marginTop: "100px" }}>
-      <Input helperText={t("labelSummary")} value='' />
+
+   <Box sx={{ marginTop: "200px" }}>
+      <Input
+        labelHelperText={t("labelSummary")}
+        variant='filled'
+        helperText='Incorrect input!'
+      />
+
     </Box>
   );
 };
