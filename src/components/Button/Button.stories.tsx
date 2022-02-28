@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Button } from "./Button";
+import { Button } from "@components/Button/Button";
 import { theme } from "../../theme/mainTheme";
 
 export default {

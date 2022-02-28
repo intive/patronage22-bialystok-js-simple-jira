@@ -3,9 +3,9 @@ import { ComponentStory } from "@storybook/react";
 import { theme } from "../../theme/mainTheme";
 import EditIcon from "@mui/icons-material/Edit";
 
-import BasicModal from "./BasicModal";
-import { Button } from "../Button/Button";
-import Input from "../Input/Input";
+import BasicModal from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
+import Input from "@components/Input/Input";
 
 export default {
   title: "BasicModal",

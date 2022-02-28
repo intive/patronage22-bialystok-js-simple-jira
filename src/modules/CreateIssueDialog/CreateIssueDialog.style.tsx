@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 import { FormGroup } from "@mui/material";
-import Input from "../../components/Input/Input";
+import Input from "@components/Input/Input";
 
 export const StyledFormGroup = styled(FormGroup)(() => ({
   "& .MuiFormControl-root:not(.MuiFormControl-root:last-of-type)": {

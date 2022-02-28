@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
-import ButtonShowingAlertError from "./ButtonShowingAlertError";
+import ButtonShowingAlertError from "@components/Alert/ButtonShowingAlertError";
 
 export default {
   title: "BtnAlertError",
