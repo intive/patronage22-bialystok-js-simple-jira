@@ -19,7 +19,12 @@ export const WelcomeScreen = () => {
       <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>
         {t("welcomeBoardButton")}
       </Button>
-      <NewProjectDialog isOpen={isDialogOpen} setIsOpen={setIsDialogOpen} />
+      <NewProjectDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        dialogTitle={t("dialogCreateProjectTitle")}
+        dialogHelper={t("dialogCreateProjectHelperText")}
+      />
     </StyledWelcomeScreen>
   );
 };

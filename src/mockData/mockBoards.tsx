@@ -1,5 +1,5 @@
 export const mockBoards = [
-  { name: "TODO" },
-  { name: "IN PROGRESS" },
-  { name: "DONE" },
+  { name: "todo" },
+  { name: "in progress" },
+  { name: "done" },
 ];
