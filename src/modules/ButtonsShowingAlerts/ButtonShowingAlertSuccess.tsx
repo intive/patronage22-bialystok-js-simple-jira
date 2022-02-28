@@ -1,6 +1,6 @@
 import * as React from "react";
 import Stack from "@mui/material/Stack";
-import { AlertSuccess } from "./Alert";
+import { AlertSuccess } from "@components/Alert/Alert";
 import { Button } from "@components/Button/Button";
 
 export default function ButtonShowingAlertSuccess() {

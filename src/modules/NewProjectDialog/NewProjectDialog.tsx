@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
 
-import BasicModal from "../BasicModal/BasicModal";
-import { Button } from "../Button/Button";
-import Input from "../Input/Input";
+import BasicModal from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
+import Input from "@components/Input/Input";
 import { LoadingButton } from "@mui/lab";
 
 import { Pages } from "../../views/pages";
