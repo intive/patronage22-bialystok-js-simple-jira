@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 export const StyledCard = styled(Card)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.customShadows.primary,
-  cursor: "pointer",
 }));
 
 export const CardContent = styled("div")({
@@ -17,6 +16,7 @@ export const CardContent = styled("div")({
 export const Background = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.grey[100],
   minHeight: 224,
+  cursor: "pointer",
 
   "&:hover": {
     backgroundColor: theme.palette.grey[200],

@@ -18,6 +18,7 @@ export const StyledGridItem = styled(Grid)<StyledWrapperProps>`
   ${({ secondary }) =>
     secondary &&
     css`
+      margin-left: 0;
       margin-right: 64px;
       flex-direction: row;
       height: 100%;
@@ -44,12 +45,13 @@ export const StyledLink = styled(Link)(() => ({
 
 export const StyledButton = styled(Button)(({ theme }) => ({
   height: "40px",
-  padding: theme.spacing(1, 3, 1, 3),
+  padding: theme.spacing(1, 3),
   color: theme.palette.common.white,
   backgroundColor: theme.palette.grey[700],
   borderRadius: theme.shape.borderRadius,
   textTransform: "none",
   fontWeight: "400",
+  marginLeft: "24px",
 }));
 
 export const StyledGrid = styled(Grid)(({ theme }) => ({
@@ -57,4 +59,5 @@ export const StyledGrid = styled(Grid)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.grey[100]}`,
   justifyContent: "space-between",
   height: "152px",
+  overflow: "auto",
 }));

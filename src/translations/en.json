@@ -20,6 +20,7 @@
   "projectsTitle": "Projects",
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
+  "boardsBackLink": "Return to Projects",
   "newIssueBtn": "Create issue",
   "labelSummary": "Summary",
   "labelDescription": "Description",

@@ -41,7 +41,7 @@ export const Projects = () => {
       />
       <StyledProjectList>
         <Grid container spacing={3}>
-          {projects.map((project: any, id: number) => (
+          {projects?.map((project: any, id: number) => (
             <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <ProjectCard
                 menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}

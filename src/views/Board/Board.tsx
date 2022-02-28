@@ -1,11 +1,11 @@
-import PageHeader from "../../components/PageHeader/PageHeader";
+import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { mockBoards } from "../../mockData/mockBoards";
 import { useTranslation } from "react-i18next";
-import TasksCard from "../../components/TasksCard";
+import TasksCard from "../../modules/TasksCard";
 import { useState } from "react";
 
 export const Board = () => {
@@ -18,7 +18,7 @@ export const Board = () => {
         buttonText={t("newIssueBtn")}
         buttonHandler={() => console.log("works")}
         menuComponent={<ThreeDotsMenu menuItems={mockMenuItems} />}
-        returnLink
+        returnLink={t("boardsBackLink")}
       />
       <TaskWrapper>
         {boards.map((project) => (

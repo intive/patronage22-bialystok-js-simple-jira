@@ -1,6 +1,5 @@
 import { MouseEventHandler } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
 import {
   StyledButton,
   StyledGrid,
@@ -16,7 +15,7 @@ export interface SectionProps {
   buttonText: string;
   buttonHandler?: MouseEventHandler;
   menuComponent?: React.ReactNode;
-  returnLink?: boolean;
+  returnLink?: string;
 }
 
 export default function PageHeader({
@@ -32,7 +31,7 @@ export default function PageHeader({
         <StyledGridItem>
           {returnLink && (
             <StyledLink to='/projects'>
-              <SubTitle>{"Return to Projects"}</SubTitle>
+              <SubTitle>{returnLink}</SubTitle>
             </StyledLink>
           )}
           <Title>{pageTitle}</Title>
