@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-
-import PageHeader from "../../components/PageHeader/PageHeader";
-import ProjectCard from "../../components/ProjectCard";
-import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
+import PageHeader from "@components/PageHeader/PageHeader";
+import ProjectCard from "@components/ProjectCard";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 
 let FetchProjectsAPI: any;
 

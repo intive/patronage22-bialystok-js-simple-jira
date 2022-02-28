@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
-import { AlertSuccess } from "./Alert";
+import { AlertSuccess } from "@components/Alert/Alert";
 
 export default {
   title: "AlertSuccess",

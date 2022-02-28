@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { SecondPage } from "./views/SecondPage/SecondPage";
 import { Projects } from "./views/Projects/Projects";
-import Navbar from "./components/Navbar/Navbar";
+import Navbar from "@components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 

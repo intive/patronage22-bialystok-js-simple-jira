@@ -4,9 +4,9 @@ import {
   StyledParagraph,
   StyledIcon,
 } from "./WelcomeScreen.style";
-import { Button } from "../../components/Button/Button";
-import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
 import { useState } from "react";
+import { Button } from "@components/Button/Button";
+import NewProjectDialog from "@components/NewProjectDialog/NewProjectDialog";
 
 export const WelcomeScreen = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

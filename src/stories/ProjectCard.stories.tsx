@@ -1,8 +1,8 @@
 import { ComponentStory } from "@storybook/react";
 import { ThemeProvider } from "@mui/material";
 
-import ProjectCard from "../components/ProjectCard";
-import ThreeDotsMenu from "../components/ThreeDotsMenu/ThreeDotsMenu";
+import ProjectCard from "@components/ProjectCard";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { theme } from "../theme/mainTheme";
 import { mockMenuItems } from "../mockData/menuItems";
 
