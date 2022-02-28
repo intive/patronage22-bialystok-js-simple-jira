@@ -12,3 +12,5 @@ export const mockProjects: ProjectTypes[] | [] = [
   { name: "Catch Them All", id: "6" },
   { name: "Watermelon Jam", id: "7" },
 ];
+
+export const newMockProject = { name: "New project", id: 9999 };

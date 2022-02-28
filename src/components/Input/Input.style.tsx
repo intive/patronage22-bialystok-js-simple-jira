@@ -5,15 +5,24 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
     color: theme.palette.grey[800],
     minHeight: "48px",
-    backgroundColor: theme.palette.grey[50],
     borderRadius: theme.shape.borderRadius,
-    border: "none",
   },
   ".MuiInputBase-input": {
     padding: theme.spacing(1.5, 3, 1.5, 2),
   },
-  ".MuiOutlinedInput-notchedOutline": {
-    border: "none",
+
+  ".MuiFilledInput-root": {
+    "&:hover": {
+      "&:before": {
+        border: "none",
+      },
+    },
+    "&:after, &:before": {
+      border: "none",
+    },
+  },
+  ".MuiFormHelperText-root": {
+    color: "red",
   },
 }));
 
@@ -22,4 +31,8 @@ export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({
   fontSize: 12,
   lineHeight: "16px",
   marginBottom: theme.spacing(0.5),
+
+  "&.outlined": {
+    marginBottom: theme.spacing(2),
+  },
 }));
