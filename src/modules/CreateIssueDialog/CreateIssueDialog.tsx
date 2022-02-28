@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
 
-import BasicModal from "../../components/BasicModal/BasicModal";
-import { Button } from "../../components/Button/Button";
-import Input from "../../components/Input/Input";
-import { Select } from "../../components/Select/Select";
+import BasicModal from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
+import Input from "@components/Input/Input";
+import { Select } from "@components/Select/Select";
 
 import { StyledFormGroup, LongInput } from "./CreateIssueDialog.style";
 

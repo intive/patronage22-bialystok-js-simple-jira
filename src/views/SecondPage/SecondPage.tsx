@@ -3,20 +3,18 @@ import { useState } from "react";
 import { StyledPageWrapper } from "./SecondPage.style";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Button } from "../../components/Button/Button";
 import { Pages } from "../pages";
-import { Counter } from "../../components/Counter/Counter";
-// import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
-import TasksCard from "../../components/TasksCard";
-import NewProjectDialog from "../../components/NewProjectDialog/NewProjectDialog";
+import Ticket from "@modules/Ticket/Ticket";
+import { Button } from "@components/Button/Button";
+import { Counter } from "@components/Counter/Counter";
+import ProjectCard from "@components/ProjectCard";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import TasksCard from "@modules/TasksCard";
 
 //Store
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state";
-import Ticket from "../../components/Ticket/Ticket";
-import ProjectCard from "../../components/ProjectCard";
-import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../../mockData/menuItems";
 
 export const SecondPage = () => {

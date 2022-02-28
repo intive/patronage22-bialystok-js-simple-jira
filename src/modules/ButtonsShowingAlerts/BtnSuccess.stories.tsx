@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import React from "react";
-import ButtonShowingAlertSuccess from "./ButtonShowingAlertSuccess";
+import ButtonShowingAlertSuccess from "@modules/ButtonsShowingAlerts/ButtonShowingAlertSuccess";
 
 export default {
   title: "BtnAlertSuccess",

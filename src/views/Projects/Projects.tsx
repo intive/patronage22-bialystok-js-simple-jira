@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-
-import PageHeader from "../../components/PageHeader/PageHeader";
-import ProjectCard from "../../components/ProjectCard";
-import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
-import { ConfirmationDialog } from "../../components/ConfirmationDialog/ConfirmationDialog";
+import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
+import PageHeader from "@modules/PageHeader/PageHeader";
+import ProjectCard from "@components/ProjectCard";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 
 let FetchProjectsAPI: any;
 
@@ -63,7 +62,7 @@ export const Projects = () => {
       />
       <StyledProjectList>
         <Grid container spacing={3}>
-          {projects.map((project: any, id: number) => (
+          {projects?.map((project: any, id: number) => (
             <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <ProjectCard
                 menuComponent={

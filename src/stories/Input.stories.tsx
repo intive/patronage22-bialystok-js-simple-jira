@@ -1,6 +1,6 @@
 import { ComponentStory } from "@storybook/react";
 import { ThemeProvider } from "@mui/material/styles";
-import Input from "../components/Input/Input";
+import Input from "@components/Input/Input";
 import { theme } from "../theme/mainTheme";
 
 export default {
