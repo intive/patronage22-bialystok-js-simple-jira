@@ -1,5 +1,5 @@
+import { WelcomeScreen } from "@modules/WelcomeScreen/WelcomeScreen";
 import { StyledPageWrapper } from "./Home.style";
-import { WelcomeScreen } from "../../modules/WelcomeScreen/WelcomeScreen";
 
 export const Home = () => (
   <StyledPageWrapper>

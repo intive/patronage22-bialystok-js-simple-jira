@@ -1,6 +1,6 @@
 import { styled, css } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
-import { Button } from "../Button/Button";
+import { Button } from "@components/Button/Button";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 
@@ -45,15 +45,15 @@ export const StyledLink = styled(Link)(() => ({
 export const StyledButton = styled(Button)(({ theme }) => ({
   height: "40px",
   padding: theme.spacing(1, 3, 1, 3),
-  color: theme.palette.text.secondary,
+  color: theme.palette.common.white,
   backgroundColor: theme.palette.grey[700],
-  borderRadius: 8,
+  borderRadius: theme.shape.borderRadius,
   textTransform: "none",
   fontWeight: "400",
 }));
 
 export const StyledGrid = styled(Grid)(({ theme }) => ({
-  background: theme.palette.text.secondary,
+  background: theme.palette.common.white,
   borderBottom: `1px solid ${theme.palette.grey[100]}`,
   justifyContent: "space-between",
   height: "152px",

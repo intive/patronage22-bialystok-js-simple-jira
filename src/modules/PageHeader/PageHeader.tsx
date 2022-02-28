@@ -11,7 +11,7 @@ import {
 } from "./PageHeader.style";
 import { CardActions } from "@mui/material";
 
-interface SectionProps {
+export interface SectionProps {
   pageTitle: string;
   buttonText: string;
   buttonHandler?: MouseEventHandler;

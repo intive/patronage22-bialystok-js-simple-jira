@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@mui/material";
 import { ComponentStory } from "@storybook/react";
-import BasicModal from "./BasicModal";
 import { theme } from "../../theme/mainTheme";
-
-import { Button } from "../Button/Button";
 import EditIcon from "@mui/icons-material/Edit";
-import Input from "../Input/Input";
+
+import BasicModal from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
+import Input from "@components/Input/Input";
 
 export default {
   title: "BasicModal",

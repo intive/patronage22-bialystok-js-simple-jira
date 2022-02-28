@@ -1,8 +1,9 @@
 import { SelectChangeEvent, ThemeProvider } from "@mui/material";
 import { useState } from "react";
 import { theme } from "../../theme/mainTheme";
-import { Select } from "./Select";
+
 import { useArgs } from "@storybook/client-api";
+import { Select } from "@components/Select/Select";
 
 export default {
   title: "Select (drop-down list)",

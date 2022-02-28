@@ -1,3 +1,6 @@
+const path = require("path");
+const { alias } = require("react-app-rewire-alias");
+
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: [
@@ -8,5 +11,28 @@ module.exports = {
   framework: "@storybook/react",
   core: {
     builder: "webpack5",
+  },
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
+    reactDocgenTypescriptOptions: {
+      compilerOptions: {
+        baseUrl: ".",
+        paths: {
+          "@components/*": ["./src/components/*"],
+          "@modules": ["./src/modules/*"],
+          "@api": ["./src/api/*"],
+          "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
+        },
+      },
+    },
+  },
+  webpack: (config, env) => {
+    alias({
+      "@components": "./src/components",
+      "@modules": "./src/modules",
+      "@api": "./src/api",
+    })(config);
+
+    return config;
   },
 };

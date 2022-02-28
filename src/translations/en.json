@@ -23,6 +23,11 @@
   "newIssueBtn": "Create issue",
   "labelSummary": "Summary",
   "labelDescription": "Description",
+  "labelProject": "Project",
+  "labelReporter": "Reporter",
+  "labelAssignee": "Assignee",
+  "labelLinkedIssues": "Linked Issues",
+  "createIssue": "Create Issue",
   "noBtn": "No",
   "yesBtn": "Yes"
 }
