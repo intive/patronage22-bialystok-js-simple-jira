@@ -28,5 +28,6 @@
   "labelLinkedIssues": "Zadania powiązane",
   "createIssue": "Stwórz zadanie",
   "noBtn": "Nie",
-  "yesBtn": "Tak"
+  "yesBtn": "Tak",
+  "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?"
 }
