@@ -19,6 +19,8 @@ module.exports = {
         baseUrl: ".",
         paths: {
           "@components/*": ["./src/components/*"],
+          "@modules": ["./src/modules/*"],
+          "@api": ["./src/api/*"],
           "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
         },
       },
@@ -28,7 +30,6 @@ module.exports = {
     alias({
       "@components": "./src/components",
       "@modules": "./src/modules",
-      "@assets": "./src/assets",
       "@api": "./src/api",
     })(config);
 

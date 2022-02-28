@@ -3,7 +3,7 @@ import { useState } from "react";
 import { theme } from "../../theme/mainTheme";
 
 import { useArgs } from "@storybook/client-api";
-import { Select } from "./Select";
+import { Select } from "@components/Select/Select";
 
 export default {
   title: "Select (drop-down list)",
