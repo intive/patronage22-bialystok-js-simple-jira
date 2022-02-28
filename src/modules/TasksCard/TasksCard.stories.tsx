@@ -2,7 +2,7 @@ import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import TasksCard from "./index";
 import { theme } from "../../theme/mainTheme";
-import Ticket from "../Ticket/Ticket";
+import Ticket from "@modules/Ticket/Ticket";
 
 export default {
   title: "TasksCard",

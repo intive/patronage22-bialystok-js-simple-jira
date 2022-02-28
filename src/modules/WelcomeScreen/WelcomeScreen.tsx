@@ -6,7 +6,7 @@ import {
 } from "./WelcomeScreen.style";
 import { useState } from "react";
 import { Button } from "@components/Button/Button";
-import NewProjectDialog from "@components/NewProjectDialog/NewProjectDialog";
+import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 
 export const WelcomeScreen = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -4,7 +4,7 @@ import { theme } from "../../theme/mainTheme";
 
 import "../../translations/i18n";
 import { useState } from "react";
-import { ConfirmationDialog } from "@components/ConfirmationDialog/ConfirmationDialog";
+import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 
 export default {
   title: "ConfirmationDialog",
