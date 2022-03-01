@@ -6,14 +6,14 @@ import MenuItem from "@mui/material/MenuItem";
 
 import { StyledMenu, StyledIconButton } from "./ThreeDotsMenu.style";
 
-interface MenuItemsType {
+interface ItemType {
   id: number;
   icon: JSX.Element;
   label: string;
-  onClick: () => void;
+  onClick: any;
 }
 interface ThreeDotsMenuProps {
-  menuItems: MenuItemsType[];
+  menuItems: ItemType[];
 }
 
 export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
@@ -58,7 +58,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
           horizontal: "right",
         }}
       >
-        {menuItems.map((item: MenuItemsType) => (
+        {menuItems.map((item) => (
           <MenuItem
             key={item.id}
             onClick={() => {
