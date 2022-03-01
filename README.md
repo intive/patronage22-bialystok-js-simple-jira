@@ -1,14 +1,46 @@
-# Redux toolkit
+# Redux
 
-"The official, opinionated, batteries-included toolset for efficient Redux development"
+> "A Predictable State Container for JS Apps"
 
-## Example usage
+## General info
+
+https://redux.js.org/introduction/getting-started
+
+- used to manage the global state of the application
+- requires adherence to certain specific rules
+- gives specific patterns and tools Thanks to that it's easy to understand
+  when, where, how, why is the status of our application updated
+
+### Disadvantages
+
+- requires us to use specific patterns
+- requires familiarization with the tool
+- increases the amount of code
+
+### When to use?
+
+- the state of the application is extensive and access to it is needed in many places
+- changes frequently
+- the state updating logic is complicated
+- the application is quite large
+
+### When NOT to use?
+
+- in forms
+- when data is only needed in one component
+- when we don't need to 'jump' between actions
+
+## Redux toolkit
+
+> "The official, opinionated, batteries-included toolset for efficient Redux development"
+
+### Example usage
 
 - [example store](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/state/storeWithToolkit.ts)
 - [example slice](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/SecondPage/countSlice.ts)
 - [example slice with redux-thunk](https://github.com/intive/patronage22-bialystok-js-simple-jira/blob/P2022-1143/src/views/Projects/projectsSlice.ts)
 
-## What's included?
+### What's included?
 
 https://redux.js.org/redux-toolkit/overview#whats-included
 
@@ -20,7 +52,7 @@ https://redux.js.org/redux-toolkit/overview#whats-included
 - createEntityAdapter
 - createSelector
 
-## Why use toolkit?
+### Why use toolkit?
 
 https://redux.js.org/redux-toolkit/overview#why-you-should-use-redux-toolkit
 
