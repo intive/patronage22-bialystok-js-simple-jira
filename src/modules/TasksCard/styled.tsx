@@ -3,12 +3,14 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
-  maxWidth: 416,
+  minWidth: 300,
+  width: "100vw",
   height: "67vh",
   borderRadius: theme.shape.borderRadius,
   padding: 16,
   boxShadow: theme.customShadows.primary,
   overflow: "auto",
+  margin: 16,
 }));
 
 export const Title = styled((props) => <Typography {...props} />)(

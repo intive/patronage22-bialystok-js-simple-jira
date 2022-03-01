@@ -1,28 +1,45 @@
 import { MouseEventHandler } from "react";
 import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import { StyledButton, StyledGrid, Title } from "./PageHeader.style";
+import {
+  StyledButton,
+  StyledGrid,
+  Title,
+  SubTitle,
+  StyledLink,
+  StyledGridItem,
+} from "./PageHeader.style";
+import { CardActions } from "@mui/material";
 
 export interface SectionProps {
   pageTitle: string;
   buttonText: string;
   buttonHandler?: MouseEventHandler;
+  menuComponent?: React.ReactNode;
+  returnLink?: string;
 }
 
 export default function PageHeader({
   pageTitle,
   buttonText,
   buttonHandler = () => {},
+  returnLink,
+  menuComponent,
 }: SectionProps) {
   return (
     <Box>
       <StyledGrid container>
-        <Grid item>
+        <StyledGridItem>
+          {returnLink && (
+            <StyledLink to='/projects'>
+              <SubTitle>{returnLink}</SubTitle>
+            </StyledLink>
+          )}
           <Title>{pageTitle}</Title>
-        </Grid>
-        <Grid item>
+        </StyledGridItem>
+        <StyledGridItem secondary>
+          {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
           <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
-        </Grid>
+        </StyledGridItem>
       </StyledGrid>
     </Box>
   );
