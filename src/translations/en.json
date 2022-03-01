@@ -29,5 +29,8 @@
   "createIssue": "Create Issue",
   "noBtn": "No",
   "yesBtn": "Yes",
+  "LoginLabel": "Login",
+  "PasswordLabel": "Password",
+  "ErrorInputText": "Incorrect input!",
   "deleteProjectWarning": "Are you sure you want to delete this project?"
 }
