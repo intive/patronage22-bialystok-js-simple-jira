@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
@@ -17,6 +18,7 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
+  const { name } = useParams();
 
   const menuOptions = [
     {
@@ -46,7 +48,7 @@ export const Board = () => {
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={t("boardsTitle")}
+        pageTitle={`${t("boardsTitle")} ${name}`}
         buttonText={t("newIssueBtn")}
         buttonHandler={() => console.log("button clicked")}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
