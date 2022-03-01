@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import PageHeader from "../../components/PageHeader/PageHeader";
+import PageHeader from "@modules/PageHeader/PageHeader";
 import { useTranslation } from "react-i18next";
 import { LoginView } from "../../components/Login/LoginView";
 import { styled } from "@mui/material/styles";

@@ -9,7 +9,7 @@ import {
   Title,
   CardContentNoPadding,
 } from "./Ticket.style";
-import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { useTranslation } from "react-i18next";
 interface TicketProps {

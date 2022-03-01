@@ -22,9 +22,15 @@
   "boardsTitle": "Tablice",
   "labelSummary": "Podsumowanie",
   "labelDescription": "Opis",
+  "labelProject": "Projekt",
+  "labelReporter": "Zgłaszający",
+  "labelAssignee": "Osoba przypisana",
+  "labelLinkedIssues": "Zadania powiązane",
+  "createIssue": "Stwórz zadanie",
   "noBtn": "Nie",
   "yesBtn": "Tak",
   "LoginLabel": "Login",
   "PasswordLabel": "Hasło",
   "ErrorInputText": "Błędne dane wejściowe!"
+  "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?"
 }

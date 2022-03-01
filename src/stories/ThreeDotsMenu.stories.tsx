@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import ThreeDotsMenu from "../components/ThreeDotsMenu/ThreeDotsMenu";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 
 import { mockMenuItems } from "../mockData/menuItems";
 

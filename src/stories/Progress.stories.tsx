@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import LinearIndeterminate from "../components/ProgressBar/ProgressBar";
+import LinearIndeterminate from "@components/ProgressBar/ProgressBar";
 
 export default {
   title: "LinearIndeterminate",
