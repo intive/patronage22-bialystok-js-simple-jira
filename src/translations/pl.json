@@ -31,6 +31,6 @@
   "yesBtn": "Tak",
   "LoginLabel": "Login",
   "PasswordLabel": "Hasło",
-  "ErrorInputText": "Błędne dane wejściowe!"
+  "ErrorInputText": "Błędne dane wejściowe!",
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?"
 }
