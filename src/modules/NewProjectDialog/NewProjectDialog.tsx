@@ -14,11 +14,19 @@ import { createNewProjectPattern } from "../../validation/patterns.const";
 interface NewProjectDialogProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  dialogTitle: string;
+  dialogHelper: string;
+  handleClick?: any;
+  board?: boolean;
 }
 
 export default function NewProjectDialog({
   isOpen,
   setIsOpen,
+  dialogTitle,
+  dialogHelper,
+  handleClick,
+  board,
 }: NewProjectDialogProps) {
   const { t } = useTranslation();
 
@@ -37,7 +45,7 @@ export default function NewProjectDialog({
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      navigate(Pages.Projects);
+      !board && navigate(Pages.Projects);
       setIsLoading(false);
       setIsOpen(false);
     }, 1000);
@@ -51,7 +59,9 @@ export default function NewProjectDialog({
   };
 
   const handleCreate = () => {
-    console.log("Project created");
+    board
+      ? (handleClick = handleClick(inputValue))
+      : (handleClick = handleClick);
     setIsLoading(true);
   };
 
@@ -61,7 +71,7 @@ export default function NewProjectDialog({
     setInputValue(value);
     const reg = new RegExp(createNewProjectPattern).test(value);
     if (!reg) {
-      setError(t("dialogCreateProjectHelperText"));
+      setError(dialogHelper);
     }
   };
   return (
@@ -69,7 +79,7 @@ export default function NewProjectDialog({
       paddings={[10, 6, 7, 6]}
       isOpen={isOpen}
       headerIcon={<EditIcon />}
-      title={t("dialogCreateProjectTitle")}
+      title={dialogTitle}
       alignTitle='center'
       handleClose={handleClose}
       buttons={[
