@@ -8,8 +8,8 @@ import { Button } from "@components/Button/Button";
 import Input from "@components/Input/Input";
 import { LoadingButton } from "@mui/lab";
 
-import { Pages } from "../../views/pages";
 import { createNewProjectPattern } from "../../validation/patterns.const";
+import { toProjects } from "src/views/routes";
 
 interface NewProjectDialogProps {
   isOpen: boolean;
@@ -45,7 +45,7 @@ export default function NewProjectDialog({
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      !board && navigate(Pages.Projects);
+      !board && navigate(toProjects);
       setIsLoading(false);
       setIsOpen(false);
     }, 1000);

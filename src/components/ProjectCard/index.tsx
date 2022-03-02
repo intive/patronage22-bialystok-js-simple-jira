@@ -1,6 +1,6 @@
 import CardActions from "@mui/material/CardActions";
 import { Link } from "react-router-dom";
-import { toProject } from "src/routes";
+import { toProject } from "src/views/routes";
 
 import {
   Background,

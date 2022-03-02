@@ -9,7 +9,7 @@ import {
   StyledGridItem,
 } from "./PageHeader.style";
 import { CardActions } from "@mui/material";
-import { toProjects } from "src/routes";
+import { toProjects } from "src/views/routes";
 
 export interface SectionProps {
   pageTitle: string;

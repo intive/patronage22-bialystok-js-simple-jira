@@ -7,7 +7,13 @@ import { Projects } from "./views/Projects/Projects";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
-import { toProject, toHome, toIssue, toBoard, toProjects } from "./routes";
+import {
+  toProject,
+  toHome,
+  toIssue,
+  toBoard,
+  toProjects,
+} from "./views/routes";
 
 const Boards = () => {
   const { projectID } = useParams();

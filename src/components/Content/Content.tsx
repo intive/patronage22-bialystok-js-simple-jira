@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
-import { toHome } from "../../routes";
+import { toHome } from "../../views/routes";
 import { LoaderWrapper, StyledLoader } from "./Content.styled";
 
 interface ContentProps {
