@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Routes, Route, useParams, Navigate, Link } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
-
+import { theme } from "./theme/mainTheme";
 import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
-import { Owl_components } from "./views/Owl/Owl";
+import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
-import { theme } from "./theme/mainTheme";
-import { toBoards, toHome, toIssue, toIssues, toProjects } from "./routes";
+import { Owl_components } from "./views/Owl/Owl";
+import { toProject, toHome, toIssue, toBoard, toProjects } from "./routes";
 
 const Boards = () => {
   const { projectID } = useParams();
@@ -18,23 +18,10 @@ const Boards = () => {
       {!!projectID && (
         <>
           <p>Project: {projectID}</p>
-          <Link to={toBoards({ projectID })} />
-        </>
-      )}
-    </div>
-  );
-};
-
-const Issues = () => {
-  const { projectID, boardID } = useParams();
-
-  return (
-    <div style={{ marginTop: 100 }}>
-      <h1>Board/Issues</h1>
-      {!!projectID && !!boardID && (
-        <>
-          <p>Project: {projectID}</p>
-          <p>Board: {boardID}</p>
+          <Link to={toProjects}>Go back to Projects</Link>
+          <Link style={{ margin: 5 }} to={toBoard({ projectID, boardID: "2" })}>
+            Go to Board 2
+          </Link>
         </>
       )}
     </div>
@@ -72,8 +59,8 @@ const App = () => {
         <Routes>
           <Route path={toHome} element={<Home />} />
           <Route path={toProjects} element={<Projects />} />
-          <Route path={toBoards()} element={<Boards />} />
-          <Route path={toIssues()} element={<Issues />} />
+          <Route path={toProject()} element={<Boards />} />
+          <Route path={toBoard()} element={<Board />} />
           <Route path={toIssue()} element={<Issue />} />
           <Route path='*' element={<Navigate to={toProjects} />} />
         </Routes>

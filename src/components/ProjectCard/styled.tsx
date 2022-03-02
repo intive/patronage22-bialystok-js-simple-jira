@@ -16,6 +16,11 @@ export const CardContent = styled("div")({
 export const Background = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.grey[100],
   minHeight: 224,
+  cursor: "pointer",
+
+  "&:hover": {
+    backgroundColor: theme.palette.grey[200],
+  },
 }));
 
 export const ProjectName = styled((props) => <Typography {...props} />)(

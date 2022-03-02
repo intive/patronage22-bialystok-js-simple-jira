@@ -5,15 +5,15 @@ const ISSUE = ":issueID";
 export const toHome = "/home";
 export const toProjects = "/projects";
 
-export const toBoards = ({ projectID } = { projectID: PROJECT }) =>
-  `/${toProjects}/${projectID}/boards`;
+export const toProject = ({ projectID } = { projectID: PROJECT }) =>
+  `${toProjects}/${projectID}/boards`;
 
-export const toIssues = (
+export const toBoard = (
   { projectID, boardID } = {
     projectID: PROJECT,
     boardID: BOARD,
   }
-) => `/${toBoards({ projectID })}/${boardID}/issues`;
+) => `${toProject({ projectID })}/${boardID}/issues`;
 
 export const toIssue = (
   { projectID, boardID, issueID } = {
@@ -21,4 +21,4 @@ export const toIssue = (
     boardID: BOARD,
     issueID: ISSUE,
   }
-) => `/${toIssues({ projectID, boardID })}/${issueID}`;
+) => `${toBoard({ projectID, boardID })}/${issueID}`;

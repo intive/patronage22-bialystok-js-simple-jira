@@ -1,20 +1,35 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
 
-import BasicModal from "../BasicModal/BasicModal";
-import { Button } from "../Button/Button";
-import Input from "../Input/Input";
+import BasicModal from "@components/BasicModal/BasicModal";
+import { Button } from "@components/Button/Button";
+import Input from "@components/Input/Input";
 import { LoadingButton } from "@mui/lab";
 
 import { Pages } from "../../views/pages";
 import { createNewProjectPattern } from "../../validation/patterns.const";
 
-export default function NewProjectDialog() {
+interface NewProjectDialogProps {
+  isOpen: boolean;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  dialogTitle: string;
+  dialogHelper: string;
+  handleClick?: any;
+  board?: boolean;
+}
+
+export default function NewProjectDialog({
+  isOpen,
+  setIsOpen,
+  dialogTitle,
+  dialogHelper,
+  handleClick,
+  board,
+}: NewProjectDialogProps) {
   const { t } = useTranslation();
 
-  const [isOpen, setOpen] = useState<boolean>(true);
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,9 +45,9 @@ export default function NewProjectDialog() {
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      navigate(Pages.Projects);
+      !board && navigate(Pages.Projects);
       setIsLoading(false);
-      setOpen(false);
+      setIsOpen(false);
     }, 1000);
     return () => {
       clearTimeout(changeViewTimeout);
@@ -40,11 +55,13 @@ export default function NewProjectDialog() {
   }, [isLoading]);
 
   const handleClose = () => {
-    setOpen(false);
+    setIsOpen(false);
   };
 
   const handleCreate = () => {
-    console.log("Project created");
+    board
+      ? (handleClick = handleClick(inputValue))
+      : (handleClick = handleClick);
     setIsLoading(true);
   };
 
@@ -54,7 +71,7 @@ export default function NewProjectDialog() {
     setInputValue(value);
     const reg = new RegExp(createNewProjectPattern).test(value);
     if (!reg) {
-      setError(t("dialogCreateProjectHelperText"));
+      setError(dialogHelper);
     }
   };
   return (
@@ -62,7 +79,7 @@ export default function NewProjectDialog() {
       paddings={[10, 6, 7, 6]}
       isOpen={isOpen}
       headerIcon={<EditIcon />}
-      title={t("dialogCreateProjectTitle")}
+      title={dialogTitle}
       alignTitle='center'
       handleClose={handleClose}
       buttons={[
@@ -77,7 +94,7 @@ export default function NewProjectDialog() {
           />
         ) : (
           <Button
-            disabled={!!error || !!!inputValue}
+            disabled={!!error || !inputValue}
             onClick={handleCreate}
             key='btn-2'
           >
