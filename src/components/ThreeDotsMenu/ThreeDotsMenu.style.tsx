@@ -20,12 +20,6 @@ export const StyledMenu = styled(Menu)(({ theme }) => ({
   "& .MuiButtonBase-root": {
     padding: "6px 8px 6px 8px",
   },
-  "& .MuiButtonBase-root:first-of-type": {
-    paddingTop: "12px",
-  },
-  "& .MuiButtonBase-root:last-of-type": {
-    paddingBottom: "12px",
-  },
 }));
 
 export const StyledIconButton = styled(IconButton)(({ theme }) => ({
