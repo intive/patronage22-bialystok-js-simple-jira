@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
-import Content from "../../components/Content/Content";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -9,6 +8,7 @@ import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDial
 import PageHeader from "@modules/PageHeader/PageHeader";
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import Content from "@components/Content/Content";
 
 let FetchProjectsAPI: any;
 

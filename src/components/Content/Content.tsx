@@ -1,20 +1,18 @@
-import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import { toHome } from "../../views/routes";
 import { LoaderWrapper, StyledLoader } from "./Content.styled";
-
 interface ContentProps {
   isLoading: boolean;
   noContentToShow: boolean;
-  children: React.ReactNode;
+  children: JSX.Element;
 }
 
 const Content = ({ isLoading, noContentToShow, children }: ContentProps) => {
   if (isLoading) {
     return (
       <LoaderWrapper>
-        <StyledLoader />
+        <StyledLoader size={50} />
       </LoaderWrapper>
     );
   }
@@ -23,7 +21,7 @@ const Content = ({ isLoading, noContentToShow, children }: ContentProps) => {
     return <Navigate to={toHome} />;
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default Content;
