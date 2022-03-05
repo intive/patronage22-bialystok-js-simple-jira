@@ -10,6 +10,7 @@ import { Counter } from "@components/Counter/Counter";
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import TasksCard from "@modules/TasksCard";
+import CreateIssueDialog from "@modules/CreateIssueDialog/CreateIssueDialog";
 
 //Store
 import { useDispatch } from "react-redux";
@@ -49,7 +50,10 @@ export const SecondPage = () => {
   return (
     <StyledPageWrapper>
       <p>{t("paragraph3")}</p>
-      {/* <NewProjectDialog /> */}
+      <CreateIssueDialog
+        isOpen={isCreateIssueModalOpen}
+        handleClose={() => setIsCreateIssueModalOpen(false)}
+      />
       <Link to={Pages.Home} style={{ textDecoration: "none" }}>
         <Button onClick={clickHandler}>{t("button2")}</Button>
       </Link>

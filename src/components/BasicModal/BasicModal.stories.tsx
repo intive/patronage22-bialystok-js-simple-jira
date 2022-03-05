@@ -7,6 +7,13 @@ import BasicModal from "@components/BasicModal/BasicModal";
 import { Button } from "@components/Button/Button";
 import Input from "@components/Input/Input";
 
+import {
+  ButtonBox,
+  IconBox,
+  StyledDialogTitle,
+  NewProjectDialogContent,
+} from "@modules/NewProjectDialog/NewProjectDialog.style";
+
 export default {
   title: "BasicModal",
   component: BasicModal,
@@ -25,55 +32,57 @@ export const CreateProjectWithError = Template.bind({});
 export const LongModal = Template.bind({});
 
 CreateProject.args = {
-  buttons: [
-    <Button variant='text' key='btn-1'>
-      Cancel
-    </Button>,
-    <Button variant='contained' key='btn-2'>
-      Create
-    </Button>,
-  ],
-  children: <Input value='My first project' />,
-  paddings: [10, 6, 7, 6],
+  children: (
+    <NewProjectDialogContent>
+      <IconBox>
+        <EditIcon />
+      </IconBox>
+      <StyledDialogTitle>{"Name your project"}</StyledDialogTitle>
+      <Input variant='filled' value='My first project' />
+      <ButtonBox>
+        <Button variant='text' key='btn-1'>
+          Cancel
+        </Button>
+        <Button variant='contained' key='btn-2'>
+          Create
+        </Button>
+      </ButtonBox>
+    </NewProjectDialogContent>
+  ),
   isOpen: true,
-  headerIcon: <EditIcon />,
-  title: "Name your project",
-  alignTitle: "center",
 };
 
 CreateProjectWithError.args = {
-  buttons: [
-    <Button variant='text' key='btn-1'>
-      Cancel
-    </Button>,
-    <Button disabled variant='contained' key='btn-2'>
-      Create
-    </Button>,
-  ],
   children: (
-    <Input
-      value='       My first project'
-      error={true}
-      helperText={
-        "Project title has to be at least one character long and cannot begin/end with a whitespace"
-      }
-    />
+    <NewProjectDialogContent>
+      <IconBox>
+        <EditIcon />
+      </IconBox>
+      <StyledDialogTitle>{"Name your project"}</StyledDialogTitle>
+      <Input
+        variant='filled'
+        value='       My first project'
+        error={true}
+        helperText={
+          "Project title has to be at least one character long and cannot begin/end with a whitespace"
+        }
+      />
+      <ButtonBox>
+        <Button variant='text' key='btn-1'>
+          Cancel
+        </Button>
+        <Button variant='contained' key='btn-2'>
+          Create
+        </Button>
+      </ButtonBox>
+    </NewProjectDialogContent>
   ),
-  paddings: [10, 6, 7, 6],
   isOpen: true,
-  headerIcon: <EditIcon />,
-  title: "Name your project",
-  alignTitle: "center",
 };
 
 LongModal.args = {
-  buttons: [
-    <Button variant='contained' key='btn-1'>
-      Submit
-    </Button>,
-  ],
   children: (
-    <>
+    <NewProjectDialogContent>
       <Input value='First input' />
       <Input value='Second input' />
       <Input value='Third input' />
@@ -81,10 +90,15 @@ LongModal.args = {
       <Input value='Fifth input' />
       <Input value='Seventh input' />
       <Input value='Eighth input' />
-    </>
+      <ButtonBox>
+        <Button variant='text' key='btn-1'>
+          Cancel
+        </Button>
+        <Button variant='contained' key='btn-2'>
+          Create
+        </Button>
+      </ButtonBox>
+    </NewProjectDialogContent>
   ),
-  paddings: [10, 6, 7, 6],
   isOpen: true,
-  title: "Form",
-  alignTitle: "start",
 };
