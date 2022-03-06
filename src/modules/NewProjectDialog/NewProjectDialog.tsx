@@ -82,7 +82,7 @@ export default function NewProjectDialog({
     }
   };
   return (
-    <BasicModal isOpen={isOpen} handleClose={handleClose}>
+    <BasicModal open={isOpen} onClose={handleClose}>
       <NewProjectDialogContent>
         <IconBox>
           <EditIcon />
@@ -95,21 +95,13 @@ export default function NewProjectDialog({
           helperText={error}
         />
         <ButtonBox>
-          <Button onClick={handleClose} variant='text' key='btn-1'>
+          <Button onClick={handleClose} variant='text'>
             {t("cancelBtn")}
           </Button>
           {isLoading ? (
-            <LoadingButton
-              sx={{ minWidth: "98.77px" }}
-              key='btn-2'
-              loading={true}
-            />
+            <LoadingButton sx={{ minWidth: "98.77px" }} loading={true} />
           ) : (
-            <Button
-              disabled={!!error || !inputValue}
-              onClick={handleCreate}
-              key='btn-2'
-            >
+            <Button disabled={!!error || !inputValue} onClick={handleCreate}>
               {t("createBtn")}
             </Button>
           )}

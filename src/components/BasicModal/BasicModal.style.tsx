@@ -1,7 +1,7 @@
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 
-export const StyledDialog = styled(Dialog)({
+const BasicModal = styled(Dialog)({
   overflowY: "auto",
 
   "& .MuiDialog-container": {
@@ -20,3 +20,5 @@ export const StyledDialog = styled(Dialog)({
     width: 0,
   },
 });
+
+export default BasicModal;

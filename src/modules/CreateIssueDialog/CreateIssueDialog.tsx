@@ -56,7 +56,7 @@ export default function CreateIssueDialog({
   }
 
   return (
-    <BasicModal isOpen={isOpen} handleClose={handleClose}>
+    <BasicModal open={isOpen} onClose={handleClose}>
       <CreateIssueDialogContent>
         <StyledDialogTitle>{t("createIssue")}</StyledDialogTitle>
         <StyledFormGroup>
@@ -123,13 +123,12 @@ export default function CreateIssueDialog({
           />
         </StyledFormGroup>
         <ButtonBox>
-          <Button onClick={handleClose} variant='text' key='btn-1'>
+          <Button onClick={handleClose} variant='text'>
             {t("cancelBtn")}
           </Button>
           <Button
             disabled={Object.keys(errors).length > 0}
             onClick={handleSubmit}
-            key='btn-2'
           >
             {t("continueBtn")}
           </Button>

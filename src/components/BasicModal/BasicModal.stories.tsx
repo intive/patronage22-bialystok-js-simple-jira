@@ -49,7 +49,14 @@ CreateProject.args = {
       </ButtonBox>
     </NewProjectDialogContent>
   ),
-  isOpen: true,
+  open: true,
+};
+
+CreateProject.parameters = {
+  controls: {
+    include: ["onClose", "open", "children"],
+    sort: "alpha",
+  },
 };
 
 CreateProjectWithError.args = {
@@ -77,7 +84,14 @@ CreateProjectWithError.args = {
       </ButtonBox>
     </NewProjectDialogContent>
   ),
-  isOpen: true,
+  open: true,
+};
+
+CreateProjectWithError.parameters = {
+  controls: {
+    include: ["onClose", "open", "children"],
+    sort: "alpha",
+  },
 };
 
 LongModal.args = {
@@ -100,5 +114,12 @@ LongModal.args = {
       </ButtonBox>
     </NewProjectDialogContent>
   ),
-  isOpen: true,
+  open: true,
+};
+
+LongModal.parameters = {
+  controls: {
+    include: ["onClose", "open", "children"],
+    sort: "alpha",
+  },
 };
