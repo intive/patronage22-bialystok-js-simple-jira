@@ -1,19 +1,19 @@
 import * as React from "react";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 
 import { StyledMenu, StyledIconButton } from "./ThreeDotsMenu.style";
 
-interface MenuItemsType {
+interface ItemType {
   id: number;
   icon: JSX.Element;
   label: string;
-  onClick: () => void;
+  onClick: any;
 }
 interface ThreeDotsMenuProps {
-  menuItems: MenuItemsType[];
+  menuItems: ItemType[];
 }
 
 export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
@@ -58,7 +58,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
           horizontal: "right",
         }}
       >
-        {menuItems.map((item: MenuItemsType) => (
+        {menuItems.map((item) => (
           <MenuItem
             key={item.id}
             onClick={() => {
@@ -66,7 +66,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
             }}
           >
             {item.icon}
-            {item.label}
+            <Typography>{item.label}</Typography>
           </MenuItem>
         ))}
       </StyledMenu>

@@ -20,6 +20,12 @@
   "projectsTitle": "Projekty",
   "newBoardBtn": "New tablica",
   "boardsTitle": "Tablice",
+  "boardsBackLink": "Powrót do Projektów",
+  "newIssueBtn": "Stwórz zgłoszenie",
+  "boardDialogTitle": "Podaj nazwę tablicy",
+  "boardDialogHelperText": "Nazwa tablicy musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
+  "boardAlertNumber": "Możesz mieć maksymalnie 5 tablic!",
+  "boardAlertName": "Nazwy tablic nie mogą być takie same!",
   "labelSummary": "Podsumowanie",
   "labelDescription": "Opis",
   "labelProject": "Projekt",
@@ -28,5 +34,9 @@
   "labelLinkedIssues": "Zadania powiązane",
   "createIssue": "Stwórz zadanie",
   "noBtn": "Nie",
-  "yesBtn": "Tak"
+  "yesBtn": "Tak",
+  "LoginLabel": "Login",
+  "PasswordLabel": "Hasło",
+  "ErrorInputText": "Błędne dane wejściowe!",
+  "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?"
 }

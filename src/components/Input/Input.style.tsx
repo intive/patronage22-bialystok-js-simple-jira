@@ -21,8 +21,10 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
       border: "none",
     },
   },
-  ".MuiFormHelperText-root": {
-    color: "red",
+  "p.MuiFormHelperText-root": {
+    position: "absolute",
+    top: "48px",
+    marginTop: "0px",
   },
 }));
 
