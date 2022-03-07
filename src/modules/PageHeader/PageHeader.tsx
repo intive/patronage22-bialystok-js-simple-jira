@@ -9,6 +9,7 @@ import {
   StyledGridItem,
 } from "./PageHeader.style";
 import { CardActions } from "@mui/material";
+import { toProjects } from "src/views/routes";
 
 export interface SectionProps {
   pageTitle: string;
@@ -30,7 +31,7 @@ export default function PageHeader({
       <StyledGrid container>
         <StyledGridItem>
           {returnLink && (
-            <StyledLink to='/projects'>
+            <StyledLink to={toProjects}>
               <SubTitle>{returnLink}</SubTitle>
             </StyledLink>
           )}
