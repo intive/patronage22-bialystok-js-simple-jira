@@ -37,7 +37,11 @@ export const Projects = () => {
   useEffect(() => {
     async function fetchProjects() {
       await importApiModule();
-      const projects = await FetchProjectsAPI.getProjects();
+      const projects = await fetch(
+        "https://patronageapi.herokuapp.com/api/project"
+      )
+        .then((res) => res.json())
+        .then((data) => data.data);
       setProjects(projects);
     }
     fetchProjects();
