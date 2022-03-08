@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 
 import { StyledMenu, StyledIconButton } from "./ThreeDotsMenu.style";
@@ -66,7 +66,7 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
             }}
           >
             {item.icon}
-            {item.label}
+            <Typography>{item.label}</Typography>
           </MenuItem>
         ))}
       </StyledMenu>

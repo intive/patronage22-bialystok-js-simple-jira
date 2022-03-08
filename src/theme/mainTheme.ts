@@ -13,6 +13,7 @@ declare module "@mui/material/styles" {
     customShadows: {
       primary: string;
       secondary: string;
+      tertiary: string;
     };
   }
 
@@ -20,6 +21,7 @@ declare module "@mui/material/styles" {
     customShadows?: {
       primary?: string;
       secondary?: string;
+      tertiary?: string;
     };
   }
 }
@@ -83,6 +85,7 @@ theme = createTheme(theme, {
   customShadows: {
     primary: "0px 1px 3px rgba(98, 98, 98, 0.24)",
     secondary: "0px 8px 16px rgba(98, 98, 98, 0.24)",
+    tertiary: "0px 1px 2px rgba(98, 98, 98, 0.24)",
   },
 });
 

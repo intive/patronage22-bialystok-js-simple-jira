@@ -15,8 +15,8 @@ import {
   NewProjectDialogContent,
 } from "./NewProjectDialog.style";
 
-import { Pages } from "../../views/pages";
 import { createNewProjectPattern } from "../../validation/patterns.const";
+import { toProjects } from "src/views/routes";
 
 interface NewProjectDialogProps {
   isOpen: boolean;
@@ -52,7 +52,7 @@ export default function NewProjectDialog({
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      !board && navigate(Pages.Projects);
+      !board && navigate(toProjects);
       setIsLoading(false);
       setIsOpen(false);
     }, 1000);

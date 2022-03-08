@@ -4,23 +4,21 @@ import IconButton from "@mui/material/IconButton";
 
 export const StyledMenu = styled(Menu)(({ theme }) => ({
   "& .MuiPaper-root": {
-    padding: "10px 0px",
-    color: theme.palette.grey["600"],
     borderRadius: 4,
-    boxShadow: "0px 1px 2px rgb(98 98 98 / 0.24)",
+    boxShadow: theme.customShadows.tertiary,
   },
   "& .MuiSvgIcon-root": {
     color: theme.palette.grey["500"],
     marginRight: 4,
   },
+  "& .MuiTypography-root": {
+    color: theme.palette.grey["600"],
+  },
   "& .MuiList-root": {
     padding: 0,
   },
   "& .MuiButtonBase-root": {
-    padding: "2px 8px",
-  },
-  "& .MuiButtonBase-root:not(:last-of-type)": {
-    marginBottom: 8,
+    padding: "6px 8px 6px 8px",
   },
 }));
 
