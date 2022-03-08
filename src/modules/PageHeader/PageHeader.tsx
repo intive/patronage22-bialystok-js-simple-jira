@@ -13,10 +13,11 @@ import { toProjects } from "src/views/routes";
 
 export interface SectionProps {
   pageTitle: string;
-  buttonText: string;
+  buttonText?: string;
   buttonHandler?: MouseEventHandler;
   menuComponent?: React.ReactNode;
   returnLink?: string;
+  interactiveElement?: JSX.Element;
 }
 
 export default function PageHeader({
@@ -25,6 +26,7 @@ export default function PageHeader({
   buttonHandler = () => {},
   returnLink,
   menuComponent,
+  interactiveElement,
 }: SectionProps) {
   return (
     <Box>
@@ -39,7 +41,7 @@ export default function PageHeader({
         </StyledGridItem>
         <StyledGridItem secondary>
           {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
-          <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
+          {interactiveElement}
         </StyledGridItem>
       </StyledGrid>
     </Box>

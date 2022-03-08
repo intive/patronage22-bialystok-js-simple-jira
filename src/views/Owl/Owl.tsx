@@ -3,6 +3,7 @@ import PageHeader from "@modules/PageHeader/PageHeader";
 import { useTranslation } from "react-i18next";
 import { LoginView } from "../../components/Login/LoginView";
 import { styled } from "@mui/material/styles";
+import { Button } from "@components/Button/Button";
 
 export const StyledBox = styled(Box)(({}) => ({
   display: "flex",
@@ -17,7 +18,11 @@ export const Owl_components = () => {
     <Box>
       <PageHeader
         pageTitle={t("projectsTitle")}
-        buttonText={t("newProjectBtn")}
+        interactiveElement={
+          <Button onClick={() => console.log("works")}>
+            {t("newProjectBtn")}
+          </Button>
+        }
       />
       <StyledBox>
         <LoginView />
