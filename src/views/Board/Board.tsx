@@ -18,7 +18,7 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { name } = useParams();
+  const { boardID: name } = useParams();
 
   const menuOptions = [
     {
