@@ -8,7 +8,9 @@ interface StyledWrapperProps {
   secondary?: boolean;
 }
 
-export const StyledGridItem = styled(Grid)<StyledWrapperProps>`
+export const StyledGridItem = styled(({ secondary, ...props }) => (
+  <Grid {...props} />
+))<StyledWrapperProps>`
   margin-left: 64px;
   justify-content: center;
   display: flex;

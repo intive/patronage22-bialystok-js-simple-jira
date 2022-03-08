@@ -11,7 +11,9 @@ interface StyledSelectProps {
   blankValue?: boolean;
 }
 
-export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
+export const StyledFormControl = styled(
+  ({ secondary, fullWidth, ...props }) => <FormControl {...props} />
+)<StyledSelectProps>`
   border-color: transparent;
 
   ${({ secondary }) =>
@@ -41,7 +43,9 @@ export const StyledFormControl = styled(FormControl)<StyledSelectProps>`
   }
 `;
 
-export const StyledSelect = styled(Select)<StyledSelectProps>`
+export const StyledSelect = styled(({ secondary, blankValue, ...props }) => (
+  <Select {...props} />
+))<StyledSelectProps>`
   height: 40px;
   background-color: ${({ theme }) => theme.palette.grey[200]};
   border: none;
@@ -81,7 +85,9 @@ export const StyledSelect = styled(Select)<StyledSelectProps>`
     `}
 `;
 
-export const StyledMenuItem = styled(MenuItem)<StyledSelectProps>`
+export const StyledMenuItem = styled(({ secondary, fullWidth, ...props }) => (
+  <MenuItem {...props} />
+))<StyledSelectProps>`
   background-color: #fff;
   white-space: inherit;
   color: ${({ theme }) => theme.palette.grey[600]};
