@@ -1,5 +1,6 @@
 import CardActions from "@mui/material/CardActions";
 import { Link } from "react-router-dom";
+import { toProject } from "src/views/routes";
 
 import {
   Background,
@@ -15,7 +16,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
   <StyledCard>
-    <Link to={`/projects/${name}`}>
+    <Link to={toProject({ projectID: name })}>
       <Background />
     </Link>
     <Wrapper>
