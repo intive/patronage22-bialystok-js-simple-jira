@@ -6,6 +6,11 @@ import { theme } from "../theme/mainTheme";
 export default {
   title: "Input_Component",
   component: Input,
+  argTypes: {
+    onChange: {
+      action: "clicked",
+    },
+  },
 };
 
 const Template: ComponentStory<typeof Input> = (args: any) => (
@@ -25,7 +30,7 @@ InputStoryOutlined.args = {
   multiline: false,
   disabled: false,
   variant: "outlined",
-  error: false,
+  error: true,
 };
 
 InputStoryFilled.args = {
@@ -34,5 +39,41 @@ InputStoryFilled.args = {
   multiline: false,
   disabled: false,
   variant: "filled",
-  error: false,
+  error: true,
+};
+
+InputStory.parameters = {
+  controls: {
+    include: ["labelHelperText", "onChangeHandler", "variant"],
+    sort: "alpha",
+  },
+};
+
+InputStoryFilled.parameters = {
+  controls: {
+    include: [
+      "labelHelperText",
+      "onChangeHandler",
+      // "variant",
+      "multiline",
+      "maxRows",
+      "disabled",
+      "error",
+    ],
+    sort: "alpha",
+  },
+};
+
+InputStoryOutlined.parameters = {
+  controls: {
+    include: [
+      "labelHelperText",
+      "onChangeHandler",
+      // "variant",
+      "multiline",
+      "maxRows",
+      "error",
+    ],
+    sort: "alpha",
+  },
 };
