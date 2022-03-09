@@ -21,11 +21,6 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
       border: "none",
     },
   },
-  // "p.MuiFormHelperText-root": {
-  //   position: "absolute",
-  //   top: "48px",
-  //   marginTop: "0px",
-  // },
 }));
 
 export const StyledTextFieldWithoutBorder = styled(TextField)(({ theme }) => ({
@@ -50,11 +45,6 @@ export const StyledTextFieldWithoutBorder = styled(TextField)(({ theme }) => ({
   ".MuiOutlinedInput-notchedOutline": {
     border: "none",
   },
-  // "p.MuiFormHelperText-root": {
-  //   position: "absolute",
-  //   top: "48px",
-  //   marginTop: "0px",
-  // },
 }));
 
 export const StyledInputLabel = styled(InputLabel)(({ theme }) => ({

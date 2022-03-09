@@ -8,6 +8,7 @@ import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
+import { LoginView } from "./views/Login/LoginView";
 
 const App = () => (
   <>
@@ -20,6 +21,7 @@ const App = () => (
         <Route path='projects/:name' element={<Board />} />
         <Route path='owl' element={<Owl_components />} />
         <Route path='owlinput' element={<Owl_componentsInput />} />
+        <Route path='login' element={<LoginView />} />
       </Routes>
     </ThemeProvider>
   </>
