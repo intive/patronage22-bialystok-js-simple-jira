@@ -94,8 +94,9 @@ export default function CreateIssueDialog({
           value={values.summary}
           name='summary'
           labelHelperText={t("labelSummary")}
-          helperText={errors.summary}
+          helperText={t(errors.summary)}
           variant='filled'
+          error={errors.summary}
         />
         <LongInput
           onChangeHandler={handleChange}
@@ -103,8 +104,9 @@ export default function CreateIssueDialog({
           multiline
           name='description'
           labelHelperText={t("labelDescription")}
-          helperText={errors.description}
+          helperText={t(errors.description)}
           variant='filled'
+          error={errors.description}
         />
         <Select
           secondary
