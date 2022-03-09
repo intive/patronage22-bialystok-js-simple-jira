@@ -1,16 +1,22 @@
 import { BaseTextFieldProps } from "@mui/material";
 import { ChangeEventHandler } from "react";
-import { StyledTextField, StyledInputLabel } from "./Input.style";
+import {
+  StyledTextField,
+  StyledInputLabel,
+  StyledTextFieldWithoutBorder,
+} from "./Input.style";
 
 export interface Input extends BaseTextFieldProps {
   labelHelperText?: string;
   onChangeHandler?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+  withoutBorder?: boolean;
 }
 
 const Input = ({
   labelHelperText,
   onChangeHandler,
   variant,
+  withoutBorder = false,
   ...extraProps
 }: Input) => {
   return (
@@ -18,12 +24,21 @@ const Input = ({
       <StyledInputLabel htmlFor='styled-text-input' className={variant}>
         {labelHelperText}
       </StyledInputLabel>
-      <StyledTextField
-        onChange={onChangeHandler}
-        id='styled-text-input'
-        variant={variant}
-        {...extraProps}
-      />
+      {withoutBorder ? (
+        <StyledTextFieldWithoutBorder
+          onChange={onChangeHandler}
+          id='styled-text-input'
+          variant={variant}
+          {...extraProps}
+        />
+      ) : (
+        <StyledTextField
+          onChange={onChangeHandler}
+          id='styled-text-input'
+          variant={variant}
+          {...extraProps}
+        />
+      )}
     </>
   );
 };
