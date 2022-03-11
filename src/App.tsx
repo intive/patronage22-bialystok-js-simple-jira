@@ -7,6 +7,7 @@ import { Projects } from "./views/Projects/Projects";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
 import { Owl_components } from "./views/Owl/Owl";
+import PrivateRoute from "./components/PrivateRoute";
 import {
   toProject,
   toHome,
@@ -16,6 +17,7 @@ import {
 } from "./views/routes";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
+import { LoginView } from "./views/Login/LoginView";
 
 const Boards = () => {
   const { projectID } = useParams();
@@ -65,12 +67,55 @@ const App = () => {
         />
       ) : (
         <Routes>
-          <Route path={toHome} element={<Home />} />
-          <Route path={toProjects} element={<Projects />} />
-          <Route path={toProject()} element={<Boards />} />
-          <Route path={toBoard()} element={<Board />} />
-          <Route path={toIssue()} element={<Issue />} />
-          <Route path='issue-details' element={<IssueDetails />} />
+          <Route
+            path={toHome}
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route path='login' element={<LoginView />} />
+          <Route
+            path={toProjects}
+            element={
+              <PrivateRoute>
+                <Projects />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={toProject()}
+            element={
+              <PrivateRoute>
+                <Boards />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={toBoard()}
+            element={
+              <PrivateRoute>
+                <Board />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={toIssue()}
+            element={
+              <PrivateRoute>
+                <Issue />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='issue-details'
+            element={
+              <PrivateRoute>
+                <IssueDetails />
+              </PrivateRoute>
+            }
+          />
           <Route path='*' element={<Navigate to={toProjects} />} />
         </Routes>
       )}

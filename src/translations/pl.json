@@ -41,5 +41,6 @@
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
-  "Done": "Wykonane"
+  "Done": "Wykonane",
+  "LoginError": "Pola nie mogą być puste!"
 }
