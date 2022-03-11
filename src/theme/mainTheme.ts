@@ -53,7 +53,7 @@ let theme = createTheme({
 theme = createTheme(theme, {
   palette: {
     text: {
-      primary: theme.palette.grey[900],
+      primary: theme.palette.grey[700],
       secondary: "#ffffff",
     },
   },

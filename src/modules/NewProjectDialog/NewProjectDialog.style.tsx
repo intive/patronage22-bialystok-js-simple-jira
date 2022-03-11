@@ -30,13 +30,14 @@ export const IconBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export const StyledDialogTitle = styled(DialogTitle)({
+export const StyledDialogTitle = styled(DialogTitle)(({ theme }) => ({
+  color: theme.palette.text.primary,
   textAlign: "center",
   lineHeight: "32px",
   fontSize: "24px",
   padding: 0,
   marginBottom: "16px",
-});
+}));
 
 export const ButtonBox = styled(Box)(() => ({
   alignSelf: "flex-end",
