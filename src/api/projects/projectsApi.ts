@@ -9,7 +9,7 @@ const FetchProjectsAPI = {
     const response = await makeRequest("/api/project", "GET", null);
     const projects = await response.json();
     console.log("get projects - status:", response.status);
-    return projects.result;
+    return projects.data;
   },
   addProject: async function (projectToAdd: DataObject) {
     const response = await makeRequest("/api/project/", "POST", projectToAdd);

@@ -9,6 +9,7 @@ import PageHeader from "@modules/PageHeader/PageHeader";
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import Content from "@components/Content/Content";
+import { Button } from "@components/Button/Button";
 
 let FetchProjectsAPI: any;
 
@@ -66,8 +67,11 @@ export const Projects = () => {
         </ConfirmationDialog>
         <PageHeader
           pageTitle={t("projectsViewTitle")}
-          buttonText={t("newProjectBtn")}
-          buttonHandler={() => console.log("works")}
+          interactiveElement={
+            <Button onClick={() => console.log("works")}>
+              {t("newProjectBtn")}
+            </Button>
+          }
         />
         <StyledProjectList>
           <Grid container spacing={3}>

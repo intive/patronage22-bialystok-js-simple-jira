@@ -11,6 +11,7 @@ import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
+import { Button } from "@components/Button/Button";
 
 export const Board = () => {
   const [boards, setBoards] = useState(mockBoards);
@@ -49,10 +50,13 @@ export const Board = () => {
     <StyledPageWrapper>
       <PageHeader
         pageTitle={`${t("boardsTitle")} ${name}`}
-        buttonText={t("newIssueBtn")}
-        buttonHandler={() => console.log("button clicked")}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLink={t("boardsBackLink")}
+        interactiveElement={
+          <Button onClick={() => console.log("button clicked")}>
+            {t("newIssueBtn")}
+          </Button>
+        }
       />
       {boardNumberAlert && (
         <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
