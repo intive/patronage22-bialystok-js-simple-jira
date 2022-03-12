@@ -1,6 +1,6 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import { ComponentStory } from "@storybook/react";
 
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../mockData/menuItems";
 
 export default {
@@ -8,7 +8,7 @@ export default {
   component: ThreeDotsMenu,
 };
 
-const Template: ComponentStory<typeof ThreeDotsMenu> = (args: any) => (
+const Template: ComponentStory<typeof ThreeDotsMenu> = (args) => (
   <ThreeDotsMenu {...args} />
 );
 

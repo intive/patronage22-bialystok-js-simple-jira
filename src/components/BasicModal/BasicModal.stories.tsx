@@ -1,6 +1,4 @@
-import { ThemeProvider } from "@mui/material";
 import { ComponentStory } from "@storybook/react";
-import { theme } from "../../theme/mainTheme";
 import EditIcon from "@mui/icons-material/Edit";
 
 import BasicModal from "@components/BasicModal/BasicModal";
@@ -20,9 +18,7 @@ export default {
 };
 
 const Template: ComponentStory<typeof BasicModal> = (args) => (
-  <ThemeProvider theme={theme}>
-    <BasicModal {...args}>{args.children}</BasicModal>
-  </ThemeProvider>
+  <BasicModal {...args}>{args.children}</BasicModal>
 );
 
 export const CreateProject = Template.bind({});

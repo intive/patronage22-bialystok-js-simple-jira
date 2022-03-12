@@ -29,17 +29,9 @@ export const StyledFormControl = styled(
     `}
 
   & .MuiSvgIcon-root {
-    right: 0;
-    fill: ${({ theme, secondary }) =>
+    right: 10px;
+    color: ${({ theme, secondary }) =>
       secondary ? theme.palette.grey[400] : theme.palette.grey[800]};
-    padding-right: 20px;
-    padding-left: 10px;
-    border-color: transparent;
-  }
-
-  & .MuiSelect-iconOpen {
-    padding-right: 10px;
-    padding-left: 20px;
   }
 `;
 
@@ -56,7 +48,7 @@ export const StyledSelect = styled(({ secondary, blankValue, ...props }) => (
   color: ${({ theme }) => theme.palette.grey[800]};
 
   & .MuiSelect-select {
-    padding: 8px 44px 8px 24px !important;
+    padding: 8px 38px 8px 24px !important;
   }
 
   & .MuiOutlinedInput-notchedOutline {
@@ -88,7 +80,7 @@ export const StyledSelect = styled(({ secondary, blankValue, ...props }) => (
 export const StyledMenuItem = styled(({ secondary, fullWidth, ...props }) => (
   <MenuItem {...props} />
 ))<StyledSelectProps>`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.palette.background.paper};
   white-space: inherit;
   color: ${({ theme }) => theme.palette.grey[600]};
 

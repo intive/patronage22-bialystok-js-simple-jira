@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Routes, Route, useParams, Navigate, Link } from "react-router-dom";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./theme/mainTheme";
 import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
 import { Board } from "./views/Board/Board";
@@ -14,7 +12,6 @@ import {
   toBoard,
   toProjects,
 } from "./views/routes";
-import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
 
 const Boards = () => {
@@ -57,7 +54,7 @@ const App = () => {
   const [token, setToken] = useState(true);
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Navbar />
       {!token ? (
         <Owl_components
@@ -74,7 +71,7 @@ const App = () => {
           <Route path='*' element={<Navigate to={toProjects} />} />
         </Routes>
       )}
-    </ThemeProvider>
+    </>
   );
 };
 

@@ -1,7 +1,5 @@
 import { ComponentStory } from "@storybook/react";
-import { ThemeProvider } from "@mui/material/styles";
 import Input from "@components/Input/Input";
-import { theme } from "../theme/mainTheme";
 
 export default {
   title: "Input_Component",
@@ -9,9 +7,7 @@ export default {
 };
 
 const Template: ComponentStory<typeof Input> = (args: any) => (
-  <ThemeProvider theme={theme}>
-    <Input {...args} />
-  </ThemeProvider>
+  <Input {...args} />
 );
 
 export const InputStory = Template.bind({});

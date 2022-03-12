@@ -1,18 +1,24 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import { Provider } from "react-redux";
-import { store } from "./state/index";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
+import App from "./App";
+import { store } from "./state/index";
+import { theme } from "./theme/mainTheme";
 import "./translations/i18n";
+import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")
