@@ -6,7 +6,6 @@ import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
-import { Owl_components } from "./views/Owl/Owl";
 import PrivateRoute from "./components/PrivateRoute";
 import {
   toProject,
@@ -17,7 +16,6 @@ import {
 } from "./views/routes";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
-import { LoginView } from "./views/Login/LoginView";
 
 const Boards = () => {
   const { projectID } = useParams();
