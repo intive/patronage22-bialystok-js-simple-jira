@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-export const StyledPageWrapper = styled(Box)(({ theme }) => ({
+export const StyledPageWrapper = styled(Box)({
   marginTop: "80px",
-  backgroundColor: theme.palette.grey[50],
   height: "calc(100vh - 80px)",
   overflow: "auto",
-}));
+});
 
 export const IssueBodyContent = styled(Box)({
   padding: "48px 64px",
@@ -39,8 +38,8 @@ export const TextOutlined = styled(TextNormal)(({ theme }) => ({
 }));
 
 export const Section = styled(Box)(({ theme }) => ({
-  background: "#FFFFFF",
-  padding: "32px 48px 40px 48px",
+  background: theme.palette.background.paper,
+  padding: "32px 48px",
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.customShadows.primary,
 
