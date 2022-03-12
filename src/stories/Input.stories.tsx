@@ -23,6 +23,7 @@ export const InputStory = Template.bind({});
 
 export const InputStoryOutlined = Template.bind({});
 export const InputStoryFilled = Template.bind({});
+export const InputStoryMulti = Template.bind({});
 
 InputStoryOutlined.args = {
   labelHelperText: "Description",
@@ -42,6 +43,16 @@ InputStoryFilled.args = {
   error: true,
 };
 
+InputStoryMulti.args = {
+  labelHelperText: "Description",
+  helperText: "This is wrong!",
+  multiline: true,
+  disabled: false,
+  variant: "filled",
+  error: true,
+  maxRows: 3,
+};
+
 InputStory.parameters = {
   controls: {
     include: ["labelHelperText", "onChangeHandler", "variant"],
@@ -51,28 +62,27 @@ InputStory.parameters = {
 
 InputStoryFilled.parameters = {
   controls: {
-    include: [
-      "labelHelperText",
-      "onChangeHandler",
-      // "variant",
-      "multiline",
-      "maxRows",
-      "disabled",
-      "error",
-    ],
+    include: ["labelHelperText", "onChangeHandler", "disabled", "error"],
     sort: "alpha",
   },
 };
 
 InputStoryOutlined.parameters = {
   controls: {
+    include: ["labelHelperText", "onChangeHandler", "error"],
+    sort: "alpha",
+  },
+};
+
+InputStoryMulti.parameters = {
+  controls: {
     include: [
       "labelHelperText",
       "onChangeHandler",
-      // "variant",
+      "variant",
       "multiline",
-      "maxRows",
       "error",
+      "maxRows",
     ],
     sort: "alpha",
   },
