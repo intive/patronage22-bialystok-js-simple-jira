@@ -3,7 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import Input from "../../components/Input/Input";
 
-import { StyledBoxForm, StyledBoxLogin, StyledBoxPassword } from "./Loginstyle";
+import {
+  StyledBoxForm,
+  StyledBoxLogin,
+  StyledBoxPassword,
+  StyledBoxContainer,
+} from "./Loginstyle";
 
 import { getLocalStorage, setLocalStorage } from "src/utils/localStorage";
 
@@ -38,25 +43,27 @@ export const LoginView = () => {
   };
 
   return (
-    <StyledBoxForm component='form' onKeyDown={handleOnKeyDown}>
-      <StyledBoxLogin>
-        <Input
-          variant='outlined'
-          labelHelperText={t("LoginLabel")}
-          fullWidth
-          onChangeHandler={handleLoginChange}
-        />
-      </StyledBoxLogin>
-      <StyledBoxPassword>
-        <Input
-          variant='outlined'
-          labelHelperText={t("PasswordLabel")}
-          fullWidth
-          value={password}
-          type='password'
-          onChangeHandler={handlePasswordChange}
-        />
-      </StyledBoxPassword>
-    </StyledBoxForm>
+    <StyledBoxContainer>
+      <StyledBoxForm component='form' onKeyDown={handleOnKeyDown}>
+        <StyledBoxLogin>
+          <Input
+            variant='outlined'
+            labelHelperText={t("LoginLabel")}
+            fullWidth
+            onChangeHandler={handleLoginChange}
+          />
+        </StyledBoxLogin>
+        <StyledBoxPassword>
+          <Input
+            variant='outlined'
+            labelHelperText={t("PasswordLabel")}
+            fullWidth
+            value={password}
+            type='password'
+            onChangeHandler={handlePasswordChange}
+          />
+        </StyledBoxPassword>
+      </StyledBoxForm>
+    </StyledBoxContainer>
   );
 };
