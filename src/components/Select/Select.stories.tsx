@@ -1,6 +1,5 @@
-import { SelectChangeEvent, ThemeProvider } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import { theme } from "../../theme/mainTheme";
 
 import { useArgs } from "@storybook/client-api";
 import { Select } from "@components/Select/Select";
@@ -24,17 +23,15 @@ export const SelectStoryNoValue = ({ ...args }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Select
-        {...args}
-        value={selectValue || "Select option"}
-        options={["Option 1", "Option 2", "Option 3"]}
-        handleSelect={handleChange}
-        secondary={secondary}
-        blankValue={selectValue ? false : true}
-        fullWidth={fullWidth}
-      />
-    </ThemeProvider>
+    <Select
+      {...args}
+      value={selectValue || "Select option"}
+      options={["Option 1", "Option 2", "Option 3"]}
+      handleSelect={handleChange}
+      secondary={secondary}
+      blankValue={selectValue ? false : true}
+      fullWidth={fullWidth}
+    />
   );
 };
 
@@ -47,14 +44,12 @@ export const SelectStory = ({ ...args }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Select
-        {...args}
-        value={selectValue}
-        options={["Option 1", "Option 2", "Option 3"]}
-        handleSelect={handleChange}
-        blankValue={selectValue ? false : true}
-      />
-    </ThemeProvider>
+    <Select
+      {...args}
+      value={selectValue}
+      options={["Option 1", "Option 2", "Option 3"]}
+      handleSelect={handleChange}
+      blankValue={selectValue ? false : true}
+    />
   );
 };
