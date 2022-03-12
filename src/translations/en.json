@@ -42,5 +42,5 @@
   "ToDo": "To do",
   "InProgress": "In progress",
   "Done": "Done",
-  "LoginError": "Pola nie mogą być puste!"
+  "LoginError": "Fields cannot be empty!"
 }
