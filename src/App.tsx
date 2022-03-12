@@ -6,7 +6,7 @@ import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
-import { Owl_components } from "./views/Owl/Owl";
+import PrivateRoute from "./components/PrivateRoute";
 import {
   toProject,
   toHome,
