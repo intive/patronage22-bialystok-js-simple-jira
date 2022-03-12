@@ -14,6 +14,8 @@ import {
   toBoard,
   toProjects,
 } from "./views/routes";
+import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
+import { IssueDetails } from "./views/IssueDetails/IssueDetails";
 
 const Boards = () => {
   const { projectID } = useParams();
@@ -68,6 +70,7 @@ const App = () => {
           <Route path={toProject()} element={<Boards />} />
           <Route path={toBoard()} element={<Board />} />
           <Route path={toIssue()} element={<Issue />} />
+          <Route path='issue-details' element={<IssueDetails />} />
           <Route path='*' element={<Navigate to={toProjects} />} />
         </Routes>
       )}

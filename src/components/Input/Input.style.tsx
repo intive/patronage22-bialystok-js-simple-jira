@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 export const StyledTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-root": {
     color: theme.palette.grey[800],
+    backgroundColor: theme.palette.grey[50],
     minHeight: "48px",
     borderRadius: theme.shape.borderRadius,
   },
@@ -20,11 +21,6 @@ export const StyledTextField = styled(TextField)(({ theme }) => ({
     "&:after, &:before": {
       border: "none",
     },
-  },
-  "p.MuiFormHelperText-root": {
-    position: "absolute",
-    top: "48px",
-    marginTop: "0px",
   },
 }));
 
