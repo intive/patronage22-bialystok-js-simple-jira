@@ -56,6 +56,9 @@ theme = createTheme(theme, {
       primary: theme.palette.grey[700],
       secondary: "#ffffff",
     },
+    background: {
+      default: theme.palette.grey[50],
+    },
   },
   typography: {
     capitalHeader: {
