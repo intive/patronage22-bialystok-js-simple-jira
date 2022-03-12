@@ -16,6 +16,8 @@ import {
 } from "./views/routes";
 import { Owl_componentsInput } from "./views/OwlInput/OwlInput";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
+import { Owl_components } from "./views/Owl/Owl";
+import { LoginView } from "./views/Login/LoginView";
 
 const Boards = () => {
   const { projectID } = useParams();
