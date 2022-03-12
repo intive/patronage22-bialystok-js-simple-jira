@@ -4,7 +4,7 @@ import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
-import { mockBoards } from "../../mockData/mockBoards";
+import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
@@ -51,7 +51,8 @@ export const Board = () => {
       <PageHeader
         pageTitle={`${t("boardsTitle")} ${name}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
-        returnLink={t("boardsBackLink")}
+        returnLinkName={t("boardsBackLink")}
+        returnLink={`/projects/${name}`}
         interactiveElement={
           <Button onClick={() => console.log("button clicked")}>
             {t("newIssueBtn")}
