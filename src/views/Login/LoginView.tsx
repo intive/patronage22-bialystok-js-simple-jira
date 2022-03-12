@@ -8,7 +8,7 @@ import {
   StyledBoxLogin,
   StyledBoxPassword,
   StyledBoxContainer,
-} from "./Loginstyle";
+} from "./LoginView.style";
 
 import { getLocalStorage, setLocalStorage } from "src/utils/localStorage";
 
