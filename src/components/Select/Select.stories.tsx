@@ -1,6 +1,6 @@
-import { SelectChangeEvent } from "@mui/material";
+import { Paper, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-
+import { ComponentMeta } from "@storybook/react";
 import { useArgs } from "@storybook/client-api";
 import { Select } from "@components/Select/Select";
 
@@ -11,7 +11,14 @@ export default {
     secondary: true,
     fullWidth: false,
   },
-};
+  decorators: [
+    (Story) => (
+      <Paper sx={{ padding: 6 }} square>
+        <Story />
+      </Paper>
+    ),
+  ],
+} as ComponentMeta<typeof Select>;
 
 export const SelectStoryNoValue = ({ ...args }) => {
   const [{ secondary, fullWidth }] = useArgs();
