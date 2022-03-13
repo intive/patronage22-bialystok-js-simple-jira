@@ -39,6 +39,8 @@
   "PasswordLabel": "Hasło",
   "ErrorInputText": "Błędne dane wejściowe!",
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
+  "descriptionRequired": "Opis jest wymagany",
+  "summaryRequired": "Podsumowanie jest wymagane",
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
   "Done": "Wykonane",
