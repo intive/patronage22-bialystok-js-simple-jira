@@ -1,9 +1,7 @@
 import { ComponentStory } from "@storybook/react";
-import { ThemeProvider } from "@mui/material";
 
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
-import { theme } from "../theme/mainTheme";
 import { mockMenuItems } from "../mockData/menuItems";
 
 export default {
@@ -12,11 +10,9 @@ export default {
 };
 
 const Template: ComponentStory<typeof ProjectCard> = (args) => (
-  <ThemeProvider theme={theme}>
-    <div style={{ maxWidth: 416 }}>
-      <ProjectCard {...args} />
-    </div>
-  </ThemeProvider>
+  <div style={{ maxWidth: 416 }}>
+    <ProjectCard {...args} />
+  </div>
 );
 
 export const WithoutMenuComponent = Template.bind({});

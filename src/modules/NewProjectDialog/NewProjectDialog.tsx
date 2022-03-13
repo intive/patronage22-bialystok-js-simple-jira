@@ -93,6 +93,7 @@ export default function NewProjectDialog({
           onChangeHandler={handleInputChange}
           error={Boolean(error)}
           helperText={error}
+          variant='filled'
         />
         <ButtonBox>
           <Button onClick={handleClose} variant='text'>

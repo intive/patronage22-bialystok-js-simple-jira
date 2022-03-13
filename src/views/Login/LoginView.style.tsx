@@ -6,7 +6,6 @@ export const StyledBoxForm = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   width: "416px",
-  height: "248px",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: theme.palette.text.secondary,
   boxShadow: theme.customShadows.primary,
@@ -32,3 +31,4 @@ export const StyledBoxContainer = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
 }));
+

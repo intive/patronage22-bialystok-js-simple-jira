@@ -1,9 +1,6 @@
-import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { theme } from "../../theme/mainTheme";
 
 import "../../translations/i18n";
-import { useState } from "react";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 
 export default {
@@ -16,9 +13,7 @@ export default {
 } as ComponentMeta<typeof ConfirmationDialog>;
 
 const Template: ComponentStory<typeof ConfirmationDialog> = (args) => (
-  <ThemeProvider theme={theme}>
-    <ConfirmationDialog {...args}>{args.children}</ConfirmationDialog>
-  </ThemeProvider>
+  <ConfirmationDialog {...args}>{args.children}</ConfirmationDialog>
 );
 
 export const Basic = Template.bind({});
