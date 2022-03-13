@@ -25,14 +25,14 @@ export const Board = () => {
     {
       id: 0,
       icon: <ViewWeekOutlinedIcon />,
-      label: "Add column",
+      label: `${t("addColumn")}`,
       onClick: () => setIsDialogOpen(!isDialogOpen),
     },
     {
       id: 1,
       icon: <DeleteOutlineIcon />,
-      label: "Delete project",
-      onClick: () => console.log("project deleted"),
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("column deleted"),
     },
   ];
 
@@ -73,7 +73,7 @@ export const Board = () => {
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
         dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("boardDialogHelperText")}
+        dialogHelper={t("columnDialogHelperText")}
         handleClick={handleAddNewBoard}
         board
       />

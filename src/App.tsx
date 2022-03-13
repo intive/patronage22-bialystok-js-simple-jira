@@ -47,8 +47,8 @@ const App = () => {
         <Routes>
           <Route path={toHome} element={<Home />} />
           <Route path={toProjects} element={<Projects />} />
-          <Route path='projects/:project' element={<BoardsList />} />
-          <Route path='projects/:project/:board' element={<Board />} />
+          <Route path='projects/:projectID' element={<BoardsList />} />
+          <Route path='projects/:projectID/:board' element={<Board />} />
           <Route path={toIssue()} element={<Issue />} />
           <Route path='issue-details' element={<IssueDetails />} />
           <Route path='*' element={<Navigate to={toProjects} />} />

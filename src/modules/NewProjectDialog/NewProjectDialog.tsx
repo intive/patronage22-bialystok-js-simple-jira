@@ -65,13 +65,6 @@ export default function NewProjectDialog({
     setIsOpen(false);
   };
 
-  const handleCreate = () => {
-    board
-      ? (handleClick = handleClick(inputValue))
-      : (handleClick = handleClick);
-    setIsLoading(true);
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setError("");
@@ -102,7 +95,10 @@ export default function NewProjectDialog({
           {isLoading ? (
             <LoadingButton sx={{ minWidth: "98.77px" }} loading={true} />
           ) : (
-            <Button disabled={!!error || !inputValue} onClick={handleCreate}>
+            <Button
+              disabled={!!error || !inputValue}
+              onClick={() => handleClick(inputValue)}
+            >
               {t("createBtn")}
             </Button>
           )}

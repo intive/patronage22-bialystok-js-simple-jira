@@ -18,12 +18,14 @@
   "dialogCreateProjectTitle": "Podaj nazwę projektu",
   "dialogCreateProjectHelperText": "Nazwa projektu musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
   "projectsTitle": "Projekty",
-  "newBoardBtn": "New tablica",
+  "projectBoards": "Tablice projektu",
+  "newBoardBtn": "Nowa tablica",
   "boardsTitle": "Tablice",
   "boardsBackLink": "Powrót do Tablic",
   "newIssueBtn": "Stwórz zgłoszenie",
   "boardDialogTitle": "Podaj nazwę tablicy",
   "boardDialogHelperText": "Nazwa tablicy musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
+  "columnDialogHelperText": "Nazwa kolumny musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
   "boardAlertNumber": "Możesz mieć maksymalnie 5 tablic!",
   "boardAlertName": "Nazwy tablic nie mogą być takie same!",
   "labelSummary": "Podsumowanie",
@@ -41,5 +43,8 @@
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
-  "Done": "Wykonane"
+  "Done": "Wykonane",
+  "addColumn": "Dodaj kolumnę",
+  "deleteBoard": "Usuń tablicę",
+  "createNewBoard": "Nazwij Tablicę"
 }

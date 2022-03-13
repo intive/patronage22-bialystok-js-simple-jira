@@ -100,6 +100,7 @@ export const Projects = () => {
                     />
                   }
                   name={project.name}
+                  id={project.id}
                 />
               </Grid>
             ))}

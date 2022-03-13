@@ -20,10 +20,12 @@
   "projectsTitle": "Projects",
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
+  "projectBoards": "Boards of project",
   "boardsBackLink": "Return to Boards",
   "newIssueBtn": "Create issue",
   "boardDialogTitle": "Name your board",
   "boardDialogHelperText": "Board title has to be at least one character long and cannot begin/end with a whitespace",
+  "columnDialogHelperText": "Column title has to be at least one character long and cannot begin/end with a whitespace",
   "boardAlertNumber": "You can have max. 5 boards!",
   "boardAlertName": "Names of the boards cannot be the same!",
   "labelSummary": "Summary",
@@ -41,5 +43,8 @@
   "deleteProjectWarning": "Are you sure you want to delete this project?",
   "ToDo": "To do",
   "InProgress": "In progress",
-  "Done": "Done"
+  "Done": "Done",
+  "addColumn": "Add column",
+  "deleteBoard": "Delete board",
+  "createNewBoard": "Name your Board"
 }
