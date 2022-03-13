@@ -22,7 +22,6 @@ import {
   doFetch,
 } from "src/hooks/useRequest";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
-import nextId from "react-id-generator";
 
 export const BoardsList = () => {
   const [boardsList, setBoardsList] = useState<BoardList[]>();
@@ -65,24 +64,32 @@ export const BoardsList = () => {
   }, [boards]);
 
   const handleAddNewBoard = (value: any) => {
-    const boardId = nextId();
+    const getRandomInt = (min: number, max: number) => {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    };
+    const id = getRandomInt(3333, 99999);
+
     const data = {
-      id: boardId,
-      alias: value,
-      name: value,
-      description: "string",
-      projectId: projectID,
-      statusId: 0,
-      boardId: boardId,
-      isActive: true,
-      createdOn: new Date(),
-      modifiedOn: new Date(),
-      board_Status: [
-        {
-          boardId: boardId,
-          statusId: 0,
-        },
-      ],
+      data: {
+        id: id,
+        alias: value,
+        name: value,
+        description: "string",
+        projectId: projectID,
+        statusId: 0,
+        boardId: id,
+        isActive: true,
+        createdOn: new Date(),
+        modifiedOn: new Date(),
+        board_Status: [
+          {
+            boardId: 0,
+            statusId: 0,
+          },
+        ],
+      },
     };
 
     doFetch(API_ADD_NEW_BOARD, "POST", data);

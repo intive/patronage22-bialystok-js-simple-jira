@@ -15,11 +15,7 @@ export const doFetch = (customUrl: string, method: string, body?: any) => {
     .catch((err) => err.message);
 };
 
-export const useSingleDataRequest = (
-  url: string,
-  method: string,
-  body?: any
-) => {
+export const useSingleDataRequest = (url: string, method: string) => {
   const [singleDataFetch, setSingleDataFetch] = useState<ProjectByID>();
 
   useEffect(() => {
