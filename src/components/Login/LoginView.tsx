@@ -52,7 +52,6 @@ export const LoginView = () => {
       <StyledBoxPassword>
         <Input
           name={InputNames.PASSWORD}
-          onKeyPress={(e) => {}}
           onChangeHandler={handleChange}
           value={values.password}
           variant='outlined'

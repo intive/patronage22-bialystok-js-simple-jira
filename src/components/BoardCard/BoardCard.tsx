@@ -1,6 +1,5 @@
 import CardActions from "@mui/material/CardActions";
 import { Link } from "react-router-dom";
-import { toProject } from "src/views/routes";
 
 import {
   Background,
@@ -8,24 +7,28 @@ import {
   ProjectName,
   StyledCard,
   Wrapper,
-} from "./styled";
-interface ProjectCardProps {
-  name: string;
+} from "./BoardCard.style";
+
+interface BoardCardProps {
+  projectName: string;
+  boardName: string;
   menuComponent?: React.ReactNode;
 }
 
-const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
+export const BoardCard = ({
+  boardName,
+  menuComponent,
+  projectName,
+}: BoardCardProps) => (
   <StyledCard>
-    <Link to={`/projects/${name}`}>
+    <Link to={`/projects/${projectName}/${boardName}`}>
       <Background />
     </Link>
     <Wrapper>
       <CardContent>
-        <ProjectName component='h3'>{name}</ProjectName>
+        <ProjectName component='h3'>{boardName}</ProjectName>
       </CardContent>
       {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
     </Wrapper>
   </StyledCard>
 );
-
-export default ProjectCard;

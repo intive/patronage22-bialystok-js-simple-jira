@@ -1,38 +1,16 @@
 import { useContext } from "react";
-import { Routes, Route, useParams, Navigate, Link } from "react-router-dom";
+import { Routes, Route, useParams, Navigate } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
+import { BoardsList } from "./views/BoardList/BoardsList";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
-import { Owl_components } from "./views/Owl/Owl";
-import {
-  toProject,
-  toHome,
-  toIssue,
-  toBoard,
-  toProjects,
-} from "./views/routes";
+import PrivateRoute from "./components/PrivateRoute";
+import { toHome, toIssue, toProjects } from "./views/routes";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
+import { Owl_components } from "./views/Owl/Owl";
+import { LoginView } from "./views/Login/LoginView";
 import { AuthContext } from "./contexts/authentication";
-
-const Boards = () => {
-  const { projectID } = useParams();
-
-  return (
-    <div style={{ marginTop: 100 }}>
-      <h1>Project/Boards list</h1>
-      {!!projectID && (
-        <>
-          <p>Project: {projectID}</p>
-          <Link to={toProjects}>Go back to Projects</Link>
-          <Link style={{ margin: 5 }} to={toBoard({ projectID, boardID: "2" })}>
-            Go to Board 2
-          </Link>
-        </>
-      )}
-    </div>
-  );
-};
 
 const Issue = () => {
   const { projectID, boardID, issueID } = useParams();
@@ -63,12 +41,55 @@ const App = () => {
         <Owl_components />
       ) : (
         <Routes>
-          <Route path={toHome} element={<Home />} />
-          <Route path={toProjects} element={<Projects />} />
-          <Route path={toProject()} element={<Boards />} />
-          <Route path={toBoard()} element={<Board />} />
-          <Route path={toIssue()} element={<Issue />} />
-          <Route path='issue-details' element={<IssueDetails />} />
+          <Route
+            path={toHome}
+            element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route path='login' element={<LoginView />} />
+          <Route
+            path={toProjects}
+            element={
+              <PrivateRoute>
+                <Projects />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='projects/:project'
+            element={
+              <PrivateRoute>
+                <BoardsList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='projects/:project/:board'
+            element={
+              <PrivateRoute>
+                <Board />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={toIssue()}
+            element={
+              <PrivateRoute>
+                <Issue />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='issue-details'
+            element={
+              <PrivateRoute>
+                <IssueDetails />
+              </PrivateRoute>
+            }
+          />
           <Route path='*' element={<Navigate to={toProjects} />} />
         </Routes>
       )}

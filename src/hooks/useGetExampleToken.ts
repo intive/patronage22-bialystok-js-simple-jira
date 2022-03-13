@@ -16,7 +16,6 @@ export const useGetExampleToken = () => {
   return (credentials: Credentials) => {
     // TO-DO: fetch real token from Backend
     if (credentials.login === LOGIN && credentials.password === PASSWORD) {
-      console.log(credentials);
       dispatch(logIn(EXAMPLE_TOKEN));
     } else {
       dispatch(logOut());
