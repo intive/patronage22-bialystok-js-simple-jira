@@ -38,5 +38,7 @@
   "LoginLabel": "Login",
   "PasswordLabel": "Hasło",
   "ErrorInputText": "Błędne dane wejściowe!",
-  "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?"
+  "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
+  "alertProjectCreated": "Nowy Projekt Dodany",
+  "alertProjectError": "Błąd przy tworzeniu projektu"
 }
