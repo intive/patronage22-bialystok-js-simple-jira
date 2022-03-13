@@ -1,19 +1,12 @@
 import { useState } from "react";
-import { Routes, Route, useParams, Navigate, Link } from "react-router-dom";
+import { Routes, Route, useParams, Navigate } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
 import { BoardsList } from "./views/BoardList/BoardsList";
 import { Board } from "./views/Board/Board";
-import { BoardCard } from "./components/BoardCard/BoardCard";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
-import {
-  toProject,
-  toHome,
-  toIssue,
-  toBoard,
-  toProjects,
-} from "./views/routes";
+import { toHome, toIssue, toProjects } from "./views/routes";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
 import { Owl_components } from "./views/Owl/Owl";
 import { LoginView } from "./views/Login/LoginView";
@@ -65,15 +58,15 @@ const App = () => {
             }
           />
           <Route
-            path={toProject()}
+            path='projects/:project'
             element={
               <PrivateRoute>
-                <Boards />
+                <BoardsList />
               </PrivateRoute>
             }
           />
           <Route
-            path={toBoard()}
+            path='projects/:project/:board'
             element={
               <PrivateRoute>
                 <Board />
