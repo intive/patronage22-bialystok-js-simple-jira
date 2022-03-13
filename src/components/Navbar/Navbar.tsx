@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -17,6 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
 import LogoutIcon from "@mui/icons-material/Logout";
 import IconButton from "@mui/material/IconButton";
+import { AuthContext, logOut } from "src/contexts/authentication";
 
 const Search = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -40,6 +41,7 @@ export default function Navbar() {
     setQuery(event.target.value);
   };
   const { t, i18n } = useTranslation();
+  const { dispatch } = useContext(AuthContext);
 
   return (
     <Box>
@@ -71,7 +73,7 @@ export default function Navbar() {
               <StyledIconButton>
                 <DarkModeTwoToneIcon />
               </StyledIconButton>
-              <StyledIconButton>
+              <StyledIconButton onClick={() => dispatch(logOut())}>
                 <LogoutIcon />
               </StyledIconButton>
             </NavbarWrapper>

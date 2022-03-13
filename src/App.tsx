@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { Routes, Route, useParams, Navigate, Link } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { Projects } from "./views/Projects/Projects";
@@ -13,6 +13,7 @@ import {
   toProjects,
 } from "./views/routes";
 import { IssueDetails } from "./views/IssueDetails/IssueDetails";
+import { AuthContext } from "./contexts/authentication";
 
 const Boards = () => {
   const { projectID } = useParams();
@@ -51,15 +52,15 @@ const Issue = () => {
 };
 
 const App = () => {
-  const [token, setToken] = useState(true);
+  const {
+    state: { token },
+  } = useContext(AuthContext);
 
   return (
     <>
       <Navbar />
       {!token ? (
-        <Owl_components
-        // setToken={setToken}
-        />
+        <Owl_components />
       ) : (
         <Routes>
           <Route path={toHome} element={<Home />} />
