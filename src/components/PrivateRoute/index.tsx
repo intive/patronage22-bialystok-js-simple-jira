@@ -1,21 +1,13 @@
-import { useEffect } from "react";
-import { Navigate, useLocation } from "react-router-dom";
-import { useLocalStorageAuth } from "src/hooks/useLocalStorageAuth";
-import { useLocalStoragePathname } from "src/hooks/useLocalStoragePathname";
+import { useContext } from "react";
+import { AuthContext } from "src/contexts/authentication";
+import { LoginView } from "src/views/Login/LoginView";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-  let location = useLocation();
+  const {
+    state: { token },
+  } = useContext(AuthContext);
 
-  const [authRequired] = useLocalStorageAuth(true, "authRequired");
-  const [route, setAuthRoute] = useLocalStoragePathname("", "authRoute");
-
-  useEffect(() => {
-    if (authRequired) {
-      setAuthRoute(location.pathname);
-    }
-  }, [authRequired]);
-
-  return authRequired ? <Navigate to='/login' /> : children;
+  return token ? children : <LoginView />;
 };
 
 export default PrivateRoute;
