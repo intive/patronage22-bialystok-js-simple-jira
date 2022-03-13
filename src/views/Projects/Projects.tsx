@@ -8,6 +8,8 @@ import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDial
 import PageHeader from "@modules/PageHeader/PageHeader";
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import Content from "@components/Content/Content";
+import { Button } from "@components/Button/Button";
 
 let FetchProjectsAPI: any;
 
@@ -22,10 +24,12 @@ async function importApiModule() {
 }
 
 export const Projects = () => {
-  const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<any>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [current, setCurrent] = useState(0);
+
+  const { t } = useTranslation();
 
   const deleteProjectHandler = (id: string) => {
     const newProjectsList = projects.filter(
@@ -39,59 +43,69 @@ export const Projects = () => {
       await importApiModule();
       const projects = await FetchProjectsAPI.getProjects();
       setProjects(projects);
+
+      setIsLoading(false);
     }
     fetchProjects();
   }, []);
 
   return (
-    <StyledPageWrapper>
-      <ConfirmationDialog
-        confirmHandler={() => {
-          deleteProjectHandler(projects[current].id);
-          setIsDialogOpen(false);
-        }}
-        isOpen={isDialogOpen}
-        handleClose={() => setIsDialogOpen(false)}
-      >
-        {t("deleteProjectWarning")}
-      </ConfirmationDialog>
-      <PageHeader
-        pageTitle={t("projectsViewTitle")}
-        buttonText={t("newProjectBtn")}
-        buttonHandler={() => console.log("works")}
-      />
-      <StyledProjectList>
-        <Grid container spacing={3}>
-          {projects?.map((project: any, id: number) => (
-            <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-              <ProjectCard
-                menuComponent={
-                  <ThreeDotsMenu
-                    menuItems={[
-                      {
-                        id: 0,
-                        icon: <ViewWeekOutlinedIcon />,
-                        label: "Add column",
-                        onClick: () => console.log("column added"),
-                      },
-                      {
-                        id: 1,
-                        icon: <DeleteOutlineIcon />,
-                        label: "Delete project",
-                        onClick: () => {
-                          setIsDialogOpen(true);
-                          setCurrent(id);
+    <Content
+      isLoading={isLoading}
+      noContentToShow={!projects || projects.length === 0}
+    >
+      <StyledPageWrapper>
+        <ConfirmationDialog
+          confirmHandler={() => {
+            deleteProjectHandler(projects[current].id);
+            setIsDialogOpen(false);
+          }}
+          isOpen={isDialogOpen}
+          handleClose={() => setIsDialogOpen(false)}
+        >
+          {t("deleteProjectWarning")}
+        </ConfirmationDialog>
+        <PageHeader
+          pageTitle={t("projectsViewTitle")}
+          interactiveElement={
+            <Button onClick={() => console.log("works")}>
+              {t("newProjectBtn")}
+            </Button>
+          }
+        />
+        <StyledProjectList>
+          <Grid container spacing={3}>
+            {projects?.map((project: any, id: number) => (
+              <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                <ProjectCard
+                  menuComponent={
+                    <ThreeDotsMenu
+                      menuItems={[
+                        {
+                          id: 0,
+                          icon: <ViewWeekOutlinedIcon />,
+                          label: "Add column",
+                          onClick: () => console.log("column added"),
                         },
-                      },
-                    ]}
-                  />
-                }
-                name={project.name}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </StyledProjectList>
-    </StyledPageWrapper>
+                        {
+                          id: 1,
+                          icon: <DeleteOutlineIcon />,
+                          label: "Delete project",
+                          onClick: () => {
+                            setIsDialogOpen(true);
+                            setCurrent(id);
+                          },
+                        },
+                      ]}
+                    />
+                  }
+                  name={project.name}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </StyledProjectList>
+      </StyledPageWrapper>
+    </Content>
   );
 };

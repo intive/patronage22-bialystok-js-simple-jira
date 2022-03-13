@@ -12,7 +12,7 @@ export const StyledWelcomeScreen = styled("section")`
   height: 100%;
   max-width: 864px;
   max-height: 536px;
-  background: ${({ theme }) => theme.palette.grey[50]};
+  background: ${({ theme }) => theme.palette.background.default};
   border: 1px solid ${({ theme }) => theme.palette.grey[100]};
   border-radius: ${({ theme }) => theme.shape.borderRadius + "px"};
   margin: 20px;

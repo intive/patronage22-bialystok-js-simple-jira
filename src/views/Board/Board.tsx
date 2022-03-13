@@ -4,13 +4,14 @@ import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
-import { mockBoards } from "../../mockData/mockBoards";
+import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
+import { Button } from "@components/Button/Button";
 
 export const Board = () => {
   const [boards, setBoards] = useState(mockBoards);
@@ -18,7 +19,7 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { name } = useParams();
+  const { boardID: name } = useParams();
 
   const menuOptions = [
     {
@@ -49,10 +50,14 @@ export const Board = () => {
     <StyledPageWrapper>
       <PageHeader
         pageTitle={`${t("boardsTitle")} ${name}`}
-        buttonText={t("newIssueBtn")}
-        buttonHandler={() => console.log("button clicked")}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
-        returnLink={t("boardsBackLink")}
+        returnLinkName={t("boardsBackLink")}
+        returnLink={`/projects/${name}`}
+        interactiveElement={
+          <Button onClick={() => console.log("button clicked")}>
+            {t("newIssueBtn")}
+          </Button>
+        }
       />
       {boardNumberAlert && (
         <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>

@@ -15,5 +15,4 @@ export const WithoutText = Template.bind({});
 
 WithText.args = {
   pageTitle: "Projects",
-  buttonText: "New project",
 };

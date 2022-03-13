@@ -1,7 +1,5 @@
-import { MouseEventHandler } from "react";
 import Box from "@mui/material/Box";
 import {
-  StyledButton,
   StyledGrid,
   Title,
   SubTitle,
@@ -9,36 +7,37 @@ import {
   StyledGridItem,
 } from "./PageHeader.style";
 import { CardActions } from "@mui/material";
+import { toProjects } from "src/views/routes";
 
 export interface SectionProps {
   pageTitle: string;
-  buttonText: string;
-  buttonHandler?: MouseEventHandler;
   menuComponent?: React.ReactNode;
+  returnLinkName?: string;
   returnLink?: string;
+  interactiveElement?: JSX.Element;
 }
 
 export default function PageHeader({
   pageTitle,
-  buttonText,
-  buttonHandler = () => {},
   returnLink,
   menuComponent,
+  interactiveElement,
+  returnLinkName,
 }: SectionProps) {
   return (
     <Box>
       <StyledGrid container>
         <StyledGridItem>
           {returnLink && (
-            <StyledLink to='/projects'>
-              <SubTitle>{returnLink}</SubTitle>
+            <StyledLink to={returnLink}>
+              <SubTitle>{returnLinkName}</SubTitle>
             </StyledLink>
           )}
           <Title>{pageTitle}</Title>
         </StyledGridItem>
         <StyledGridItem secondary>
           {!!menuComponent && <CardActions>{menuComponent}</CardActions>}
-          <StyledButton onClick={buttonHandler}>{buttonText}</StyledButton>
+          {interactiveElement}
         </StyledGridItem>
       </StyledGrid>
     </Box>
