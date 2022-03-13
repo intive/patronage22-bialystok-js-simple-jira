@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer } from "react";
 import { reducer } from "./reducer";
 import { Actions, State } from "./types";
 
-const TOKEN_KEY = "token";
+export const TOKEN_KEY = "token";
 
 export const initialState = {
   token: localStorage.getItem(TOKEN_KEY) || "",
