@@ -10,22 +10,55 @@ import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
+import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
+import { Alert } from "@mui/material";
 
 export const BoardsList = () => {
   const [boardsList, setBoardsList] = useState(mockBoardsList);
-  const { projectID: projectName } = useParams();
+  const { project: projectName } = useParams();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
+  const [boardNameAlert, setBoardNameAlert] = useState(false);
 
   const { t } = useTranslation();
+
+  const handleAddNewBoard = (boardName: string) => {
+    if (boardsList.find((board) => board.name === boardName.toLowerCase())) {
+      setBoardNameAlert(true);
+    } else {
+      boardsList.length < 5
+        ? setBoardsList([...boardsList, { name: boardName.toLowerCase() }])
+        : setBoardNumberAlert(true);
+    }
+  };
 
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("labelProject")} ${projectName}`}
+        pageTitle={`${t("labelProject")}: ${projectName}`}
         interactiveElement={
-          <Button onClick={() => console.log("works")}>
-            {t("newProjectBtn")}
+          <Button onClick={() => setIsDialogOpen(true)}>
+            {t("newBoardBtn")}
           </Button>
         }
+      />
+      {boardNumberAlert && (
+        <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
+          {t("boardAlertNumber")}
+        </Alert>
+      )}
+      {boardNameAlert && (
+        <Alert onClose={() => setBoardNameAlert(false)} severity='error'>
+          {t("boardAlertName")}
+        </Alert>
+      )}
+      <NewProjectDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        dialogTitle={t("boardDialogTitle")}
+        dialogHelper={t("boardDialogHelperText")}
+        handleClick={handleAddNewBoard}
+        board
       />
       <StyledBoardList>
         <Grid container spacing={3}>
