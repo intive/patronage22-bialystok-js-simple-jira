@@ -5,6 +5,9 @@ export const doFetch = (customUrl: string, method: string, body?: any) => {
   return fetch(customUrl, {
     method: method,
     body: JSON.stringify(body),
+    headers: {
+      "Content-Type": "application/json",
+    },
   })
     .then((res) => {
       return res.json();

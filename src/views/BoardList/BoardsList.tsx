@@ -16,7 +16,11 @@ import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
-import { useSingleDataRequest, useDataRequest } from "src/hooks/useRequest";
+import {
+  useSingleDataRequest,
+  useDataRequest,
+  doFetch,
+} from "src/hooks/useRequest";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import nextId from "react-id-generator";
 
@@ -61,8 +65,6 @@ export const BoardsList = () => {
   }, [boards]);
 
   const handleAddNewBoard = (value: any) => {
-    console.log(value);
-
     const boardId = nextId();
     const data = {
       id: boardId,
@@ -83,7 +85,7 @@ export const BoardsList = () => {
       ],
     };
 
-    console.log(data);
+    doFetch(API_ADD_NEW_BOARD, "POST", data);
     setIsCreateModalOpen(false);
   };
 
