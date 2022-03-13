@@ -1,4 +1,4 @@
-import { mockProjects, ProjectTypes } from "../../mockData/mockProjects";
+import { mockProjects, ProjectType } from "../../mockData/mockProjects";
 
 const projects = [...mockProjects];
 
@@ -14,7 +14,7 @@ const MockProjectsAPI = {
     console.log("Fetching projects... response.status:", 200);
     return [...projects];
   },
-  addProject: async function (projectToAdd: ProjectTypes) {
+  addProject: async function (projectToAdd: ProjectType) {
     await sleep();
     const addedProject = { ...projectToAdd, isActive: true };
     const newProjects = [...projects, projectToAdd];

@@ -1,10 +1,10 @@
-export interface ProjectTypes {
+export interface ProjectType {
   name: string;
   id: string;
   isActive: boolean;
 }
 
-export const mockProjects: ProjectTypes[] | [] = [
+export const mockProjects: ProjectType[] | [] = [
   { name: "Project1", id: "1", isActive: true },
   { name: "Death Star", id: "2", isActive: true },
   { name: "Conquer The World", id: "3", isActive: true },
