@@ -2,12 +2,19 @@ import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
+import { LoadingButton } from "@mui/lab";
 
 import BasicModal from "@components/BasicModal/BasicModal";
 import { Button } from "@components/Button/Button";
 import Input from "@components/Input/Input";
-import { LoadingButton } from "@mui/lab";
 import { AlertSuccess, AlertError } from "@components/Alert/Alert";
+
+import {
+  ButtonBox,
+  IconBox,
+  StyledDialogTitle,
+  NewProjectDialogContent,
+} from "./NewProjectDialog.style";
 import { createNewProjectPattern } from "../../validation/patterns.const";
 import { toProjects } from "src/views/routes";
 
@@ -105,40 +112,32 @@ export default function NewProjectDialog({
   };
   return (
     <>
-      <BasicModal
-        paddings={[10, 6, 7, 6]}
-        isOpen={isOpen}
-        headerIcon={<EditIcon />}
-        title={dialogTitle}
-        alignTitle='center'
-        handleClose={handleClose}
-        buttons={[
-          <Button onClick={handleClose} variant='text' key='btn-1'>
-            {t("cancelBtn")}
-          </Button>,
-          isLoading ? (
-            <LoadingButton
-              sx={{ minWidth: "98.77px" }}
-              key='btn-2'
-              loading={true}
-            />
-          ) : (
-            <Button
-              disabled={!!error || !inputValue}
-              onClick={handleCreate}
-              key='btn-2'
-            >
-              {t("createBtn")}
+      <BasicModal open={isOpen} onClose={handleClose}>
+        <NewProjectDialogContent>
+          <IconBox>
+            <EditIcon />
+          </IconBox>
+          <StyledDialogTitle>{dialogTitle}</StyledDialogTitle>
+          <Input
+            value={inputValue}
+            onChangeHandler={handleInputChange}
+            error={Boolean(error)}
+            helperText={error}
+            variant='filled'
+          />
+          <ButtonBox>
+            <Button onClick={handleClose} variant='text'>
+              {t("cancelBtn")}
             </Button>
-          ),
-        ]}
-      >
-        <Input
-          value={inputValue}
-          onChangeHandler={handleInputChange}
-          error={Boolean(error)}
-          helperText={error}
-        />
+            {isLoading ? (
+              <LoadingButton sx={{ minWidth: "98.77px" }} loading={true} />
+            ) : (
+              <Button disabled={!!error || !inputValue} onClick={handleCreate}>
+                {t("createBtn")}
+              </Button>
+            )}
+          </ButtonBox>
+        </NewProjectDialogContent>
       </BasicModal>
       <AlertSuccess
         isOpen={isAlertProjectSuccessOpen}

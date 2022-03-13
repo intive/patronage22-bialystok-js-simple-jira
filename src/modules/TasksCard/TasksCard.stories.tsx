@@ -1,7 +1,5 @@
-import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import TasksCard from "./index";
-import { theme } from "../../theme/mainTheme";
 import Ticket from "@modules/Ticket/Ticket";
 
 export default {
@@ -10,9 +8,7 @@ export default {
 } as ComponentMeta<typeof TasksCard>;
 
 const Template: ComponentStory<typeof TasksCard> = (args) => (
-  <ThemeProvider theme={theme}>
-    <TasksCard {...args}>{args.children}</TasksCard>
-  </ThemeProvider>
+  <TasksCard {...args}>{args.children}</TasksCard>
 );
 
 export const Empty = Template.bind({});

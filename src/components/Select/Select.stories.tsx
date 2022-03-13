@@ -1,7 +1,6 @@
-import { SelectChangeEvent, ThemeProvider } from "@mui/material";
+import { Paper, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
-import { theme } from "../../theme/mainTheme";
-
+import { ComponentMeta } from "@storybook/react";
 import { useArgs } from "@storybook/client-api";
 import { Select } from "@components/Select/Select";
 
@@ -12,7 +11,14 @@ export default {
     secondary: true,
     fullWidth: false,
   },
-};
+  decorators: [
+    (Story) => (
+      <Paper sx={{ padding: 6 }} square>
+        <Story />
+      </Paper>
+    ),
+  ],
+} as ComponentMeta<typeof Select>;
 
 export const SelectStoryNoValue = ({ ...args }) => {
   const [{ secondary, fullWidth }] = useArgs();
@@ -24,17 +30,15 @@ export const SelectStoryNoValue = ({ ...args }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Select
-        {...args}
-        value={selectValue || "Select option"}
-        options={["Option 1", "Option 2", "Option 3"]}
-        handleSelect={handleChange}
-        secondary={secondary}
-        blankValue={selectValue ? false : true}
-        fullWidth={fullWidth}
-      />
-    </ThemeProvider>
+    <Select
+      {...args}
+      value={selectValue || "Select option"}
+      options={["Option 1", "Option 2", "Option 3"]}
+      handleSelect={handleChange}
+      secondary={secondary}
+      blankValue={selectValue ? false : true}
+      fullWidth={fullWidth}
+    />
   );
 };
 
@@ -47,14 +51,12 @@ export const SelectStory = ({ ...args }) => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Select
-        {...args}
-        value={selectValue}
-        options={["Option 1", "Option 2", "Option 3"]}
-        handleSelect={handleChange}
-        blankValue={selectValue ? false : true}
-      />
-    </ThemeProvider>
+    <Select
+      {...args}
+      value={selectValue}
+      options={["Option 1", "Option 2", "Option 3"]}
+      handleSelect={handleChange}
+      blankValue={selectValue ? false : true}
+    />
   );
 };

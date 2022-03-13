@@ -7,6 +7,7 @@ import Content from "@components/Content/Content";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import { ProjectType } from "src/mockData/mockProjects";
 import { ProjectsList } from "@modules/ProjectsList/ProjectsList";
+import { Button } from "@components/Button/Button";
 
 let FetchProjectsAPI: any;
 
@@ -72,8 +73,11 @@ export const Projects = () => {
 
         <PageHeader
           pageTitle={t("projectsViewTitle")}
-          buttonText={t("newProjectBtn")}
-          buttonHandler={() => setIsCreateDialogOpen(true)}
+          interactiveElement={
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
+              {t("newProjectBtn")}
+            </Button>
+          }
         />
         <ProjectsList
           projects={projects}
