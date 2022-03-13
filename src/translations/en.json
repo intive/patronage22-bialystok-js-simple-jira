@@ -41,5 +41,6 @@
   "deleteProjectWarning": "Are you sure you want to delete this project?",
   "ToDo": "To do",
   "InProgress": "In progress",
-  "Done": "Done"
+  "Done": "Done",
+  "LoginError": "Fields cannot be empty!"
 }
