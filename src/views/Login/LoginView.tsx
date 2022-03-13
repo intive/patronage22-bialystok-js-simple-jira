@@ -1,7 +1,11 @@
 import { useTranslation } from "react-i18next";
 import Input from "../../components/Input/Input";
 
-import { StyledBoxForm, StyledBoxLogin, StyledBoxPassword } from "./Loginstyle";
+import {
+  StyledBoxForm,
+  StyledBoxLogin,
+  StyledBoxPassword,
+} from "./LoginView.style";
 
 export const LoginView = () => {
   const { t } = useTranslation();
