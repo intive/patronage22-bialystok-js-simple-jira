@@ -46,5 +46,6 @@
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
   "Done": "Wykonane",
+  "taskManagementTool": "System zarządzania zadaniami",
   "LoginError": "Pola nie mogą być puste!"
 }
