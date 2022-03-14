@@ -4,6 +4,7 @@ import {
   Box,
   IconButton,
   InputAdornment,
+  TextField,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -63,6 +64,23 @@ export const StyledLogoIconButton = styledmui(IconButton)(({ theme }) => ({
   color: theme.palette.grey[50],
 }));
 
-export const StyledInputAdornment = styledmui(InputAdornment)(
-  ({ theme }) => ({})
-);
+export const StyledSearchField = styledmui(TextField)(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.grey[50],
+  border: 0,
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(1),
+    width: "auto",
+  },
+  "& .MuiOutlinedInput-root": {
+    "& fieldset": {
+      border: "none",
+    },
+    "&:hover fieldset": {
+      border: "none",
+    },
+    "&.Mui-focused fieldset": {
+      border: "none",
+    },
+  },
+}));
