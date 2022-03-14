@@ -72,11 +72,13 @@ export default function NewProjectDialog({
       !board && navigate(toProjects);
       setIsLoading(false);
       setIsOpen(false);
-      setIsAlertProjectErrorOpen(false);
-      setIsAlertProjectSuccessOpen(false);
     }, 1000);
+    const alertProjectSuccessTimeout = setTimeout(() => {
+      setIsAlertProjectSuccessOpen(false);
+    }, 1500);
     return () => {
       clearTimeout(changeViewTimeout);
+      clearTimeout(alertProjectSuccessTimeout);
     };
   }, [isLoading]);
 
@@ -146,6 +148,9 @@ export default function NewProjectDialog({
       <AlertError
         isOpen={isAlertProjectErrorOpen}
         alertMsg={t("alertProjectError")}
+        handleClose={() => {
+          setIsAlertProjectErrorOpen(false);
+        }}
       />
     </>
   );
