@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
   minWidth: 300,
+  width: "100vw",
   height: "67vh",
   borderRadius: theme.shape.borderRadius,
   padding: 16,
