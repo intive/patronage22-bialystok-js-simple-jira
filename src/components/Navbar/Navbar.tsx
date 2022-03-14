@@ -69,6 +69,7 @@ export default function Navbar() {
               <Input
                 placeholder={t("search")}
                 value={query}
+                withoutBorder={true}
                 onChangeHandler={handleChangeQuery}
               />
             </Search>

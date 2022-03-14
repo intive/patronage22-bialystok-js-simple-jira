@@ -1,7 +1,5 @@
-import { ThemeProvider } from "@mui/material";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Button } from "@components/Button/Button";
-import { theme } from "../../theme/mainTheme";
 
 export default {
   title: "Button",
@@ -14,9 +12,7 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => (
-  <ThemeProvider theme={theme}>
-    <Button {...args}>{args.children}</Button>
-  </ThemeProvider>
+  <Button {...args}>{args.children}</Button>
 );
 
 export const Basic = Template.bind({});

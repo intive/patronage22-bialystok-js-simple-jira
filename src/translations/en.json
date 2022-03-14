@@ -20,7 +20,7 @@
   "projectsTitle": "Projects",
   "newBoardBtn": "New board",
   "boardsTitle": "Boards",
-  "boardsBackLink": "Return to Projects",
+  "boardsBackLink": "Return to Boards",
   "newIssueBtn": "Create issue",
   "boardDialogTitle": "Name your board",
   "boardDialogHelperText": "Board title has to be at least one character long and cannot begin/end with a whitespace",
@@ -39,8 +39,11 @@
   "PasswordLabel": "Password",
   "ErrorInputText": "Incorrect input!",
   "deleteProjectWarning": "Are you sure you want to delete this project?",
+  "descriptionRequired": "Description is required",
+  "summaryRequired": "Summary is required",
   "ToDo": "To do",
   "InProgress": "In progress",
   "Done": "Done",
-  "taskManagementTool": "Task management tool"
+  "taskManagementTool": "Task management tool",
+  "LoginError": "Fields cannot be empty!"
 }
