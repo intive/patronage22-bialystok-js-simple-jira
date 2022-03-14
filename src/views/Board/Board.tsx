@@ -12,10 +12,12 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
 import { Button } from "@components/Button/Button";
+import CreateIssueDialog from "@modules/CreateIssueDialog/CreateIssueDialog";
 
 export const Board = () => {
   const [boards, setBoards] = useState(mockBoards);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCreateIssueOpen, setIsCreateIssueOpen] = useState(false);
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
@@ -54,7 +56,7 @@ export const Board = () => {
         returnLinkName={t("boardsBackLink")}
         returnLink={`/projects/${name}`}
         interactiveElement={
-          <Button onClick={() => console.log("button clicked")}>
+          <Button onClick={() => setIsCreateIssueOpen(true)}>
             {t("newIssueBtn")}
           </Button>
         }
@@ -76,6 +78,10 @@ export const Board = () => {
         dialogHelper={t("boardDialogHelperText")}
         handleClick={handleAddNewBoard}
         board
+      />
+      <CreateIssueDialog
+        isOpen={isCreateIssueOpen}
+        handleClose={() => setIsCreateIssueOpen(false)}
       />
       <TaskWrapper>
         {boards.map((project) => (
