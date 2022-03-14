@@ -9,6 +9,8 @@ import {
   StyledToolbar,
   StyledIconButton,
   StyledSearchIconButton,
+  StyledTitleTypography,
+  StyledLogoIconButton,
 } from "./Navbar.style";
 import Logo from "./Logo";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
@@ -16,7 +18,13 @@ import Input from "../Input/Input";
 import SearchIcon from "@mui/icons-material/Search";
 import { useTranslation } from "react-i18next";
 import LogoutIcon from "@mui/icons-material/Logout";
-import IconButton from "@mui/material/IconButton";
+import {
+  FormControl,
+  FormHelperText,
+  InputAdornment,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
 
 const Search = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -46,15 +54,12 @@ export default function Navbar() {
       <StyledAppBar>
         <StyledToolbar>
           <NavbarWrapper>
-            <Logo />
-            <Typography
-              variant='h6'
-              noWrap
-              component='div'
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            >
-              Task management tool
-            </Typography>
+            <StyledLogoIconButton>
+              <Logo />
+            </StyledLogoIconButton>
+            <StyledTitleTypography variant='h6' noWrap>
+              {t("taskManagementTool")}
+            </StyledTitleTypography>
           </NavbarWrapper>
           <NavbarRightSideWrapper>
             <Search>
@@ -67,6 +72,7 @@ export default function Navbar() {
                 onChangeHandler={handleChangeQuery}
               />
             </Search>
+
             <NavbarWrapper>
               <StyledIconButton>
                 <DarkModeTwoToneIcon />

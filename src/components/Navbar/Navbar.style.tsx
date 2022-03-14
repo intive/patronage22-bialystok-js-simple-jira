@@ -1,5 +1,12 @@
 import { styled as styledmui } from "@mui/material/styles";
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  IconButton,
+  InputAdornment,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 
 export const StyledAppBar = styledmui(AppBar)(({ theme }) => ({
   width: "100%",
@@ -46,3 +53,16 @@ export const StyledSearchIconButton = styledmui(IconButton)(({ theme }) => ({
   padding: "0",
   color: theme.palette.grey[300],
 }));
+
+export const StyledTitleTypography = styledmui(Typography)(({ theme }) => ({
+  color: theme.palette.grey[50],
+}));
+
+export const StyledLogoIconButton = styledmui(IconButton)(({ theme }) => ({
+  padding: "0",
+  color: theme.palette.grey[50],
+}));
+
+export const StyledInputAdornment = styledmui(InputAdornment)(
+  ({ theme }) => ({})
+);
