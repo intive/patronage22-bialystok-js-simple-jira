@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
 import Grid from "@mui/material/Grid";
@@ -14,9 +14,19 @@ import { useParams } from "react-router-dom";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import { Alert } from "@mui/material";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
+import NewBoardDialog from "@modules/NewBoardDialog/NewBoardDialog";
+
+let FetchBoardsAPI: any;
+
+async function importApiModule() {
+  const module = await import("../../api/boards/boardsApi");
+  FetchBoardsAPI = module.default;
+}
 
 export const BoardsList = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState(mockBoardsList);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const { project: projectName } = useParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
@@ -37,51 +47,16 @@ export const BoardsList = () => {
     }
   };
 
-  const handleAddNewBoardAPI = (boardName: string) => {
-    setOpen(true);
-    const date = new Date();
-    date.toISOString();
-    const data = {
-      data: {
-        id: 0,
-        alias: boardName,
-        name: boardName,
-        description: boardName,
-        projectId: 1,
-        statusId: 0,
-        boardId: 1,
-        isActive: true,
-        createdOn: date,
-        modifiedOn: date,
-        board_Status: [
-          {
-            boardId: 0,
-            statusId: 0,
-          },
-        ],
-      },
-    };
+  const fetchBoards = useCallback(async () => {
+    await importApiModule();
+    const boards = await FetchBoardsAPI.getBoards();
+    setBoardsList(boards);
+    setIsLoading(false);
+  }, [boardsList]);
 
-    fetch("/api/board/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Response data:", data);
-        if (data.responseCode == 200) {
-          setBoardAddedSuccess(true);
-        } else {
-          setBoardAddedError(true);
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
+  useEffect(() => {
+    fetchBoards();
+  }, [isCreateDialogOpen]);
 
   return (
     <StyledPageWrapper>
@@ -103,28 +78,12 @@ export const BoardsList = () => {
           {t("boardAlertName")}
         </Alert>
       )}
-      <NewProjectDialog
+      <NewBoardDialog
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
         dialogTitle={t("boardDialogTitle")}
         dialogHelper={t("boardDialogHelperText")}
-        handleClick={handleAddNewBoardAPI}
-        board
       />
-      {boardAddedError && (
-        <AlertError
-          alertMsg={t("NewBoardAddedWithError")}
-          isOpen={open}
-          handleClose={() => setBoardAddedError(false)}
-        />
-      )}
-      {boardAddedSuccess && (
-        <AlertSuccess
-          alertMsg={t("NewBoardAddedWithSuccess")}
-          isOpen={open}
-          handleClose={() => setBoardAddedSuccess(false)}
-        />
-      )}
       <StyledBoardList>
         <Grid container spacing={3}>
           {boardsList?.map((board: any, id: number) => (
