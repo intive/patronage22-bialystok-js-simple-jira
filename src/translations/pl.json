@@ -44,5 +44,7 @@
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
   "Done": "Wykonane",
-  "LoginError": "Pola nie mogą być puste!"
+  "LoginError": "Pola nie mogą być puste!",
+  "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
+  "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy"
 }

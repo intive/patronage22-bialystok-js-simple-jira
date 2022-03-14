@@ -44,5 +44,7 @@
   "ToDo": "To do",
   "InProgress": "In progress",
   "Done": "Done",
-  "LoginError": "Fields cannot be empty!"
+  "LoginError": "Fields cannot be empty!",
+  "NewBoardAddedWithSuccess": "A new board has been successfully added!",
+  "NewBoardAddedWithError": "An error occurred while creating the new board"
 }
