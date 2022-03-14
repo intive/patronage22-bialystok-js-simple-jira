@@ -16,7 +16,7 @@ const MockProjectsAPI = {
   },
   addProject: async function (projectToAdd: ProjectType) {
     await sleep();
-    const addedProject = { ...projectToAdd, isActive: true };
+    const addedProject = { ...projectToAdd, isActive: true, responseCode: 201 };
     const newProjects = [...projects, projectToAdd];
     console.log(`Adding project... ${addedProject.name} response.status:`, 201);
     console.log(newProjects);
