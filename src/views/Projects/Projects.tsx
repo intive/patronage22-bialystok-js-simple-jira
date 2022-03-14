@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
-import { StyledProjectList, StyledPageWrapper } from "./Projects.style";
+import { useState, useEffect, useCallback } from "react";
+import { StyledPageWrapper } from "./Projects.style";
 import { useTranslation } from "react-i18next";
-import Grid from "@mui/material/Grid";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 import PageHeader from "@modules/PageHeader/PageHeader";
-import ProjectCard from "@components/ProjectCard";
-import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import Content from "@components/Content/Content";
+import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
+import { ProjectType } from "src/mockData/mockProjects";
+import { ProjectsList } from "@modules/ProjectsList/ProjectsList";
 import { Button } from "@components/Button/Button";
 
 let FetchProjectsAPI: any;
@@ -25,29 +23,30 @@ async function importApiModule() {
 
 export const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [projects, setProjects] = useState<any>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [isDltDialogOpen, setIsDltDialogOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [current, setCurrent] = useState(0);
 
   const { t } = useTranslation();
 
-  const deleteProjectHandler = (id: string) => {
+  const deleteProjectHandler = (id: number) => {
     const newProjectsList = projects.filter(
       (element: any) => element.id !== id
     );
     setProjects(newProjectsList);
   };
 
-  useEffect(() => {
-    async function fetchProjects() {
-      await importApiModule();
-      const projects = await FetchProjectsAPI.getProjects();
-      setProjects(projects);
+  const fetchProjects = useCallback(async () => {
+    await importApiModule();
+    const projects = await FetchProjectsAPI.getProjects();
+    setProjects(projects);
+    setIsLoading(false);
+  }, [projects]);
 
-      setIsLoading(false);
-    }
+  useEffect(() => {
     fetchProjects();
-  }, []);
+  }, [isCreateDialogOpen]);
 
   return (
     <Content
@@ -57,54 +56,37 @@ export const Projects = () => {
       <StyledPageWrapper>
         <ConfirmationDialog
           confirmHandler={() => {
-            deleteProjectHandler(projects[current].id);
-            setIsDialogOpen(false);
+            deleteProjectHandler(current);
+            setIsDltDialogOpen(false);
           }}
-          isOpen={isDialogOpen}
-          handleClose={() => setIsDialogOpen(false)}
+          isOpen={isDltDialogOpen}
+          handleClose={() => setIsDltDialogOpen(false)}
         >
           {t("deleteProjectWarning")}
         </ConfirmationDialog>
+        <NewProjectDialog
+          isOpen={isCreateDialogOpen}
+          setIsOpen={setIsCreateDialogOpen}
+          dialogTitle={t("dialogCreateProjectTitle")}
+          dialogHelper={t("dialogCreateProjectHelperText")}
+        />
+
         <PageHeader
           pageTitle={t("projectsViewTitle")}
           interactiveElement={
-            <Button onClick={() => console.log("works")}>
+            <Button onClick={() => setIsCreateDialogOpen(true)}>
               {t("newProjectBtn")}
             </Button>
           }
         />
-        <StyledProjectList>
-          <Grid container spacing={3}>
-            {projects?.map((project: any, id: number) => (
-              <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-                <ProjectCard
-                  menuComponent={
-                    <ThreeDotsMenu
-                      menuItems={[
-                        {
-                          id: 0,
-                          icon: <ViewWeekOutlinedIcon />,
-                          label: "Add column",
-                          onClick: () => console.log("column added"),
-                        },
-                        {
-                          id: 1,
-                          icon: <DeleteOutlineIcon />,
-                          label: "Delete project",
-                          onClick: () => {
-                            setIsDialogOpen(true);
-                            setCurrent(id);
-                          },
-                        },
-                      ]}
-                    />
-                  }
-                  name={project.name}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </StyledProjectList>
+        <ProjectsList
+          projects={projects}
+          dltProjectHandler={(projectId: any) => {
+            setIsDltDialogOpen(true);
+            setCurrent(projectId);
+          }}
+          addColumnHandler={() => console.log("column added")}
+        />
       </StyledPageWrapper>
     </Content>
   );

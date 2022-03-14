@@ -39,6 +39,8 @@
   "PasswordLabel": "Hasło",
   "ErrorInputText": "Błędne dane wejściowe!",
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
+  "alertProjectCreated": "Nowy Projekt Dodany",
+  "alertProjectError": "Błąd przy tworzeniu projektu",
   "descriptionRequired": "Opis jest wymagany",
   "summaryRequired": "Podsumowanie jest wymagane",
   "ToDo": "Do zrobienia",
@@ -46,5 +48,6 @@
   "Done": "Wykonane",
   "LoginError": "Pola nie mogą być puste!",
   "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
-  "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy"
+  "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy",
+  "taskManagementTool": "System zarządzania zadaniami"
 }
