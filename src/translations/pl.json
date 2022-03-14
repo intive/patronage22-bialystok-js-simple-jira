@@ -46,6 +46,8 @@
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
   "Done": "Wykonane",
-  "taskManagementTool": "System zarządzania zadaniami",
-  "LoginError": "Pola nie mogą być puste!"
+  "LoginError": "Pola nie mogą być puste!",
+  "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
+  "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy",
+  "taskManagementTool": "System zarządzania zadaniami"
 }
