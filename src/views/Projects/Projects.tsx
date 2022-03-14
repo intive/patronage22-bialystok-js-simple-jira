@@ -6,8 +6,8 @@ import PageHeader from "@modules/PageHeader/PageHeader";
 import Content from "@components/Content/Content";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import { ProjectType } from "src/mockData/mockProjects";
-import { ProjectsList } from "@modules/ProjectsList/ProjectsList";
 import { Button } from "@components/Button/Button";
+import { ProjectsList } from "@modules/ProjectsList/ProjectsList";
 
 let FetchProjectsAPI: any;
 

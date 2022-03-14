@@ -7,7 +7,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { ProjectType } from "src/mockData/mockProjects";
 
-interface ProjectsListType {
+export interface ProjectsListType {
   projects: ProjectType[];
   dltProjectHandler: any;
   addColumnHandler: any;
