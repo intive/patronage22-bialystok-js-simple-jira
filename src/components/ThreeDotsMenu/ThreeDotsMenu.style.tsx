@@ -26,4 +26,5 @@ export const StyledIconButton = styled(IconButton)(({ theme }) => ({
   "& .MuiSvgIcon-root": {
     color: theme.palette.grey[500],
   },
+  padding: 0,
 }));
