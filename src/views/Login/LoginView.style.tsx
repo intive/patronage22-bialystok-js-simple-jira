@@ -31,4 +31,3 @@ export const StyledBoxContainer = styled(Box)(() => ({
   justifyContent: "center",
   alignItems: "center",
 }));
-
