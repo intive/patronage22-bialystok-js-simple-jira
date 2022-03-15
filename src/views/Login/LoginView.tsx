@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Input from "../../components/Input/Input";
 
+import Input from "../../components/Input/Input";
+import { useGetExampleToken } from "src/hooks/useGetExampleToken";
+import useForm from "src/hooks/useForm";
 import {
   StyledBoxForm,
   StyledBoxLogin,
@@ -8,8 +11,6 @@ import {
   StyledBoxContainer,
 } from "./LoginView.style";
 
-import { useGetExampleToken } from "src/hooks/useGetExampleToken";
-import useForm from "src/hooks/useForm";
 enum InputNames {
   LOGIN = "login",
   PASSWORD = "password",
@@ -20,23 +21,32 @@ const INITIAL_VALUES = {
   [InputNames.PASSWORD]: "",
 };
 
-const validate = () => ({});
+const validate = (values: typeof INITIAL_VALUES) =>
+  !values.login || !values.password ? { isFieldEmpty: true } : {};
 
 export const LoginView = () => {
   const { t } = useTranslation();
   const getExampleToken = useGetExampleToken();
 
-  const { values, handleChange, handleSubmit } = useForm(
+  const { values, handleChange, handleSubmit, errors } = useForm(
     INITIAL_VALUES,
     () => getExampleToken(values),
     validate
   );
+
+  const isFieldEmpty = errors.isFieldEmpty;
 
   const handleKeypress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
       handleSubmit(event);
     }
   };
+
+  useEffect(() => {
+    if (isFieldEmpty) {
+      alert(t("LoginError"));
+    }
+  }, [isFieldEmpty]);
 
   return (
     <StyledBoxContainer>
