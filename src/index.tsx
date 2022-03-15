@@ -9,6 +9,7 @@ import { store } from "./state/index";
 import { theme } from "./theme/mainTheme";
 import "./translations/i18n";
 import "./index.css";
+import { AuthProvider } from "./contexts/authentication";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.render(
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </BrowserRouter>
       </ThemeProvider>
     </Provider>
