@@ -47,5 +47,7 @@
   "InProgress": "In progress",
   "Done": "Done",
   "taskManagementTool": "Task management tool",
-  "LoginError": "Fields cannot be empty!"
+  "LoginError": "Fields cannot be empty!",
+  "NewIssueAddedWithSuccess": "Issue added",
+  "NewIssueAddedWithError": "Error adding issue"
 }

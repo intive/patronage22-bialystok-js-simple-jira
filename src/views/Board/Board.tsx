@@ -6,13 +6,14 @@ import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
-import TasksCard from "../../modules/TasksCard";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
 import { Button } from "@components/Button/Button";
 import CreateIssueDialog from "@modules/CreateIssueDialog/CreateIssueDialog";
+import { issueList } from "../../mockData/mockIssue";
+import { TaskCardList } from "@modules/TasksCard/TaskCardList";
 
 export const Board = () => {
   const [boards, setBoards] = useState(mockBoards);
@@ -84,9 +85,7 @@ export const Board = () => {
         handleClose={() => setIsCreateIssueOpen(false)}
       />
       <TaskWrapper>
-        {boards.map((project) => (
-          <TasksCard title={project.name} key={project.name} />
-        ))}
+        <TaskCardList issues={issueList} />
       </TaskWrapper>
     </StyledPageWrapper>
   );

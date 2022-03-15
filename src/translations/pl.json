@@ -47,5 +47,7 @@
   "InProgress": "W trakcie",
   "Done": "Wykonane",
   "taskManagementTool": "System zarządzania zadaniami",
-  "LoginError": "Pola nie mogą być puste!"
+  "LoginError": "Pola nie mogą być puste!",
+  "NewIssueAddedWithSuccess": "Zadanie dodane",
+  "NewIssueAddedWithError": "Stworzenie zadania nie powiodło się"
 }
