@@ -19,7 +19,7 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { boardID: name } = useParams();
+  const { board: name } = useParams();
 
   const menuOptions = [
     {
@@ -49,7 +49,7 @@ export const Board = () => {
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("boardsTitle")} ${name}`}
+        pageTitle={`${t("boardsTitle")}: ${name}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLinkName={t("boardsBackLink")}
         returnLink={`/projects/${name}`}

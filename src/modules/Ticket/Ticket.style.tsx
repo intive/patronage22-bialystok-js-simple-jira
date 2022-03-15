@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import { Box, Card, CardContent, Typography } from "@mui/material";
 
 export const StyledTicket = styled(Card)(({ theme }) => ({
-  padding: "16px",
+  padding: "16px 16px 12px 16px",
   margin: "12px 0px",
   boxShadow: "0px 2px 6px rgba(98, 98, 98, 0.21)",
   borderRadius: theme.shape.borderRadius,
@@ -11,11 +11,12 @@ export const StyledTicket = styled(Card)(({ theme }) => ({
 export const CardContentNoPadding = styled(CardContent)(({ theme }) => ({
   padding: "0",
   "&:last-child": {
-    paddingBottom: "10px",
+    paddingBottom: "0px",
   },
   display: "flex",
   flexDirection: "column",
-  gap: "8px",
+  gap: "4px",
+  lineHeight: 0,
 }));
 
 export const StyledTicketHeader = styled(Box)(({ theme }) => ({

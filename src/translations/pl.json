@@ -18,7 +18,7 @@
   "dialogCreateProjectTitle": "Podaj nazwę projektu",
   "dialogCreateProjectHelperText": "Nazwa projektu musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
   "projectsTitle": "Projekty",
-  "newBoardBtn": "New tablica",
+  "newBoardBtn": "Nowa tablica",
   "boardsTitle": "Tablice",
   "boardsBackLink": "Powrót do Tablic",
   "newIssueBtn": "Stwórz zgłoszenie",
@@ -39,10 +39,15 @@
   "PasswordLabel": "Hasło",
   "ErrorInputText": "Błędne dane wejściowe!",
   "deleteProjectWarning": "Czy na pewno chcesz usunąć ten projekt?",
+  "alertProjectCreated": "Nowy Projekt Dodany",
+  "alertProjectError": "Błąd przy tworzeniu projektu",
   "descriptionRequired": "Opis jest wymagany",
   "summaryRequired": "Podsumowanie jest wymagane",
   "ToDo": "Do zrobienia",
   "InProgress": "W trakcie",
   "Done": "Wykonane",
-  "LoginError": "Pola nie mogą być puste!"
+  "LoginError": "Pola nie mogą być puste!",
+  "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
+  "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy",
+  "taskManagementTool": "System zarządzania zadaniami"
 }

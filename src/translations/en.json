@@ -2,7 +2,7 @@
   "welcomeBoardButton": "New Project",
   "welcomeBoardParagraph": "Start creating projects now. Add your first project, don't wait for someone to do it for you.",
   "paragraph3": "If you see this page - React Router works",
-  "paragraph4": "If it's countig here when you're\nswitching pages - Redux works",
+  "paragraph4": "If it's counting here when you're\nswitching pages - Redux works",
   "paragraph5": "Check here if i18n works",
   "button1": "Click here to check if React Router works",
   "button2": "click to return to the previous page",
@@ -39,10 +39,15 @@
   "PasswordLabel": "Password",
   "ErrorInputText": "Incorrect input!",
   "deleteProjectWarning": "Are you sure you want to delete this project?",
+  "alertProjectCreated": "New Project Added",
+  "alertProjectError": "Error creating project",
   "descriptionRequired": "Description is required",
   "summaryRequired": "Summary is required",
   "ToDo": "To do",
   "InProgress": "In progress",
   "Done": "Done",
-  "LoginError": "Fields cannot be empty!"
+  "LoginError": "Fields cannot be empty!",
+  "NewBoardAddedWithSuccess": "A new board has been successfully added!",
+  "NewBoardAddedWithError": "An error occurred while creating the new board",
+  "taskManagementTool": "Task management tool"
 }

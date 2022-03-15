@@ -1,7 +1,7 @@
+
 import React, { useContext, useState } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
 import {
   NavbarWrapper,
   NavbarRightSideWrapper,
@@ -9,15 +9,19 @@ import {
   StyledToolbar,
   StyledIconButton,
   StyledSearchIconButton,
+  StyledTitleTypography,
+  StyledLogoIconButton,
+  StyledSearchField,
 } from "./Navbar.style";
 import Logo from "./Logo";
 import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
-import Input from "../Input/Input";
 import SearchIcon from "@mui/icons-material/Search";
-import { useTranslation } from "react-i18next";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 import IconButton from "@mui/material/IconButton";
 import { AuthContext, logOut } from "src/contexts/authentication";
+        import { useTranslation } from "react-i18next";
+import { InputAdornment } from "@mui/material";
 
 const Search = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -48,28 +52,31 @@ export default function Navbar() {
       <StyledAppBar>
         <StyledToolbar>
           <NavbarWrapper>
-            <Logo />
-            <Typography
-              variant='h6'
-              noWrap
-              component='div'
-              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            >
-              Task management tool
-            </Typography>
+            <StyledLogoIconButton>
+              <Logo />
+            </StyledLogoIconButton>
+            <StyledTitleTypography variant='h6' noWrap>
+              {t("taskManagementTool")}
+            </StyledTitleTypography>
           </NavbarWrapper>
           <NavbarRightSideWrapper>
-            <Search>
-              <StyledSearchIconButton>
-                <SearchIcon />
-              </StyledSearchIconButton>
-              <Input
-                placeholder={t("search")}
-                value={query}
-                withoutBorder={true}
-                onChangeHandler={handleChangeQuery}
-              />
-            </Search>
+            <StyledSearchField
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <StyledSearchIconButton>
+                      <SearchIcon />
+                    </StyledSearchIconButton>
+                  </InputAdornment>
+                ),
+              }}
+              inputProps={{
+                "aria-label": "query",
+              }}
+              placeholder={t("search")}
+              value={query}
+              onChange={handleChangeQuery}
+            />
             <NavbarWrapper>
               <StyledIconButton>
                 <DarkModeTwoToneIcon />
