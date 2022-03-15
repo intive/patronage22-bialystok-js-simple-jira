@@ -1,9 +1,7 @@
-
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-import Input from "../../components/Input/Input";
+import Input from "@components/Input/Input";
 import { useGetExampleToken } from "src/hooks/useGetExampleToken";
 import useForm from "src/hooks/useForm";
 import {

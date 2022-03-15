@@ -1,7 +1,14 @@
-
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
+import { InputAdornment } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import LogoutIcon from "@mui/icons-material/Logout";
+
+import Logo from "./Logo";
+import { AuthContext, logOut } from "src/contexts/authentication";
 import {
   NavbarWrapper,
   NavbarRightSideWrapper,
@@ -13,15 +20,6 @@ import {
   StyledLogoIconButton,
   StyledSearchField,
 } from "./Navbar.style";
-import Logo from "./Logo";
-import DarkModeTwoToneIcon from "@mui/icons-material/DarkModeTwoTone";
-import SearchIcon from "@mui/icons-material/Search";
-import LogoutIcon from "@mui/icons-material/Logout";
-
-import IconButton from "@mui/material/IconButton";
-import { AuthContext, logOut } from "src/contexts/authentication";
-        import { useTranslation } from "react-i18next";
-import { InputAdornment } from "@mui/material";
 
 const Search = styled(Box)(({ theme }) => ({
   position: "relative",
@@ -44,7 +42,7 @@ export default function Navbar() {
   const handleChangeQuery = (event: any) => {
     setQuery(event.target.value);
   };
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { dispatch } = useContext(AuthContext);
 
   return (
