@@ -83,6 +83,8 @@ export const StyledMenuItem = styled(({ secondary, fullWidth, ...props }) => (
   background-color: ${({ theme }) => theme.palette.background.paper};
   white-space: inherit;
   color: ${({ theme }) => theme.palette.grey[600]};
+  font-size: 14px;
+  padding-left: 24px;
 
   ${({ secondary }) =>
     secondary &&
