@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
 import { LoadingButton } from "@mui/lab";
@@ -14,24 +14,19 @@ import {
   IconBox,
   StyledDialogTitle,
   NewProjectDialogContent,
-} from "./NewProjectDialog.style";
+} from "./NewBoardDialog.style";
 import { createNewProjectPattern } from "../../validation/patterns.const";
-import { toProjects } from "src/views/routes";
+import { toProject } from "src/views/routes";
 
 //DataMock
-let FetchProjectsAPI: any;
+let FetchBoardsAPI: any;
 
 async function importApiModule() {
-  if (localStorage["USE_MOCK"] === "true") {
-    const module = await import("../../api/projects/mockProjectsApi");
-    FetchProjectsAPI = module.default;
-  } else {
-    const module = await import("../../api/projects/projectsApi");
-    FetchProjectsAPI = module.default;
-  }
+  const module = await import("../../api/boards/boardsApi");
+  FetchBoardsAPI = module.default;
 }
 // End
-interface NewProjectDialogProps {
+interface NewBoardDialogProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   dialogTitle: string;
@@ -40,16 +35,16 @@ interface NewProjectDialogProps {
   board?: boolean;
 }
 
-export default function NewProjectDialog({
+export default function NewBoardDialog({
   isOpen,
   setIsOpen,
   dialogTitle,
   dialogHelper,
   handleClick,
   board,
-}: NewProjectDialogProps) {
+}: NewBoardDialogProps) {
   const { t } = useTranslation();
-
+  const { project: projectName } = useParams();
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -69,7 +64,7 @@ export default function NewProjectDialog({
       return;
     }
     changeViewTimeout = setTimeout(() => {
-      !board && navigate(toProjects);
+      !board;
       setIsLoading(false);
       setIsOpen(false);
     }, 1000);
@@ -90,11 +85,27 @@ export default function NewProjectDialog({
     board
       ? (handleClick = handleClick(inputValue))
       : (handleClick = handleClick);
-    FetchProjectsAPI.addProject({
-      alias: inputValue,
-      name: inputValue,
-      description: "We are not doing that, yet.",
-      isActive: true,
+    const date = new Date();
+    date.toISOString();
+    FetchBoardsAPI.addBoard({
+      data: {
+        id: 0,
+        alias: inputValue,
+        name: inputValue,
+        description: inputValue,
+        projectId: 1,
+        statusId: 0,
+        boardId: 1,
+        isActive: true,
+        createdOn: date,
+        modifiedOn: date,
+        board_Status: [
+          {
+            boardId: 0,
+            statusId: 0,
+          },
+        ],
+      },
     }).then((res: any) =>
       res.responseCode
         ? setIsAlertProjectSuccessOpen(true)
@@ -143,11 +154,11 @@ export default function NewProjectDialog({
       </BasicModal>
       <AlertSuccess
         isOpen={isAlertProjectSuccessOpen}
-        alertMsg={t("alertProjectCreated")}
+        alertMsg={t("NewBoardAddedWithSuccess")}
       />
       <AlertError
         isOpen={isAlertProjectErrorOpen}
-        alertMsg={t("alertProjectError")}
+        alertMsg={t("NewBoardAddedWithError")}
         handleClose={() => {
           setIsAlertProjectErrorOpen(false);
         }}

@@ -23,3 +23,11 @@ export const StyledBoxPassword = styled(Box)(({ theme }) => ({
   width: "352px",
   margin: theme.spacing(0, 4, 5, 4),
 }));
+
+export const StyledBoxContainer = styled(Box)(() => ({
+  width: "100vw",
+  height: "100vh",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+}));

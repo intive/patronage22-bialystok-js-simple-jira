@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
 import {
@@ -6,6 +6,11 @@ import {
   API_PROJECT_BY_ID,
   API_ADD_NEW_BOARD,
 } from "../../api/constans";
+import {
+  useSingleDataRequest,
+  useDataRequest,
+  doFetch,
+} from "src/hooks/useRequest";
 import { BoardList, ProjectByID } from "../../api/interfaces";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -16,18 +21,30 @@ import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
-import {
-  useSingleDataRequest,
-  useDataRequest,
-  doFetch,
-} from "src/hooks/useRequest";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
+import { Alert } from "@mui/material";
+import { AlertError, AlertSuccess } from "@components/Alert/Alert";
+import NewBoardDialog from "@modules/NewBoardDialog/NewBoardDialog";
+
+let FetchBoardsAPI: any;
+
+async function importApiModule() {
+  const module = await import("../../api/boards/boardsApi");
+  FetchBoardsAPI = module.default;
+}
 
 export const BoardsList = () => {
-  const [boardsList, setBoardsList] = useState<BoardList[]>();
+  const [isLoading, setIsLoading] = useState(true);
+  //   const [projectName, setProjectName] = useState<string>();
+  const [boardsList, setBoardsList] = useState(mockBoardsList);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const { project: projectName } = useParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [projectName, setProjectName] = useState<string>();
+  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
+  const [boardNameAlert, setBoardNameAlert] = useState(false);
+  const [boardAddedSuccess, setBoardAddedSuccess] = useState(false);
+  const [boardAddedError, setBoardAddedError] = useState(false);
+  const [open, setOpen] = useState(false);
   const { projectID: projectID } = useParams();
 
   const { t } = useTranslation();
@@ -47,69 +64,71 @@ export const BoardsList = () => {
     },
   ];
 
-  const name = useSingleDataRequest(`${API_PROJECT_BY_ID}/${projectID}`, "GET");
+  const handleAddNewBoard = (boardName: string) => {
+    if (boardsList.find((board) => board.name === boardName.toLowerCase())) {
+      setBoardNameAlert(true);
+    } else {
+      boardsList.length < 5
+        ? setBoardsList([...boardsList, { name: boardName.toLowerCase() }])
+        : setBoardNumberAlert(true);
+    }
+  };
+
+  //   const name = useSingleDataRequest(`${API_PROJECT_BY_ID}/${projectID}`, "GET");
   const boards = useDataRequest(API_BOARD_LIST, "GET");
 
+  const fetchBoards = useCallback(async () => {
+    await importApiModule();
+    const boards = await FetchBoardsAPI.getBoards();
+    setBoardsList(boards);
+    setIsLoading(false);
+  }, [boardsList]);
+
   useEffect(() => {
-    setProjectName(name?.name);
-  }, [name]);
+    fetchBoards();
+  }, [isCreateDialogOpen]);
+
+  //   useEffect(() => {
+  //     setProjectName(name?.name);
+  //   }, [name]);
 
   useEffect(() => {
     const boardsByID = boards?.filter(
       (board) => board.projectId === Number(projectID)
     );
-    boardsByID?.length === 0
-      ? setBoardsList(mockBoardsList)
-      : setBoardsList(boardsByID);
+    boardsByID && setBoardsList(boardsByID);
   }, [boards]);
-
-  const handleAddNewBoard = (value: any) => {
-    const getRandomInt = (min: number, max: number) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min)) + min;
-    };
-    const id = getRandomInt(3333, 99999);
-
-    const data = {
-      data: {
-        id: id,
-        alias: value,
-        name: value,
-        description: "string",
-        projectId: projectID,
-        statusId: 0,
-        boardId: id,
-        isActive: true,
-        createdOn: new Date(),
-        modifiedOn: new Date(),
-        board_Status: [
-          {
-            boardId: 0,
-            statusId: 0,
-          },
-        ],
-      },
-    };
-
-    doFetch(API_ADD_NEW_BOARD, "POST", data);
-    setIsCreateModalOpen(false);
-  };
 
   return (
     <StyledPageWrapper>
       <PageHeader
         pageTitle={`${t("projectBoards")} ${projectName}`}
         interactiveElement={
-          <Button onClick={() => setIsCreateModalOpen(true)}>
+          <Button onClick={() => setIsDialogOpen(true)}>
             {t("newBoardBtn")}
           </Button>
         }
       />
+      {boardNumberAlert && (
+        <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
+          {t("boardAlertNumber")}
+        </Alert>
+      )}
+      {boardNameAlert && (
+        <Alert onClose={() => setBoardNameAlert(false)} severity='error'>
+          {t("boardAlertName")}
+        </Alert>
+      )}
+      <NewBoardDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        dialogTitle={t("boardDialogTitle")}
+        dialogHelper={t("boardDialogHelperText")}
+      />
       <StyledBoardList>
         <NewProjectDialog
-          isOpen={isCreateModalOpen}
-          setIsOpen={setIsCreateModalOpen}
+          isOpen={isCreateDialogOpen}
+          setIsOpen={setIsCreateDialogOpen}
           dialogTitle={t("createNewBoard")}
           dialogHelper={t("boardDialogHelperText")}
           handleClick={handleAddNewBoard}
