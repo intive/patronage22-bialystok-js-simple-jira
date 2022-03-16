@@ -15,7 +15,6 @@ export const StyledWelcomeScreen = styled("section")`
   background: ${({ theme }) => theme.palette.background.default};
   border: 1px solid ${({ theme }) => theme.palette.grey[100]};
   border-radius: ${({ theme }) => theme.shape.borderRadius + "px"};
-  margin: 20px;
 `;
 
 export const StyledParagraph = styled("p")`

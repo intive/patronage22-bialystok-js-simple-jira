@@ -7,4 +7,5 @@ export const StyledPageWrapper = styled("div")`
   width: 100%;
   height: 100vh;
   background-color: ${({ theme }) => theme.palette.background.paper};
+  padding-top: 108px;
 `;
