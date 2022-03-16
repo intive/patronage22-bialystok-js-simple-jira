@@ -8,9 +8,7 @@ import PageHeader from "@modules/PageHeader/PageHeader";
 import { BoardCard } from "@components/BoardCard/BoardCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
-import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
-import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import { Alert } from "@mui/material";
 import NewBoardDialog from "@modules/NewBoardDialog/NewBoardDialog";
 
@@ -22,7 +20,7 @@ async function importApiModule() {
 }
 
 export const BoardsList = () => {
-  const [boardsList, setBoardsList] = useState(mockBoardsList);
+  const [boardsList, setBoardsList] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
