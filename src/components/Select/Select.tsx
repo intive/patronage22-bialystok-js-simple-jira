@@ -40,6 +40,11 @@ export const Select: React.FC<SelectProps> = ({
         padding: 0,
       },
     },
+    PaperProps: {
+      style: {
+        borderRadius: 4,
+      },
+    },
   };
 
   return (
