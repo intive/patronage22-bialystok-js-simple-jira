@@ -58,7 +58,7 @@ const App = () => {
             }
           />
           <Route
-            path='projects/:project'
+            path='projects/:projectID'
             element={
               <PrivateRoute>
                 <BoardsList />
@@ -66,7 +66,7 @@ const App = () => {
             }
           />
           <Route
-            path='projects/:project/:board'
+            path='projects/:projectID/:board'
             element={
               <PrivateRoute>
                 <Board />

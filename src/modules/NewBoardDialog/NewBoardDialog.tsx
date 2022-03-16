@@ -44,7 +44,7 @@ export default function NewBoardDialog({
   board,
 }: NewBoardDialogProps) {
   const { t } = useTranslation();
-  const { project: projectName } = useParams();
+  const { projectID: projectID } = useParams();
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -93,7 +93,7 @@ export default function NewBoardDialog({
         alias: inputValue,
         name: inputValue,
         description: inputValue,
-        projectId: 1,
+        projectId: projectID,
         statusId: 0,
         boardId: 1,
         isActive: true,

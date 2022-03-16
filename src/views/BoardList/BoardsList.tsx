@@ -1,17 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
-import {
-  API_BOARD_LIST,
-  API_PROJECT_BY_ID,
-  API_ADD_NEW_BOARD,
-} from "../../api/constans";
-import {
-  useSingleDataRequest,
-  useDataRequest,
-  doFetch,
-} from "src/hooks/useRequest";
-import { BoardList, ProjectByID } from "../../api/interfaces";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -23,7 +12,6 @@ import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import { Alert } from "@mui/material";
-import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import NewBoardDialog from "@modules/NewBoardDialog/NewBoardDialog";
 
 let FetchBoardsAPI: any;
@@ -34,17 +22,10 @@ async function importApiModule() {
 }
 
 export const BoardsList = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  //   const [projectName, setProjectName] = useState<string>();
   const [boardsList, setBoardsList] = useState(mockBoardsList);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const { project: projectName } = useParams();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const [boardAddedSuccess, setBoardAddedSuccess] = useState(false);
-  const [boardAddedError, setBoardAddedError] = useState(false);
-  const [open, setOpen] = useState(false);
   const { projectID: projectID } = useParams();
 
   const { t } = useTranslation();
@@ -64,45 +45,26 @@ export const BoardsList = () => {
     },
   ];
 
-  const handleAddNewBoard = (boardName: string) => {
-    if (boardsList.find((board) => board.name === boardName.toLowerCase())) {
-      setBoardNameAlert(true);
-    } else {
-      boardsList.length < 5
-        ? setBoardsList([...boardsList, { name: boardName.toLowerCase() }])
-        : setBoardNumberAlert(true);
-    }
-  };
-
-  //   const name = useSingleDataRequest(`${API_PROJECT_BY_ID}/${projectID}`, "GET");
-  const boards = useDataRequest(API_BOARD_LIST, "GET");
-
   const fetchBoards = useCallback(async () => {
     await importApiModule();
     const boards = await FetchBoardsAPI.getBoards();
-    setBoardsList(boards);
-    setIsLoading(false);
+    const boardsByID = boards?.filter(
+      (board: any) =>
+        board.projectId === Number(projectID) && board.isActive === true
+    );
+    boardsByID && setBoardsList(boardsByID);
   }, [boardsList]);
 
   useEffect(() => {
     fetchBoards();
-  }, [isCreateDialogOpen]);
-
-  //   useEffect(() => {
-  //     setProjectName(name?.name);
-  //   }, [name]);
-
-  useEffect(() => {
-    const boardsByID = boards?.filter(
-      (board) => board.projectId === Number(projectID)
-    );
-    boardsByID && setBoardsList(boardsByID);
-  }, [boards]);
+  }, [isDialogOpen]);
 
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("projectBoards")} ${projectName}`}
+        returnLinkName={t("projectsBackLink")}
+        returnLink={"/projects"}
+        pageTitle={`${t("projectBoards")}`}
         interactiveElement={
           <Button onClick={() => setIsDialogOpen(true)}>
             {t("newBoardBtn")}
@@ -126,20 +88,13 @@ export const BoardsList = () => {
         dialogHelper={t("boardDialogHelperText")}
       />
       <StyledBoardList>
-        <NewProjectDialog
-          isOpen={isCreateDialogOpen}
-          setIsOpen={setIsCreateDialogOpen}
-          dialogTitle={t("createNewBoard")}
-          dialogHelper={t("boardDialogHelperText")}
-          handleClick={handleAddNewBoard}
-        />
         <Grid container spacing={3}>
           {boardsList?.map((board: any, id: number) => (
             <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <BoardCard
                 menuComponent={<ThreeDotsMenu menuItems={menuOpttions} />}
                 boardName={board.name}
-                projectName={`${projectName}`}
+                projectName={`${projectID}`}
               />
             </Grid>
           ))}
