@@ -1,7 +1,14 @@
-async function makeRequest(url: string, method: string, body: any) {
+import { TOKEN_KEY } from "src/contexts/authentication";
+
+type METHOD = "GET" | "POST" | "PUT" | "PATH" | "DELETE";
+
+async function makeRequest(url: string, method: METHOD, body: any) {
   const jsonBody = body ? JSON.stringify(body) : undefined;
-  const headers: any = {
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  const headers = {
     "Content-Type": "application/json",
+    Authentication: `Bearer ${token}`,
   };
 
   const response = await window.fetch(url, {

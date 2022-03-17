@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import Input from "../../components/Input/Input";
 
+import Input from "@components/Input/Input";
+import { useGetExampleToken } from "src/hooks/useGetExampleToken";
+import useForm from "src/hooks/useForm";
 import {
   StyledBoxForm,
   StyledBoxLogin,
@@ -10,57 +11,65 @@ import {
   StyledBoxContainer,
 } from "./LoginView.style";
 
-import { getLocalStorage, setLocalStorage } from "src/utils/localStorage";
+enum InputNames {
+  LOGIN = "login",
+  PASSWORD = "password",
+}
+
+const INITIAL_VALUES = {
+  [InputNames.LOGIN]: "",
+  [InputNames.PASSWORD]: "",
+};
+
+const validate = (values: typeof INITIAL_VALUES) =>
+  !values.login || !values.password ? { isFieldEmpty: true } : {};
 
 export const LoginView = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const getExampleToken = useGetExampleToken();
 
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const { values, handleChange, handleSubmit, errors } = useForm(
+    INITIAL_VALUES,
+    () => getExampleToken(values),
+    validate
+  );
 
-  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      if (!login || !password) {
-        return window.alert(t("LoginError"));
-      }
-      const localStoragePathname = getLocalStorage("authRoute");
-      setLocalStorage("authRequired", false);
+  const isFieldEmpty = errors.isFieldEmpty;
 
-      if (localStoragePathname !== null) {
-        console.log(localStoragePathname);
-        return navigate(localStoragePathname);
-      }
+  const handleKeypress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
     }
   };
 
-  const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(e.target.value);
-  };
-
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  useEffect(() => {
+    if (isFieldEmpty) {
+      alert(t("LoginError"));
+    }
+  }, [isFieldEmpty]);
 
   return (
     <StyledBoxContainer>
-      <StyledBoxForm component='form' onKeyDown={handleOnKeyDown}>
+      <StyledBoxForm component='form' onKeyDown={handleKeypress}>
         <StyledBoxLogin>
           <Input
+            name={InputNames.LOGIN}
+            value={values.login}
+            onChangeHandler={handleChange}
             variant='outlined'
             labelHelperText={t("LoginLabel")}
             fullWidth
-            onChangeHandler={handleLoginChange}
           />
         </StyledBoxLogin>
         <StyledBoxPassword>
           <Input
+            name={InputNames.PASSWORD}
+            value={values.password}
+            onChangeHandler={handleChange}
             variant='outlined'
+            type='password'
             labelHelperText={t("PasswordLabel")}
             fullWidth
-            value={password}
-            type='password'
-            onChangeHandler={handlePasswordChange}
           />
         </StyledBoxPassword>
       </StyledBoxForm>
