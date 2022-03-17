@@ -1,7 +1,26 @@
-import { styled } from "@mui/material/styles";
+import { styled, css } from "@mui/material/styles";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 
-export const StyledWelcomeScreen = styled("section")`
+interface EmptyListModuleProps {
+  secondary?: boolean;
+}
+
+export const StyledPageWrapper = styled("section")<EmptyListModuleProps>`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  height: 100vh;
+  background-color: ${({ theme }) => theme.palette.background.paper};
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      align-items: flex-start;
+    `}
+`;
+
+export const StyledWelcomeScreen = styled("article")<EmptyListModuleProps>`
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,7 +34,12 @@ export const StyledWelcomeScreen = styled("section")`
   background: ${({ theme }) => theme.palette.background.default};
   border: 1px solid ${({ theme }) => theme.palette.grey[100]};
   border-radius: ${({ theme }) => theme.shape.borderRadius + "px"};
-  margin: 20px;
+
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      margin: 20px;
+    `}
 `;
 
 export const StyledParagraph = styled("p")`

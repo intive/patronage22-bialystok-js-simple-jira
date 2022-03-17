@@ -1,6 +1,8 @@
 {
-  "welcomeBoardButton": "Nowy Projekt",
-  "welcomeBoardParagraph": "Zacznij tworzyć projekty już teraz. Dodaj swój pierwszy projekt, nie czekaj aż kto zrobi to za Ciebie.",
+  "emptyProjectsListButton": "Nowy Projekt",
+  "emptyProjectsListDescription": "Zacznij tworzyć projekty już teraz. Dodaj swój pierwszy projekt, nie czekaj aż kto zrobi to za Ciebie.",
+  "emptyBoardsListButton": "Nowa Tablica",
+  "emptyBoardsListDescription": "Zacznij tworzyć tablice już teraz. Dodaj swoją pierwszą tablicę, nie czekaj aż kto zrobi to za Ciebie.",
   "paragraph3": "Jeśli widzisz tę stronę - React Router działa",
   "paragraph4": "Jeśli licznik zmienia się podczas\nzmiany stron - Redux działa",
   "paragraph5": "Sprawdź tutaj czy i18n działa",

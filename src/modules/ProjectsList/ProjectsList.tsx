@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import ProjectCard from "@components/ProjectCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Grid } from "@mui/material";

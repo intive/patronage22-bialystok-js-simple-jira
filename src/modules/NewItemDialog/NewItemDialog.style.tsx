@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { DialogTitle, DialogContent } from "@mui/material";
 
-export const NewProjectDialogContent = styled(DialogContent)({
+export const NewItemDialogContent = styled(DialogContent)({
   boxSizing: "border-box",
   display: "flex",
   alignItems: "stretch",

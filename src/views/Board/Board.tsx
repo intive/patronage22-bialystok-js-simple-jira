@@ -7,7 +7,7 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
-import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
+import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
@@ -19,7 +19,7 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { projectID: projectID } = useParams();
+  const { projectName: projectName, projectId: projectId } = useParams();
 
   const menuOptions = [
     {
@@ -52,7 +52,7 @@ export const Board = () => {
         pageTitle={`${t("boardsTitle")}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLinkName={t("boardsBackLink")}
-        returnLink={`/projects/${projectID}`}
+        returnLink={`/projects/${projectName}&${projectId}`}
         interactiveElement={
           <Button onClick={() => console.log("button clicked")}>
             {t("newIssueBtn")}
@@ -69,14 +69,14 @@ export const Board = () => {
           {t("boardAlertName")}
         </Alert>
       )}
-      <NewProjectDialog
+      {/* <NewItemDialog
         isOpen={isDialogOpen}
         setIsOpen={setIsDialogOpen}
         dialogTitle={t("boardDialogTitle")}
         dialogHelper={t("columnDialogHelperText")}
         handleClick={handleAddNewBoard}
         board
-      />
+      /> */}
       <TaskWrapper>
         {boards.map((project) => (
           <TasksCard title={project.name} key={project.name} />

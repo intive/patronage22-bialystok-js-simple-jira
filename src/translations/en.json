@@ -1,6 +1,8 @@
 {
-  "welcomeBoardButton": "New Project",
-  "welcomeBoardParagraph": "Start creating projects now. Add your first project, don't wait for someone to do it for you.",
+  "emptyProjectsListButton": "New Project",
+  "emptyProjectsListDescription": "Start creating projects now. Add your first project, don't wait for someone to do it for you.",
+  "emptyBoardsListButton": "New Board",
+  "emptyBoardsListDescription": "Start creating boards now. Add your first board, don't wait for someone to do it for you.",
   "paragraph3": "If you see this page - React Router works",
   "paragraph4": "If it's counting here when you're\nswitching pages - Redux works",
   "paragraph5": "Check here if i18n works",
