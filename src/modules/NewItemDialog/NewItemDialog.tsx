@@ -15,20 +15,6 @@ import {
   NewItemDialogContent,
 } from "./NewItemDialog.style";
 import { createNewProjectPattern } from "../../validation/patterns.const";
-
-//DataMock
-let FetchProjectsAPI: any;
-
-async function importApiModule() {
-  if (localStorage["USE_MOCK"] === "true") {
-    const module = await import("../../api/projects/mockProjectsApi");
-    FetchProjectsAPI = module.default;
-  } else {
-    const module = await import("../../api/projects/projectsApi");
-    FetchProjectsAPI = module.default;
-  }
-}
-// End
 interface NewItemDialogProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -57,11 +43,6 @@ export const NewItemDialog = ({
   const firstRender = useRef(true);
 
   useEffect(() => {
-    importApiModule();
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
     const changeViewTimeout = setTimeout(() => {
       setIsLoading(false);
       setIsOpen(false);

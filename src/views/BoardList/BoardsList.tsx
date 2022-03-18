@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
+import { FetchDataAPI } from "../../api/requestsApi";
+import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -13,13 +15,6 @@ import { Alert } from "@mui/material";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
-
-let FetchBoardsAPI: any;
-
-async function importApiModule() {
-  const module = await import("../../api/boards/boardsApi");
-  FetchBoardsAPI = module.default;
-}
 
 export const BoardsList = () => {
   const [boardsList, setBoardsList] = useState([]);
@@ -50,7 +45,7 @@ export const BoardsList = () => {
   const handleAddNewBoard = (inputValue: string) => {
     const date = new Date();
     date.toISOString();
-    FetchBoardsAPI.addBoard({
+    FetchDataAPI.addData(API_ADD_NEW_BOARD, {
       data: {
         id: 0,
         alias: inputValue,
@@ -77,8 +72,7 @@ export const BoardsList = () => {
   };
 
   const fetchBoards = useCallback(async () => {
-    await importApiModule();
-    const boards = await FetchBoardsAPI.getBoards();
+    const boards = await FetchDataAPI.getData(API_GET_BOARDS_LIST);
     const boardsByID = boards?.filter(
       (board: any) =>
         board.projectId === Number(projectId) && board.isActive === true
