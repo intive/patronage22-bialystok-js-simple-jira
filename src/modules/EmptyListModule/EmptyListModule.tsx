@@ -1,11 +1,10 @@
-import { useTranslation } from "react-i18next";
 import {
   StyledPageWrapper,
   StyledWelcomeScreen,
   StyledParagraph,
   StyledIcon,
 } from "./EmptyListModule.style";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { Button } from "@components/Button/Button";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 
@@ -13,7 +12,11 @@ interface EmptyListModule {
   secondary?: boolean;
   description: string;
   buttonText: string;
+  dialogTitle: string;
+  dialogHelper: string;
   addNew: (arg: string) => void;
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+  isOpen: boolean;
 }
 
 export const EmptyListModule: React.FC<EmptyListModule> = ({
@@ -21,26 +24,23 @@ export const EmptyListModule: React.FC<EmptyListModule> = ({
   description,
   buttonText,
   addNew,
-}) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { t } = useTranslation();
-
-  return (
-    <StyledPageWrapper secondary={secondary}>
-      <StyledWelcomeScreen secondary={secondary}>
-        <StyledIcon />
-        <StyledParagraph>{description}</StyledParagraph>
-        <Button onClick={() => setIsDialogOpen(!isDialogOpen)}>
-          {buttonText}
-        </Button>
-        <NewItemDialog
-          isOpen={isDialogOpen}
-          setIsOpen={setIsDialogOpen}
-          dialogTitle={t("dialogCreateProjectTitle")}
-          dialogHelper={t("dialogCreateProjectHelperText")}
-          handleAdd={addNew}
-        />
-      </StyledWelcomeScreen>
-    </StyledPageWrapper>
-  );
-};
+  dialogTitle,
+  dialogHelper,
+  setIsOpen,
+  isOpen,
+}) => (
+  <StyledPageWrapper secondary={secondary}>
+    <StyledWelcomeScreen secondary={secondary}>
+      <StyledIcon />
+      <StyledParagraph>{description}</StyledParagraph>
+      <Button onClick={() => setIsOpen(!isOpen)}>{buttonText}</Button>
+      <NewItemDialog
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        dialogTitle={dialogTitle}
+        dialogHelper={dialogHelper}
+        handleAdd={addNew}
+      />
+    </StyledWelcomeScreen>
+  </StyledPageWrapper>
+);

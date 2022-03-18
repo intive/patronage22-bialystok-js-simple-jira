@@ -53,7 +53,6 @@ export const Projects = () => {
         ? setIsAlertProjectSuccessOpen(true)
         : setIsAlertProjectErrorOpen(true)
     );
-    setIsLoading(true);
   };
 
   const fetchProjects = useCallback(async () => {
@@ -106,6 +105,10 @@ export const Projects = () => {
               description={t("emptyProjectsListDescription")}
               buttonText={t("emptyProjectsListButton")}
               addNew={handleAddNewProject}
+              dialogTitle={t("dialogCreateProjectTitle")}
+              dialogHelper={t("dialogCreateProjectHelperText")}
+              isOpen={isCreateDialogOpen}
+              setIsOpen={setIsCreateDialogOpen}
             />
           ) : (
             <ProjectsList

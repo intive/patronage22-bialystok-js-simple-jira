@@ -126,6 +126,10 @@ export const BoardsList = () => {
           description={t("emptyBoardsListDescription")}
           buttonText={t("emptyBoardsListButton")}
           addNew={handleAddNewBoard}
+          dialogTitle={t("boardDialogTitle")}
+          dialogHelper={t("dialogCreateProjectHelperText")}
+          isOpen={isDialogOpen}
+          setIsOpen={setIsDialogOpen}
         />
       ) : (
         <StyledBoardList>

@@ -7,7 +7,6 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
-import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
@@ -36,16 +35,6 @@ export const Board = () => {
     },
   ];
 
-  const handleAddNewBoard = (boardName: string) => {
-    if (boards.find((board) => board.name === boardName.toLowerCase())) {
-      setBoardNameAlert(true);
-    } else {
-      boards.length < 5
-        ? setBoards([...boards, { name: boardName.toLowerCase() }])
-        : setBoardNumberAlert(true);
-    }
-  };
-
   return (
     <StyledPageWrapper>
       <PageHeader
@@ -69,14 +58,6 @@ export const Board = () => {
           {t("boardAlertName")}
         </Alert>
       )}
-      {/* <NewItemDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("columnDialogHelperText")}
-        handleClick={handleAddNewBoard}
-        board
-      /> */}
       <TaskWrapper>
         {boards.map((project) => (
           <TasksCard title={project.name} key={project.name} />

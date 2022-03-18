@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
 import { LoadingButton } from "@mui/lab";
@@ -16,7 +15,6 @@ import {
   NewItemDialogContent,
 } from "./NewItemDialog.style";
 import { createNewProjectPattern } from "../../validation/patterns.const";
-import { toProjects } from "src/views/routes";
 
 //DataMock
 let FetchProjectsAPI: any;
@@ -45,7 +43,6 @@ export const NewItemDialog = ({
   setIsOpen,
   dialogTitle,
   dialogHelper,
-  board,
   handleAdd,
 }: NewItemDialogProps) => {
   const { t } = useTranslation();
@@ -59,17 +56,13 @@ export const NewItemDialog = ({
 
   const firstRender = useRef(true);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
-    let changeViewTimeout: any;
     importApiModule();
     if (firstRender.current) {
       firstRender.current = false;
       return;
     }
-    changeViewTimeout = setTimeout(() => {
-      !board && navigate(toProjects);
+    const changeViewTimeout = setTimeout(() => {
       setIsLoading(false);
       setIsOpen(false);
     }, 1000);
