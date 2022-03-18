@@ -1,25 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import { Alert } from "@mui/material";
+import { Button } from "@components/Button/Button";
+
 import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
-import { mockBoards } from "../../mockData/mockBoardColumns";
-import { useTranslation } from "react-i18next";
-import TasksCard from "../../modules/TasksCard";
+import TasksCard from "@modules/TasksCard";
 import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
-import { Alert } from "@mui/material";
-import { Button } from "@components/Button/Button";
+
+let FetchBoardStatusAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/boardStatus/mockBoardStatusApi");
+    FetchBoardStatusAPI = module.default;
+  } else {
+    const module = await import("../../api/boardStatus/boardStatusApi");
+    FetchBoardStatusAPI = module.default;
+  }
+}
 
 export const Board = () => {
-  const [boards, setBoards] = useState(mockBoards);
+  const [columns, setColumns] = useState<Array<object>>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { board: name } = useParams();
+  const { board: name, boardID } = useParams();
+
+  useEffect(() => {
+    async function fetchStatus() {
+      await importApiModule();
+      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardID);
+      setColumns(boardStatus);
+    }
+    fetchStatus();
+  }, []);
 
   const menuOptions = [
     {
@@ -37,11 +59,16 @@ export const Board = () => {
   ];
 
   const handleAddNewBoard = (boardName: string) => {
-    if (boards.find((board) => board.name === boardName.toLowerCase())) {
+    if (
+      columns?.find((column: any) => column.code === boardName.toLowerCase())
+    ) {
       setBoardNameAlert(true);
     } else {
-      boards.length < 5
-        ? setBoards([...boards, { name: boardName.toLowerCase() }])
+      columns?.length < 5
+        ? setColumns([
+            ...columns,
+            { code: boardName.toLowerCase(), id: columns.length + 1 },
+          ])
         : setBoardNumberAlert(true);
     }
   };
@@ -78,8 +105,8 @@ export const Board = () => {
         board
       />
       <TaskWrapper>
-        {boards.map((project) => (
-          <TasksCard title={project.name} key={project.name} />
+        {columns?.map((column: any) => (
+          <TasksCard title={column.code} key={column.id} />
         ))}
       </TaskWrapper>
     </StyledPageWrapper>

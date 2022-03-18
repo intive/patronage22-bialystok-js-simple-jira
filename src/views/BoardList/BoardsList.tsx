@@ -42,7 +42,10 @@ export const BoardsList = () => {
       setBoardNameAlert(true);
     } else {
       boardsList.length < 5
-        ? setBoardsList([...boardsList, { name: boardName.toLowerCase() }])
+        ? setBoardsList([
+            ...boardsList,
+            { name: boardName.toLowerCase(), id: boardsList.length + 1 },
+          ])
         : setBoardNumberAlert(true);
     }
   };
@@ -86,8 +89,8 @@ export const BoardsList = () => {
       />
       <StyledBoardList>
         <Grid container spacing={3}>
-          {boardsList?.map((board: any, id: number) => (
-            <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+          {boardsList?.map((board: any) => (
+            <Grid key={board.id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <BoardCard
                 menuComponent={
                   <ThreeDotsMenu
@@ -109,6 +112,7 @@ export const BoardsList = () => {
                 }
                 boardName={board.name}
                 projectName={`${projectName}`}
+                id={board.id}
               />
             </Grid>
           ))}
