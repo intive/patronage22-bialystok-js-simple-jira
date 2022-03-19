@@ -28,7 +28,6 @@ const App = () => {
   return (
     <>
       <Navbar />
-
       <PrivateRoute>
         <Routes>
           <Route path={toProjects} element={<Projects />} />
@@ -37,7 +36,7 @@ const App = () => {
             element={<BoardsList />}
           />
           <Route
-            path='projects/:projectName&:projectId/:board'
+            path='projects/:projectName&:projectId/:board&:boardId'
             element={<Board />}
           />
           <Route path={toIssue()} element={<Issue />} />

@@ -31,17 +31,11 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const {
-    board: name,
-    boardID,
-    projectName: projectName,
-    projectId: projectId,
-  } = useParams();
-
+  const { boardId, projectName, projectId } = useParams();
   useEffect(() => {
     async function fetchStatus() {
       await importApiModule();
-      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardID);
+      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardId);
       setColumns(boardStatus);
     }
     fetchStatus();

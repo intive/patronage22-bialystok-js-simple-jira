@@ -1,4 +1,5 @@
-import makeRequest from "../makeFetchRequest";
+import FetchDataAPI from "../requestsApi";
+import { API_GET_BOARD_STATUS, API_GET_STATUS } from "../contsans";
 
 interface DataObject {
   [key: string]: any;
@@ -6,13 +7,10 @@ interface DataObject {
 
 const FetchBoardStatusAPI = {
   getBoardStatusById: async function (id: number) {
-    const response = await makeRequest("/api/boardStatus", "GET", null);
-    const boardStatus = await response.json();
+    const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
+    const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const response2 = await makeRequest("/api/status", "GET", null);
-    const status = await response2.json();
-
-    const filteredBoardStatus = boardStatus.data.filter(
+    const filteredBoardStatus = boardStatus.filter(
       (boardStatus: DataObject) => {
         return boardStatus.boardId == id;
       }
@@ -28,7 +26,7 @@ const FetchBoardStatusAPI = {
         []
       );
 
-      const filteredStatus = status.data.filter((status: DataObject) => {
+      const filteredStatus = status.filter((status: DataObject) => {
         return boardStatusIds.includes(status.id);
       });
       return filteredStatus;
