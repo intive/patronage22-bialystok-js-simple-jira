@@ -26,7 +26,7 @@ export const BoardsList = () => {
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
 
-  const menuOpttions = [
+  const menuOptions = [
     {
       id: 0,
       icon: <ViewWeekOutlinedIcon />,
@@ -125,7 +125,7 @@ export const BoardsList = () => {
                 {boardsList?.map((board: any, id: number) => (
                   <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
                     <BoardCard
-                      menuComponent={<ThreeDotsMenu menuItems={menuOpttions} />}
+                      menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
                       boardName={board.name}
                       projectName={`${projectName}`}
                       id={projectId}
