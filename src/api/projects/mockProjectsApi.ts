@@ -9,12 +9,12 @@ function sleep(ms = 1000) {
 }
 
 const MockProjectsAPI = {
-  getProjects: async function () {
+  getData: async function (url: string) {
     await sleep();
     console.log("Fetching projects... response.status:", 200);
     return [...projects];
   },
-  addProject: async function (projectToAdd: ProjectType) {
+  addData: async function (projectToAdd: ProjectType) {
     await sleep();
     const addedProject = {
       ...projectToAdd,

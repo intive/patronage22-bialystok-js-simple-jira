@@ -7,7 +7,6 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import { mockBoards } from "../../mockData/mockBoardColumns";
 import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
-import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
@@ -19,40 +18,30 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { board: name } = useParams();
+  const { projectName: projectName, projectId: projectId } = useParams();
 
   const menuOptions = [
     {
       id: 0,
       icon: <ViewWeekOutlinedIcon />,
-      label: "Add column",
+      label: `${t("addColumn")}`,
       onClick: () => setIsDialogOpen(!isDialogOpen),
     },
     {
       id: 1,
       icon: <DeleteOutlineIcon />,
-      label: "Delete project",
-      onClick: () => console.log("project deleted"),
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("column deleted"),
     },
   ];
-
-  const handleAddNewBoard = (boardName: string) => {
-    if (boards.find((board) => board.name === boardName.toLowerCase())) {
-      setBoardNameAlert(true);
-    } else {
-      boards.length < 5
-        ? setBoards([...boards, { name: boardName.toLowerCase() }])
-        : setBoardNumberAlert(true);
-    }
-  };
 
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("boardsTitle")}: ${name}`}
+        pageTitle={`${t("boardsTitle")}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLinkName={t("boardsBackLink")}
-        returnLink={`/projects/${name}`}
+        returnLink={`/projects/${projectName}&${projectId}`}
         interactiveElement={
           <Button onClick={() => console.log("button clicked")}>
             {t("newIssueBtn")}
@@ -69,14 +58,6 @@ export const Board = () => {
           {t("boardAlertName")}
         </Alert>
       )}
-      <NewProjectDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("boardDialogHelperText")}
-        handleClick={handleAddNewBoard}
-        board
-      />
       <TaskWrapper>
         {boards.map((project) => (
           <TasksCard title={project.name} key={project.name} />

@@ -11,7 +11,7 @@ async function makeRequest(url: string, method: METHOD, body: any) {
     Authentication: `Bearer ${token}`,
   };
 
-  const response = await window.fetch(url, {
+  const response = await fetch(url, {
     method,
     headers,
     body: jsonBody,

@@ -12,11 +12,12 @@ import {
 interface ProjectCardProps {
   name: string;
   menuComponent?: React.ReactNode;
+  id: number;
 }
 
-const ProjectCard = ({ name, menuComponent }: ProjectCardProps) => (
+const ProjectCard = ({ name, menuComponent, id }: ProjectCardProps) => (
   <StyledCard>
-    <Link to={`/projects/${name}`}>
+    <Link to={`/projects/${name}&${id}`}>
       <Background />
     </Link>
     <Wrapper>

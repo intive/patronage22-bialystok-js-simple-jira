@@ -4,21 +4,16 @@ import { toHome } from "../../views/routes";
 import { LoaderWrapper, StyledLoader } from "./Content.styled";
 interface ContentProps {
   isLoading: boolean;
-  noContentToShow: boolean;
   children: JSX.Element;
 }
 
-const Content = ({ isLoading, noContentToShow, children }: ContentProps) => {
+const Content = ({ isLoading, children }: ContentProps) => {
   if (isLoading) {
     return (
       <LoaderWrapper>
         <StyledLoader size={50} />
       </LoaderWrapper>
     );
-  }
-
-  if (noContentToShow) {
-    return <Navigate to={toHome} />;
   }
 
   return children;
