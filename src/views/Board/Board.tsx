@@ -11,6 +11,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { Alert } from "@mui/material";
 import { Button } from "@components/Button/Button";
+import Ticket from "../../modules/Ticket/Ticket";
 
 export const Board = () => {
   const [boards, setBoards] = useState(mockBoards);
@@ -60,7 +61,9 @@ export const Board = () => {
       )}
       <TaskWrapper>
         {boards.map((project) => (
-          <TasksCard title={project.name} key={project.name} />
+          <TasksCard title={project.name} key={project.name}>
+            <Ticket title='test' />
+          </TasksCard>
         ))}
       </TaskWrapper>
     </StyledPageWrapper>
