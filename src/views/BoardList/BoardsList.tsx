@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
-import { FetchDataAPI } from "../../api/requestsApi";
 import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -15,6 +14,18 @@ import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
+
+let FetchDataAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/boards/mockBoardsApi");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
+}
 
 export const BoardsList = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -70,8 +81,9 @@ export const BoardsList = () => {
     );
   };
 
-  useEffect(() => {
-    FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res) => {
+  const fetchProjects = useCallback(async () => {
+    await importApiModule();
+    FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
       const boardsByID = res?.filter(
         (board: any) =>
           board.projectId === Number(projectId) && board.isActive === true
@@ -85,6 +97,10 @@ export const BoardsList = () => {
     });
     setIsDialogOpen(false);
     setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    fetchProjects();
   }, [isAlertBoardSuccessOpen]);
 
   return (

@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { StyledPageWrapper } from "./Projects.style";
-import { FetchDataAPI } from "../../api/requestsApi";
 import { API_ADD_NEW_PROJECT, API_GET_PROJECTS_LIST } from "../../api/contsans";
 import { useTranslation } from "react-i18next";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
@@ -12,6 +11,18 @@ import { ProjectsList } from "@modules/ProjectsList/ProjectsList";
 import { Button } from "@components/Button/Button";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
+
+let FetchDataAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/projects/mockProjectsApi");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
+}
 
 export const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,15 +57,20 @@ export const Projects = () => {
     );
   };
 
-  useEffect(() => {
-    FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res) => {
-      if (res.length === 0) {
+  const fetchProjects = useCallback(async () => {
+    await importApiModule();
+    await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
+      setProjects(res);
+      if (res === 0) {
         setIsListEmpty(true);
       } else {
         setIsListEmpty(false);
-        setProjects(res);
       }
     });
+  }, []);
+
+  useEffect(() => {
+    fetchProjects();
     setIsCreateDialogOpen(false);
     setIsLoading(false);
   }, [isAlertProjectSuccessOpen]);

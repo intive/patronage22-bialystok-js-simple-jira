@@ -1,6 +1,6 @@
 import makeRequest from "./makeFetchRequest";
 
-export const FetchDataAPI = {
+const FetchDataAPI = {
   getData: async function (url: string) {
     const response = await makeRequest(url, "GET", null);
     const fetchedData = await response.json();
@@ -14,3 +14,5 @@ export const FetchDataAPI = {
     return addedData;
   },
 };
+
+export default FetchDataAPI;
