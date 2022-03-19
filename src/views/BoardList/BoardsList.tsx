@@ -1,7 +1,7 @@
-import * as React from "react";
 import { useCallback, useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
+import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -9,115 +9,161 @@ import PageHeader from "@modules/PageHeader/PageHeader";
 import { BoardCard } from "@components/BoardCard/BoardCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
-import { mockBoardsList } from "../../mockData/mocBoardsList";
 import { useParams } from "react-router-dom";
-import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
-import { Alert } from "@mui/material";
+import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
+import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
-import NewBoardDialog from "@modules/NewBoardDialog/NewBoardDialog";
+import Content from "@components/Content/Content";
 
-let FetchBoardsAPI: any;
+let FetchDataAPI: any;
 
 async function importApiModule() {
-  const module = await import("../../api/boards/boardsApi");
-  FetchBoardsAPI = module.default;
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/boards/mockBoardsApi");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
 }
 
 export const BoardsList = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [boardsList, setBoardsList] = useState(mockBoardsList);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const { project: projectName } = useParams();
+  const [boardsList, setBoardsList] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const [boardAddedSuccess, setBoardAddedSuccess] = useState(false);
-  const [boardAddedError, setBoardAddedError] = useState(false);
-  const [open, setOpen] = useState(false);
-
+  const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
+  const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
+  const [isListEmpty, setIsListEmpty] = useState(false);
+  const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
 
-  const handleAddNewBoard = (boardName: string) => {
-    if (boardsList.find((board) => board.name === boardName.toLowerCase())) {
-      setBoardNameAlert(true);
-    } else {
-      boardsList.length < 5
-        ? setBoardsList([
-            ...boardsList,
-            { name: boardName.toLowerCase(), id: boardsList.length + 1 },
-          ])
-        : setBoardNumberAlert(true);
-    }
+  const menuOptions = [
+    {
+      id: 0,
+      icon: <ViewWeekOutlinedIcon />,
+      label: `${t("addColumn")}`,
+      onClick: () => console.log("column added"),
+    },
+    {
+      id: 1,
+      icon: <DeleteOutlineIcon />,
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("board deleted"),
+    },
+  ];
+
+  const handleAddNewBoard = (inputValue: string) => {
+    const date = new Date();
+    date.toISOString();
+    FetchDataAPI.addData(API_ADD_NEW_BOARD, {
+      data: {
+        id: 0,
+        alias: inputValue,
+        name: inputValue,
+        description: inputValue,
+        projectId: projectId,
+        statusId: 0,
+        boardId: 1,
+        isActive: true,
+        createdOn: date,
+        modifiedOn: date,
+        board_Status: [
+          {
+            boardId: 0,
+            statusId: 0,
+          },
+        ],
+      },
+    }).then((res: any) =>
+      res.responseCode
+        ? setisAlertBoardSuccessOpen(true)
+        : setisAlertBoardErrorOpen(true)
+    );
   };
 
-  const fetchBoards = useCallback(async () => {
+  const fetchProjects = useCallback(async () => {
     await importApiModule();
-    const boards = await FetchBoardsAPI.getBoards();
-    setBoardsList(boards);
+    FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
+      const boardsByID = res?.filter(
+        (board: any) =>
+          board.projectId === Number(projectId) && board.isActive === true
+      );
+      if (boardsByID.length === 0) {
+        setIsListEmpty(true);
+      } else {
+        setIsListEmpty(false);
+        setBoardsList(boardsByID);
+      }
+    });
+    setIsDialogOpen(false);
     setIsLoading(false);
-  }, [boardsList]);
+  }, []);
 
   useEffect(() => {
-    fetchBoards();
-  }, [isCreateDialogOpen]);
+    fetchProjects();
+  }, [isAlertBoardSuccessOpen]);
 
   return (
-    <StyledPageWrapper>
-      <PageHeader
-        pageTitle={`${t("labelProject")}: ${projectName}`}
-        interactiveElement={
-          <Button onClick={() => setIsDialogOpen(true)}>
-            {t("newBoardBtn")}
-          </Button>
-        }
+    <>
+      <Content isLoading={isLoading}>
+        <StyledPageWrapper>
+          <PageHeader
+            returnLinkName={t("projectsBackLink")}
+            returnLink={"/projects"}
+            pageTitle={`${t("projectBoards")}`}
+            interactiveElement={
+              <Button onClick={() => setIsDialogOpen(true)}>
+                {t("newBoardBtn")}
+              </Button>
+            }
+          />
+          <NewItemDialog
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
+            dialogTitle={t("boardDialogTitle")}
+            dialogHelper={t("boardDialogHelperText")}
+            handleAdd={handleAddNewBoard}
+          />
+          {isListEmpty ? (
+            <EmptyListModule
+              secondary={+true}
+              description={t("emptyBoardsListDescription")}
+              buttonText={t("emptyBoardsListButton")}
+              addNew={handleAddNewBoard}
+              dialogTitle={t("boardDialogTitle")}
+              dialogHelper={t("dialogCreateProjectHelperText")}
+              isOpen={isDialogOpen}
+              setIsOpen={setIsDialogOpen}
+            />
+          ) : (
+            <StyledBoardList>
+              <Grid container spacing={3}>
+                {boardsList?.map((board: any, id: number) => (
+                  <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                    <BoardCard
+                      menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
+                      boardName={board.name}
+                      projectName={`${projectName}`}
+                      id={projectId}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </StyledBoardList>
+          )}
+        </StyledPageWrapper>
+      </Content>
+      <AlertSuccess
+        isOpen={isAlertBoardSuccessOpen}
+        alertMsg={t("NewBoardAddedWithSuccess")}
       />
-      {boardNumberAlert && (
-        <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
-          {t("boardAlertNumber")}
-        </Alert>
-      )}
-      {boardNameAlert && (
-        <Alert onClose={() => setBoardNameAlert(false)} severity='error'>
-          {t("boardAlertName")}
-        </Alert>
-      )}
-      <NewBoardDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("boardDialogHelperText")}
+      <AlertError
+        isOpen={isAlertBoardErrorOpen}
+        alertMsg={t("NewBoardAddedWithError")}
+        handleClose={() => {
+          setisAlertBoardErrorOpen(false);
+        }}
       />
-      <StyledBoardList>
-        <Grid container spacing={3}>
-          {boardsList?.map((board: any) => (
-            <Grid key={board.id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-              <BoardCard
-                menuComponent={
-                  <ThreeDotsMenu
-                    menuItems={[
-                      {
-                        id: 0,
-                        icon: <ViewWeekOutlinedIcon />,
-                        label: "Add column",
-                        onClick: () => console.log("column added"),
-                      },
-                      {
-                        id: 1,
-                        icon: <DeleteOutlineIcon />,
-                        label: "Delete board",
-                        onClick: () => console.log("board deleted"),
-                      },
-                    ]}
-                  />
-                }
-                boardName={board.name}
-                projectName={`${projectName}`}
-                id={board.id}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </StyledBoardList>
-    </StyledPageWrapper>
+    </>
   );
 };

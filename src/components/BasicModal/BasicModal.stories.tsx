@@ -9,8 +9,8 @@ import {
   ButtonBox,
   IconBox,
   StyledDialogTitle,
-  NewProjectDialogContent,
-} from "@modules/NewProjectDialog/NewProjectDialog.style";
+  NewItemDialogContent,
+} from "@modules/NewItemDialog/NewItemDialog.style";
 
 export default {
   title: "BasicModal",
@@ -29,7 +29,7 @@ export const LongModal = Template.bind({});
 
 CreateProject.args = {
   children: (
-    <NewProjectDialogContent>
+    <NewItemDialogContent>
       <IconBox>
         <EditIcon />
       </IconBox>
@@ -43,7 +43,7 @@ CreateProject.args = {
           Create
         </Button>
       </ButtonBox>
-    </NewProjectDialogContent>
+    </NewItemDialogContent>
   ),
   open: true,
 };
@@ -57,7 +57,7 @@ CreateProject.parameters = {
 
 CreateProjectWithError.args = {
   children: (
-    <NewProjectDialogContent>
+    <NewItemDialogContent>
       <IconBox>
         <EditIcon />
       </IconBox>
@@ -78,7 +78,7 @@ CreateProjectWithError.args = {
           Create
         </Button>
       </ButtonBox>
-    </NewProjectDialogContent>
+    </NewItemDialogContent>
   ),
   open: true,
 };
@@ -92,7 +92,7 @@ CreateProjectWithError.parameters = {
 
 LongModal.args = {
   children: (
-    <NewProjectDialogContent>
+    <NewItemDialogContent>
       <Input value='First input' />
       <Input value='Second input' />
       <Input value='Third input' />
@@ -108,7 +108,7 @@ LongModal.args = {
           Create
         </Button>
       </ButtonBox>
-    </NewProjectDialogContent>
+    </NewItemDialogContent>
   ),
   open: true,
 };

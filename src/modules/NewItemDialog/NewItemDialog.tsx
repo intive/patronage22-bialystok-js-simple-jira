@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, Dispatch, SetStateAction } from "react";
-import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import EditIcon from "@mui/icons-material/Edit";
 import { LoadingButton } from "@mui/lab";
@@ -13,38 +12,27 @@ import {
   ButtonBox,
   IconBox,
   StyledDialogTitle,
-  NewProjectDialogContent,
-} from "./NewBoardDialog.style";
+  NewItemDialogContent,
+} from "./NewItemDialog.style";
 import { createNewProjectPattern } from "../../validation/patterns.const";
-import { toProject } from "src/views/routes";
-
-//DataMock
-let FetchBoardsAPI: any;
-
-async function importApiModule() {
-  const module = await import("../../api/boards/boardsApi");
-  FetchBoardsAPI = module.default;
-}
-// End
-interface NewBoardDialogProps {
+interface NewItemDialogProps {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
   dialogTitle: string;
   dialogHelper: string;
-  handleClick?: any;
   board?: boolean;
+  handleAdd: (arg: string) => void;
 }
 
-export default function NewBoardDialog({
+export const NewItemDialog = ({
   isOpen,
   setIsOpen,
   dialogTitle,
   dialogHelper,
-  handleClick,
-  board,
-}: NewBoardDialogProps) {
+  handleAdd,
+}: NewItemDialogProps) => {
   const { t } = useTranslation();
-  const { project: projectName } = useParams();
+
   const [inputValue, setInputValue] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -52,27 +40,11 @@ export default function NewBoardDialog({
     useState(false);
   const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
 
-  const firstRender = useRef(true);
-
-  const navigate = useNavigate();
-
   useEffect(() => {
-    let changeViewTimeout: any;
-    importApiModule();
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    changeViewTimeout = setTimeout(() => {
-      !board;
-      setIsLoading(false);
-      setIsOpen(false);
-    }, 1000);
     const alertProjectSuccessTimeout = setTimeout(() => {
       setIsAlertProjectSuccessOpen(false);
     }, 1500);
     return () => {
-      clearTimeout(changeViewTimeout);
       clearTimeout(alertProjectSuccessTimeout);
     };
   }, [isLoading]);
@@ -82,35 +54,7 @@ export default function NewBoardDialog({
   };
 
   const handleCreate = () => {
-    board
-      ? (handleClick = handleClick(inputValue))
-      : (handleClick = handleClick);
-    const date = new Date();
-    date.toISOString();
-    FetchBoardsAPI.addBoard({
-      data: {
-        id: 0,
-        alias: inputValue,
-        name: inputValue,
-        description: inputValue,
-        projectId: 1,
-        statusId: 0,
-        boardId: 1,
-        isActive: true,
-        createdOn: date,
-        modifiedOn: date,
-        board_Status: [
-          {
-            boardId: 0,
-            statusId: 0,
-          },
-        ],
-      },
-    }).then((res: any) =>
-      res.responseCode
-        ? setIsAlertProjectSuccessOpen(true)
-        : setIsAlertProjectErrorOpen(true)
-    );
+    inputValue && handleAdd(inputValue);
     setIsLoading(true);
   };
 
@@ -126,7 +70,7 @@ export default function NewBoardDialog({
   return (
     <>
       <BasicModal open={isOpen} onClose={handleClose}>
-        <NewProjectDialogContent>
+        <NewItemDialogContent>
           <IconBox>
             <EditIcon />
           </IconBox>
@@ -150,19 +94,17 @@ export default function NewBoardDialog({
               </Button>
             )}
           </ButtonBox>
-        </NewProjectDialogContent>
+        </NewItemDialogContent>
       </BasicModal>
       <AlertSuccess
         isOpen={isAlertProjectSuccessOpen}
-        alertMsg={t("NewBoardAddedWithSuccess")}
+        alertMsg={t("alertProjectCreated")}
       />
       <AlertError
         isOpen={isAlertProjectErrorOpen}
-        alertMsg={t("NewBoardAddedWithError")}
-        handleClose={() => {
-          setIsAlertProjectErrorOpen(false);
-        }}
+        alertMsg={t("alertProjectError")}
+        handleClose={() => setIsAlertProjectErrorOpen(false)}
       />
     </>
   );
-}
+};

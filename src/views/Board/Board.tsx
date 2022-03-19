@@ -9,8 +9,7 @@ import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
-import TasksCard from "@modules/TasksCard";
-import NewProjectDialog from "@modules/NewProjectDialog/NewProjectDialog";
+import TasksCard from "../../modules/TasksCard";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 
@@ -32,7 +31,12 @@ export const Board = () => {
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { board: name, boardID } = useParams();
+  const {
+    board: name,
+    boardID,
+    projectName: projectName,
+    projectId: projectId,
+  } = useParams();
 
   useEffect(() => {
     async function fetchStatus() {
@@ -47,39 +51,24 @@ export const Board = () => {
     {
       id: 0,
       icon: <ViewWeekOutlinedIcon />,
-      label: "Add column",
+      label: `${t("addColumn")}`,
       onClick: () => setIsDialogOpen(!isDialogOpen),
     },
     {
       id: 1,
       icon: <DeleteOutlineIcon />,
-      label: "Delete project",
-      onClick: () => console.log("project deleted"),
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("column deleted"),
     },
   ];
-
-  const handleAddNewBoard = (boardName: string) => {
-    if (
-      columns?.find((column: any) => column.code === boardName.toLowerCase())
-    ) {
-      setBoardNameAlert(true);
-    } else {
-      columns?.length < 5
-        ? setColumns([
-            ...columns,
-            { code: boardName.toLowerCase(), id: columns.length + 1 },
-          ])
-        : setBoardNumberAlert(true);
-    }
-  };
 
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("boardsTitle")}: ${name}`}
+        pageTitle={`${t("boardsTitle")}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLinkName={t("boardsBackLink")}
-        returnLink={`/projects/${name}`}
+        returnLink={`/projects/${projectName}&${projectId}`}
         interactiveElement={
           <Button onClick={() => console.log("button clicked")}>
             {t("newIssueBtn")}
@@ -96,14 +85,6 @@ export const Board = () => {
           {t("boardAlertName")}
         </Alert>
       )}
-      <NewProjectDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("boardDialogHelperText")}
-        handleClick={handleAddNewBoard}
-        board
-      />
       <TaskWrapper>
         {columns?.map((column: any) => (
           <TasksCard title={column.code} key={column.id} />
