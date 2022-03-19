@@ -40,18 +40,11 @@ export const NewItemDialog = ({
     useState(false);
   const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
 
-  const firstRender = useRef(true);
-
   useEffect(() => {
-    const changeViewTimeout = setTimeout(() => {
-      setIsLoading(false);
-      setIsOpen(false);
-    }, 1000);
     const alertProjectSuccessTimeout = setTimeout(() => {
       setIsAlertProjectSuccessOpen(false);
     }, 1500);
     return () => {
-      clearTimeout(changeViewTimeout);
       clearTimeout(alertProjectSuccessTimeout);
     };
   }, [isLoading]);
@@ -110,9 +103,7 @@ export const NewItemDialog = ({
       <AlertError
         isOpen={isAlertProjectErrorOpen}
         alertMsg={t("alertProjectError")}
-        handleClose={() => {
-          setIsAlertProjectErrorOpen(false);
-        }}
+        handleClose={() => setIsAlertProjectErrorOpen(false)}
       />
     </>
   );

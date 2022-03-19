@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { StyledPageWrapper } from "./Projects.style";
 import { FetchDataAPI } from "../../api/requestsApi";
 import { API_ADD_NEW_PROJECT, API_GET_PROJECTS_LIST } from "../../api/contsans";
@@ -18,6 +18,7 @@ export const Projects = () => {
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isDltDialogOpen, setIsDltDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isListEmpty, setIsListEmpty] = useState(false);
   const [current, setCurrent] = useState(0);
   const [isAlertProjectSuccessOpen, setIsAlertProjectSuccessOpen] =
     useState(false);
@@ -45,22 +46,22 @@ export const Projects = () => {
     );
   };
 
-  const fetchProjects = useCallback(async () => {
-    const projects = await FetchDataAPI.getData(API_GET_PROJECTS_LIST);
-    setProjects(projects);
-    setIsLoading(false);
-  }, [projects]);
-
   useEffect(() => {
-    fetchProjects();
-  }, [isCreateDialogOpen]);
+    FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res) => {
+      if (res.length === 0) {
+        setIsListEmpty(true);
+      } else {
+        setIsListEmpty(false);
+        setProjects(res);
+      }
+    });
+    setIsCreateDialogOpen(false);
+    setIsLoading(false);
+  }, [isAlertProjectSuccessOpen]);
 
   return (
     <>
-      <Content
-        isLoading={isLoading}
-        noContentToShow={!projects || projects.length === 0}
-      >
+      <Content isLoading={isLoading}>
         <StyledPageWrapper>
           <ConfirmationDialog
             confirmHandler={() => {
@@ -88,9 +89,9 @@ export const Projects = () => {
               </Button>
             }
           />
-          {projects.length === 0 ? (
+          {isListEmpty ? (
             <EmptyListModule
-              secondary
+              secondary={+true}
               description={t("emptyProjectsListDescription")}
               buttonText={t("emptyProjectsListButton")}
               addNew={handleAddNewProject}
@@ -118,9 +119,7 @@ export const Projects = () => {
       <AlertError
         isOpen={isAlertProjectErrorOpen}
         alertMsg={t("alertProjectError")}
-        handleClose={() => {
-          setIsAlertProjectErrorOpen(false);
-        }}
+        handleClose={() => setIsAlertProjectErrorOpen(false)}
       />
     </>
   );

@@ -9,7 +9,7 @@ import { Button } from "@components/Button/Button";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 
 interface EmptyListModule {
-  secondary?: boolean;
+  secondary?: number;
   description: string;
   buttonText: string;
   dialogTitle: string;

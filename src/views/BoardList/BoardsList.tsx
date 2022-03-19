@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 import { useTranslation } from "react-i18next";
 import { FetchDataAPI } from "../../api/requestsApi";
@@ -11,19 +11,18 @@ import { BoardCard } from "@components/BoardCard/BoardCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { useParams } from "react-router-dom";
-import { Alert } from "@mui/material";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
+import Content from "@components/Content/Content";
 
 export const BoardsList = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const [isAlertProjectSuccessOpen, setIsAlertProjectSuccessOpen] =
-    useState(false);
-  const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
+  const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
+  const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
+  const [isListEmpty, setIsListEmpty] = useState(false);
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
 
@@ -66,92 +65,89 @@ export const BoardsList = () => {
       },
     }).then((res: any) =>
       res.responseCode
-        ? setIsAlertProjectSuccessOpen(true)
-        : setIsAlertProjectErrorOpen(true)
+        ? setisAlertBoardSuccessOpen(true)
+        : setisAlertBoardErrorOpen(true)
     );
   };
 
-  const fetchBoards = useCallback(async () => {
-    const boards = await FetchDataAPI.getData(API_GET_BOARDS_LIST);
-    const boardsByID = boards?.filter(
-      (board: any) =>
-        board.projectId === Number(projectId) && board.isActive === true
-    );
-    console.log(boardsByID);
-    boardsByID && setBoardsList(boardsByID);
-  }, [boardsList]);
-
   useEffect(() => {
-    fetchBoards();
-  }, [isDialogOpen]);
+    FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res) => {
+      const boardsByID = res?.filter(
+        (board: any) =>
+          board.projectId === Number(projectId) && board.isActive === true
+      );
+      if (boardsByID.length === 0) {
+        setIsListEmpty(true);
+      } else {
+        setIsListEmpty(false);
+        setBoardsList(boardsByID);
+      }
+    });
+    setIsDialogOpen(false);
+    setIsLoading(false);
+  }, [isAlertBoardSuccessOpen]);
 
   return (
-    <StyledPageWrapper>
-      <PageHeader
-        returnLinkName={t("projectsBackLink")}
-        returnLink={"/projects"}
-        pageTitle={`${t("projectBoards")}`}
-        interactiveElement={
-          <Button onClick={() => setIsDialogOpen(true)}>
-            {t("newBoardBtn")}
-          </Button>
-        }
-      />
-      {boardNumberAlert && (
-        <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
-          {t("boardAlertNumber")}
-        </Alert>
-      )}
-      {boardNameAlert && (
-        <Alert onClose={() => setBoardNameAlert(false)} severity='error'>
-          {t("boardAlertName")}
-        </Alert>
-      )}
-      <NewItemDialog
-        isOpen={isDialogOpen}
-        setIsOpen={setIsDialogOpen}
-        dialogTitle={t("boardDialogTitle")}
-        dialogHelper={t("boardDialogHelperText")}
-        handleAdd={handleAddNewBoard}
-      />
-      {boardsList.length === 0 ? (
-        <EmptyListModule
-          secondary
-          description={t("emptyBoardsListDescription")}
-          buttonText={t("emptyBoardsListButton")}
-          addNew={handleAddNewBoard}
-          dialogTitle={t("boardDialogTitle")}
-          dialogHelper={t("dialogCreateProjectHelperText")}
-          isOpen={isDialogOpen}
-          setIsOpen={setIsDialogOpen}
-        />
-      ) : (
-        <StyledBoardList>
-          <Grid container spacing={3}>
-            {boardsList?.map((board: any, id: number) => (
-              <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-                <BoardCard
-                  menuComponent={<ThreeDotsMenu menuItems={menuOpttions} />}
-                  boardName={board.name}
-                  projectName={`${projectName}`}
-                  id={projectId}
-                />
+    <>
+      <Content isLoading={isLoading}>
+        <StyledPageWrapper>
+          <PageHeader
+            returnLinkName={t("projectsBackLink")}
+            returnLink={"/projects"}
+            pageTitle={`${t("projectBoards")}`}
+            interactiveElement={
+              <Button onClick={() => setIsDialogOpen(true)}>
+                {t("newBoardBtn")}
+              </Button>
+            }
+          />
+          <NewItemDialog
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
+            dialogTitle={t("boardDialogTitle")}
+            dialogHelper={t("boardDialogHelperText")}
+            handleAdd={handleAddNewBoard}
+          />
+          {isListEmpty ? (
+            <EmptyListModule
+              secondary={+true}
+              description={t("emptyBoardsListDescription")}
+              buttonText={t("emptyBoardsListButton")}
+              addNew={handleAddNewBoard}
+              dialogTitle={t("boardDialogTitle")}
+              dialogHelper={t("dialogCreateProjectHelperText")}
+              isOpen={isDialogOpen}
+              setIsOpen={setIsDialogOpen}
+            />
+          ) : (
+            <StyledBoardList>
+              <Grid container spacing={3}>
+                {boardsList?.map((board: any, id: number) => (
+                  <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                    <BoardCard
+                      menuComponent={<ThreeDotsMenu menuItems={menuOpttions} />}
+                      boardName={board.name}
+                      projectName={`${projectName}`}
+                      id={projectId}
+                    />
+                  </Grid>
+                ))}
               </Grid>
-            ))}
-          </Grid>
-        </StyledBoardList>
-      )}
+            </StyledBoardList>
+          )}
+        </StyledPageWrapper>
+      </Content>
       <AlertSuccess
-        isOpen={isAlertProjectSuccessOpen}
+        isOpen={isAlertBoardSuccessOpen}
         alertMsg={t("NewBoardAddedWithSuccess")}
       />
       <AlertError
-        isOpen={isAlertProjectErrorOpen}
+        isOpen={isAlertBoardErrorOpen}
         alertMsg={t("NewBoardAddedWithError")}
         handleClose={() => {
-          setIsAlertProjectErrorOpen(false);
+          setisAlertBoardErrorOpen(false);
         }}
       />
-    </StyledPageWrapper>
+    </>
   );
 };

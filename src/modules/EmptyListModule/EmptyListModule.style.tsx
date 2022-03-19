@@ -2,7 +2,7 @@ import { styled, css } from "@mui/material/styles";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
 
 interface EmptyListModuleProps {
-  secondary?: boolean;
+  secondary?: number;
 }
 
 export const StyledPageWrapper = styled("section")<EmptyListModuleProps>`
@@ -32,15 +32,12 @@ export const StyledWelcomeScreen = styled("article")<EmptyListModuleProps>`
   background: ${({ theme }) => theme.palette.background.default};
   border: 1px solid ${({ theme }) => theme.palette.grey[100]};
   border-radius: ${({ theme }) => theme.shape.borderRadius + "px"};
-<<<<<<< HEAD:src/modules/EmptyListModule/EmptyListModule.style.tsx
 
   ${({ secondary }) =>
     secondary &&
     css`
       margin: 20px;
     `}
-=======
->>>>>>> main:src/modules/WelcomeScreen/WelcomeScreen.style.tsx
 `;
 
 export const StyledParagraph = styled("p")`
