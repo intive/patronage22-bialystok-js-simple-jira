@@ -20,27 +20,48 @@ const FetchDataAPI = {
     const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
     const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const filteredBoardStatus = boardStatus.data.filter(
+    const boardStatusFilteredById = boardStatus.data.filter(
       (boardStatus: DataObject) => {
         return boardStatus.boardId == id;
       }
     );
 
-    if (filteredBoardStatus.length < 1) {
-      return [, status.data];
+    if (boardStatusFilteredById.length < 1) {
+      return [];
     } else {
-      const boardStatusIds = filteredBoardStatus.reduce(
-        (statusIdsArray: [], curr: DataObject) => {
-          return [...statusIdsArray, curr.statusId];
+      const boardStatusIds = boardStatusFilteredById.reduce(
+        (statusIdsArray: [], currentStatus: DataObject) => {
+          return [...statusIdsArray, currentStatus.statusId];
         },
         []
       );
 
-      const filteredStatus = status.data.filter((status: DataObject) => {
-        return boardStatusIds.includes(status.id);
+      const statusFilteredByBoardStatusId = status.data.filter(
+        (status: DataObject) => {
+          return boardStatusIds.includes(status.id);
+        }
+      );
+
+      const statusObject: DataObject = {};
+
+      statusFilteredByBoardStatusId.forEach((obj: any) => {
+        statusObject[obj.id] = obj;
       });
-      return [filteredStatus, status.data];
+
+      const boardStatusFilteredByIdWithStatus = boardStatusFilteredById.map(
+        (boardStatus: any) => {
+          return { ...boardStatus, status: statusObject[boardStatus.statusId] };
+        }
+      );
+
+      return boardStatusFilteredByIdWithStatus;
     }
+  },
+  getIssuesByBoardStatusId: async function (id: number) {
+    const data = await FetchDataAPI.getData(
+      `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=15`
+    );
+    return data.data.items;
   },
 };
 

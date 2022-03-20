@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   AssignedTo,
   Assignee,
@@ -21,6 +21,7 @@ interface TicketProps {
 }
 
 const Ticket = (props: TicketProps) => {
+  const navigate = useNavigate();
   const [isAssigned, setIsAssigned] = React.useState(
     props.assignedTo ? true : false
   );
@@ -30,24 +31,26 @@ const Ticket = (props: TicketProps) => {
   };
   props = { ...defaultProps, ...props };
 
+  const handleClickTicket = () => {
+    navigate(
+      `/projects/:projectName&:projectId/:board/:issue&:${props.issueId}`
+    );
+  };
+
   return (
     <StyledTicket>
-      <Link
-        to={`/projects/:projectName&:projectId/:board/:issue&:${props.issueId}`}
-      >
-        <CardContentNoPadding>
-          <StyledTicketHeader>
-            <Title>{props.title}</Title>
-          </StyledTicketHeader>
-          <StyledTicketContent>
-            <StyledTicketContentText>
-              {isAssigned && <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>}
-              <Assignee>{props.assignedTo}</Assignee>
-            </StyledTicketContentText>
-            <ThreeDotsMenu menuItems={mockMenuItems} />
-          </StyledTicketContent>
-        </CardContentNoPadding>
-      </Link>
+      <CardContentNoPadding onClick={handleClickTicket}>
+        <StyledTicketHeader>
+          <Title>{props.title}</Title>
+        </StyledTicketHeader>
+        <StyledTicketContent>
+          <StyledTicketContentText>
+            {isAssigned && <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>}
+            <Assignee>{props.assignedTo}</Assignee>
+          </StyledTicketContentText>
+          <ThreeDotsMenu menuItems={mockMenuItems} />
+        </StyledTicketContent>
+      </CardContentNoPadding>
     </StyledTicket>
   );
 };

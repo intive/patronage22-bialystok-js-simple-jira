@@ -21,7 +21,7 @@ export const ProjectsList = ({
     <StyledProjectsList>
       <Grid container spacing={3}>
         {projects
-          .filter((project: any) => project.isActive)
+          ?.filter((project: any) => project.isActive)
           .map((project: any, id: number) => (
             <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
               <ProjectCard

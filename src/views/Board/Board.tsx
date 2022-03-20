@@ -37,11 +37,11 @@ interface Statuses {
 }
 
 export const Board = () => {
+  const { t } = useTranslation();
+
   const [columns, setColumns] = useState<Array<object>>([]);
   const [filteredIssues, setFilteredIssues] = useState<any>({});
-  const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { t } = useTranslation();
   const [isSuccess, setIsSuccess] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
@@ -54,7 +54,10 @@ export const Board = () => {
       setColumns(boardStatus);
     }
     fetchStatus();
-  }, []);
+    return function cleanup() {
+      cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+    };
+  }, [isSuccess]);
 
   const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
     useState(false);
@@ -62,11 +65,8 @@ export const Board = () => {
 
   useEffect(() => {
     async function fetchIssues() {
-      const response = await fetch(
-        `https://patronageapi.herokuapp.com/api/issue?BoardId=${boardId}&PageNumber=1&PageSize=15`
-      );
-      const data = await response.json();
-      const issues = data.data.items;
+      await importApiModule();
+      const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
 
       const filterIssuesByStatusId = () => {
         const issuesFilteredByStatusId: any = {};
@@ -85,33 +85,13 @@ export const Board = () => {
 
       setFilteredIssues(filterIssuesByStatusId());
     }
-
     fetchIssues();
   }, []);
 
-  const menuOptions = [
-    {
-      id: 0,
-      icon: <ViewWeekOutlinedIcon />,
-      label: `${t("addColumn")}`,
-      onClick: () => {
-        if (columns?.length < 5 || columns == undefined) {
-          setIsDialogOpen(!isDialogOpen);
-        } else {
-          setBoardNumberAlert(true);
-        }
-      },
-    },
-    {
-      id: 1,
-      icon: <DeleteOutlineIcon />,
-      label: `${t("deleteBoard")}`,
-      onClick: () => console.log("column deleted"),
-    },
-  ];
-
   const handleAddNewColumn = (inputValue: string) => {
-    const index = statuses.find((status) => status.code === inputValue);
+    const index: any = columns.find(
+      (column: any) => column.status.code === inputValue
+    );
 
     if (index == undefined) {
       FetchDataAPI.addData(`${API_ADD_NEW_STATUS}${inputValue}`).then(
@@ -144,16 +124,26 @@ export const Board = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus[0]);
-      setStatuses(boardStatus[1]);
-    }
-    fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
-  }, [isSuccess]);
+  const menuOptions = [
+    {
+      id: 0,
+      icon: <ViewWeekOutlinedIcon />,
+      label: `${t("addColumn")}`,
+      onClick: () => {
+        if (columns?.length < 5 || columns == undefined) {
+          setIsDialogOpen(!isDialogOpen);
+        } else {
+          setBoardNumberAlert(true);
+        }
+      },
+    },
+    {
+      id: 1,
+      icon: <DeleteOutlineIcon />,
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("column deleted"),
+    },
+  ];
 
   return (
     <StyledPageWrapper>
