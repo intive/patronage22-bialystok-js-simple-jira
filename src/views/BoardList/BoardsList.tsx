@@ -56,24 +56,22 @@ export const BoardsList = () => {
     const date = new Date();
     date.toISOString();
     FetchDataAPI.addData(API_ADD_NEW_BOARD, {
-      data: {
-        id: 0,
-        alias: inputValue,
-        name: inputValue,
-        description: inputValue,
-        projectId: projectId,
-        statusId: 0,
-        boardId: 1,
-        isActive: true,
-        createdOn: date,
-        modifiedOn: date,
-        board_Status: [
-          {
-            boardId: 0,
-            statusId: 0,
-          },
-        ],
-      },
+      id: 0,
+      alias: inputValue,
+      name: inputValue,
+      description: inputValue,
+      projectId: projectId,
+      statusId: 0,
+      boardId: 1,
+      isActive: true,
+      createdOn: date,
+      modifiedOn: date,
+      board_Status: [
+        {
+          boardId: 0,
+          statusId: 0,
+        },
+      ],
     }).then((res: any) =>
       res.responseCode
         ? setisAlertBoardSuccessOpen(true)
