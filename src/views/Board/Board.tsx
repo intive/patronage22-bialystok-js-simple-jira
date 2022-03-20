@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
 
 import { Alert } from "@mui/material";
 import { Button } from "@components/Button/Button";
@@ -13,33 +14,50 @@ import TasksCard from "../../modules/TasksCard";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
+import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 
-let FetchBoardStatusAPI: any;
+let FetchDataAPI: any;
 
 async function importApiModule() {
   if (localStorage["USE_MOCK"] === "true") {
     const module = await import("../../api/boardStatus/mockBoardStatusApi");
-    FetchBoardStatusAPI = module.default;
+    FetchDataAPI = module.default;
   } else {
-    const module = await import("../../api/boardStatus/boardStatusApi");
-    FetchBoardStatusAPI = module.default;
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
   }
+}
+
+interface Statuses {
+  id: number;
+  code: string;
+  board_Status: boolean | null;
 }
 
 export const Board = () => {
   const [columns, setColumns] = useState<Array<object>>([]);
+  const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useTranslation();
+  const [isSuccess, setIsSuccess] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { boardId, projectName, projectId } = useParams();
+  const { boardId, projectName, projectId, board } = useParams();
+  const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
+    useState(false);
+  const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
 
   const menuOptions = [
     {
       id: 0,
       icon: <ViewWeekOutlinedIcon />,
       label: `${t("addColumn")}`,
-      onClick: () => setIsDialogOpen(!isDialogOpen),
+      onClick: () => {
+        if (columns?.length < 5 || columns == undefined) {
+          setIsDialogOpen(!isDialogOpen);
+        } else {
+          setBoardNumberAlert(true);
+        }
+      },
     },
     {
       id: 1,
@@ -49,46 +67,54 @@ export const Board = () => {
     },
   ];
 
-  //   const handleAddNewColumn = (inputValue: string) => {
-  //     FetchBoardStatusAPI.addData(API_ADD_NEW_BOARD, {
-  //       data: {
-  //         id: 0,
-  //         alias: inputValue,
-  //         name: inputValue,
-  //         description: inputValue,
-  //         projectId: projectId,
-  //         statusId: 0,
-  //         boardId: 1,
-  //         isActive: true,
-  //         createdOn: date,
-  //         modifiedOn: date,
-  //         board_Status: [
-  //           {
-  //             boardId: 0,
-  //             statusId: 0,
-  //           },
-  //         ],
-  //       },
-  //     }).then((res: any) =>
-  //       res.responseCode
-  //         ? setisAlertBoardSuccessOpen(true)
-  //         : setisAlertBoardErrorOpen(true)
-  //     );
-  //   };
+  const handleAddNewColumn = (inputValue: string) => {
+    const index = statuses.find((status) => status.code === inputValue);
+
+    if (index == undefined) {
+      FetchDataAPI.addData(`${API_ADD_NEW_STATUS}${inputValue}`).then(
+        (res: any) => {
+          FetchDataAPI.addData(API_GET_BOARD_STATUS, {
+            boardId: boardId,
+            statusId: res.data,
+          }).then((res: any) => {
+            if (res.responseCode) {
+              setisAlertStatusSuccessOpen(true);
+              setIsSuccess(!isSuccess);
+            } else {
+              setisAlertStatusErrorOpen(true);
+            }
+          });
+        }
+      );
+    } else {
+      FetchDataAPI.addData(API_GET_BOARD_STATUS, {
+        boardId: boardId,
+        statusId: index.id,
+      }).then((res: any) => {
+        if (res.responseCode) {
+          setisAlertStatusSuccessOpen(true);
+          setIsSuccess(!isSuccess);
+        } else {
+          setisAlertStatusErrorOpen(true);
+        }
+      });
+    }
+  };
 
   useEffect(() => {
     async function fetchStatus() {
       await importApiModule();
-      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus);
+      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+      setColumns(boardStatus[0]);
+      setStatuses(boardStatus[1]);
     }
     fetchStatus();
-  }, []);
+  }, [isSuccess]);
 
   return (
     <StyledPageWrapper>
       <PageHeader
-        pageTitle={`${t("boardsTitle")}`}
+        pageTitle={`${t("boardsTitle")} ${board}`}
         menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
         returnLinkName={t("boardsBackLink")}
         returnLink={`/projects/${projectName}&${projectId}`}
@@ -98,28 +124,36 @@ export const Board = () => {
           </Button>
         }
       />
-      {/* <NewItemDialog
-            isOpen={isDialogOpen}
-            setIsOpen={setIsDialogOpen}
-            dialogTitle={t("boardDialogTitle")}
-            dialogHelper={t("boardDialogHelperText")}
-            handleAdd={handleAddNewColumn}
-      /> */}
-      {boardNumberAlert && (
-        <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
-          {t("boardAlertNumber")}
-        </Alert>
-      )}
-      {boardNameAlert && (
-        <Alert onClose={() => setBoardNameAlert(false)} severity='error'>
-          {t("boardAlertName")}
-        </Alert>
-      )}
+      <NewItemDialog
+        isOpen={isDialogOpen}
+        setIsOpen={setIsDialogOpen}
+        dialogTitle={t("dialogCreateStatusTitle")}
+        dialogHelper={t("dialogCreateStatusHelperText")}
+        handleAdd={handleAddNewColumn}
+      />
       <TaskWrapper>
         {columns?.map((column: any) => (
           <TasksCard title={column.code} key={column.id} />
         ))}
       </TaskWrapper>
+      <AlertSuccess
+        isOpen={isAlertStatusSuccessOpen}
+        alertMsg={t("NewBoardAddedWithSuccess")}
+      />
+      <AlertError
+        isOpen={isAlertStatusErrorOpen}
+        alertMsg={t("NewBoardAddedWithError")}
+        handleClose={() => {
+          setisAlertStatusErrorOpen(false);
+        }}
+      />
+      <AlertError
+        isOpen={boardNumberAlert}
+        alertMsg={t("columnAlertNumber")}
+        handleClose={() => {
+          setBoardNumberAlert(false);
+        }}
+      />
     </StyledPageWrapper>
   );
 };

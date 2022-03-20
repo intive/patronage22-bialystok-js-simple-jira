@@ -121,7 +121,7 @@ export const BoardsList = () => {
           <PageHeader
             returnLinkName={t("projectsBackLink")}
             returnLink={"/projects"}
-            pageTitle={`${t("projectBoards")}`}
+            pageTitle={`${t("projectBoards")} ${projectName}`}
             interactiveElement={
               <Button onClick={() => setIsDialogOpen(true)}>
                 {t("newBoardBtn")}
