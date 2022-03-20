@@ -1,6 +1,6 @@
 import { mockBoardsList, BoardType } from "../../mockData/mocBoardsList";
 
-const boards = [...mockBoardsList];
+let boards = [...mockBoardsList];
 
 function sleep(ms = 1000) {
   return new Promise((resolve) => {
@@ -15,17 +15,19 @@ const MockBoardsAPI = {
     return [...boards];
   },
 
-  addData: async function (boardToAdd: BoardType) {
+  addData: async function (url: string, boardToAdd: BoardType) {
     await sleep();
-    const addedBoard = {
-      ...boardToAdd,
+    const newIndex = {
+      id: boards.length + 1,
+      name: boardToAdd.name,
+      projectId: Number(boardToAdd.projectId),
       isActive: true,
       responseCode: 201,
     };
-    const newProjects = [...boards, boardToAdd];
-    console.log(`Adding project... ${addedBoard.name} response.status:`, 201);
-    console.log(newProjects);
-    return addedBoard;
+    boards = [...boards, newIndex];
+    console.log(`Adding project... ${newIndex.name} response.status:`, 201);
+    console.log(boards);
+    return newIndex;
   },
 };
 

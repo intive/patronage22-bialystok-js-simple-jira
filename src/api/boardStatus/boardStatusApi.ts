@@ -10,7 +10,7 @@ const FetchBoardStatusAPI = {
     const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
     const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const filteredBoardStatus = boardStatus.filter(
+    const filteredBoardStatus = boardStatus.data.filter(
       (boardStatus: DataObject) => {
         return boardStatus.boardId == id;
       }
@@ -26,7 +26,7 @@ const FetchBoardStatusAPI = {
         []
       );
 
-      const filteredStatus = status.filter((status: DataObject) => {
+      const filteredStatus = status.data.filter((status: DataObject) => {
         return boardStatusIds.includes(status.id);
       });
       return filteredStatus;
