@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
-import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
+
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+
+import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+
+import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
+import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import PageHeader from "@modules/PageHeader/PageHeader";
 import { BoardCard } from "@components/BoardCard/BoardCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
-import { useParams } from "react-router-dom";
-import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
-import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
 
@@ -106,12 +110,7 @@ export const BoardsList = () => {
 
   useEffect(() => {
     fetchProjects();
-    const alertProjectSuccessTimeout = setTimeout(() => {
-      setisAlertBoardSuccessOpen(false);
-    }, 1500);
-    return () => {
-      clearTimeout(alertProjectSuccessTimeout);
-    };
+    cleainingSuccessAlerts(setisAlertBoardSuccessOpen);
   }, [isSuccess]);
 
   return (

@@ -2,19 +2,20 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
+import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 
-import { Alert } from "@mui/material";
-import { Button } from "@components/Button/Button";
-
-import PageHeader from "../../modules/PageHeader/PageHeader";
-import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
-import { TaskWrapper } from "./Board.style";
-import { StyledPageWrapper } from "../Projects/Projects.style";
-import TasksCard from "../../modules/TasksCard";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+
+import { StyledPageWrapper } from "../Projects/Projects.style";
+import { TaskWrapper } from "./Board.style";
+
+import PageHeader from "@modules/PageHeader/PageHeader";
+import TasksCard from "@modules/TasksCard";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
+import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 
 let FetchDataAPI: any;
 
@@ -109,6 +110,7 @@ export const Board = () => {
       setStatuses(boardStatus[1]);
     }
     fetchStatus();
+    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
   }, [isSuccess]);
 
   return (

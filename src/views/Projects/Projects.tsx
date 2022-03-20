@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { StyledPageWrapper } from "./Projects.style";
 import { API_ADD_NEW_PROJECT, API_GET_PROJECTS_LIST } from "../../api/contsans";
+import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 import PageHeader from "@modules/PageHeader/PageHeader";
@@ -75,14 +76,7 @@ export const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
-    setIsCreateDialogOpen(false);
-    setIsLoading(false);
-    const alertProjectSuccessTimeout = setTimeout(() => {
-      setIsAlertProjectSuccessOpen(false);
-    }, 1500);
-    return () => {
-      clearTimeout(alertProjectSuccessTimeout);
-    };
+    cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
   }, [isSuccess]);
 
   return (
