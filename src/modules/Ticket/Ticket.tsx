@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 interface TicketProps {
   title: string;
   assignedTo?: string;
+  issueId: string;
 }
 
 const Ticket = (props: TicketProps) => {
@@ -31,7 +32,9 @@ const Ticket = (props: TicketProps) => {
 
   return (
     <StyledTicket>
-      <Link to='/projects/:projectName&:projectId/:board/:issue&:issueId'>
+      <Link
+        to={`/projects/:projectName&:projectId/:board/:issue&:${props.issueId}`}
+      >
         <CardContentNoPadding>
           <StyledTicketHeader>
             <Title>{props.title}</Title>

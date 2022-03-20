@@ -10,26 +10,41 @@ const FetchBoardStatusAPI = {
     const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
     const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const filteredBoardStatus = boardStatus.filter(
+    const boardStatusFilteredById = boardStatus.filter(
       (boardStatus: DataObject) => {
         return boardStatus.boardId == id;
       }
     );
 
-    if (filteredBoardStatus.length < 1) {
+    if (boardStatusFilteredById.length < 1) {
       return [];
     } else {
-      const boardStatusIds = filteredBoardStatus.reduce(
-        (statusIdsArray: [], curr: DataObject) => {
-          return [...statusIdsArray, curr.statusId];
+      const boardStatusIds = boardStatusFilteredById.reduce(
+        (statusIdsArray: [], currentStatus: DataObject) => {
+          return [...statusIdsArray, currentStatus.statusId];
         },
         []
       );
 
-      const filteredStatus = status.filter((status: DataObject) => {
-        return boardStatusIds.includes(status.id);
+      const statusFilteredByBoardStatusId = status.filter(
+        (status: DataObject) => {
+          return boardStatusIds.includes(status.id);
+        }
+      );
+
+      const statusObject: DataObject = {};
+
+      statusFilteredByBoardStatusId.forEach((obj: any) => {
+        statusObject[obj.id] = obj;
       });
-      return filteredStatus;
+
+      const boardStatusFilteredByIdWithStatus = boardStatusFilteredById.map(
+        (boardStatus: any) => {
+          return { ...boardStatus, status: statusObject[boardStatus.statusId] };
+        }
+      );
+
+      return boardStatusFilteredByIdWithStatus;
     }
   },
 };

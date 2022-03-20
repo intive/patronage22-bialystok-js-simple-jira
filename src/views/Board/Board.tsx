@@ -28,11 +28,13 @@ async function importApiModule() {
 
 export const Board = () => {
   const [columns, setColumns] = useState<Array<object>>([]);
+  const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
   const { boardId, projectName, projectId } = useParams();
+
   useEffect(() => {
     async function fetchStatus() {
       await importApiModule();
@@ -40,6 +42,35 @@ export const Board = () => {
       setColumns(boardStatus);
     }
     fetchStatus();
+  }, []);
+
+  useEffect(() => {
+    async function fetchIssues() {
+      const response = await fetch(
+        `https://patronageapi.herokuapp.com/api/issue?BoardId=${boardId}&PageNumber=1&PageSize=15`
+      );
+      const data = await response.json();
+      const issues = data.data.items;
+
+      const filterIssuesByStatusId = () => {
+        const issuesFilteredByStatusId: any = {};
+
+        issues.reduce((_: any, issue: any) => {
+          if (!issuesFilteredByStatusId[issue.statusId]) {
+            issuesFilteredByStatusId[issue.statusId] = [];
+            issuesFilteredByStatusId[issue.statusId].push(issue);
+          } else {
+            issuesFilteredByStatusId[issue.statusId].push(issue);
+          }
+        }, issuesFilteredByStatusId);
+
+        return issuesFilteredByStatusId;
+      };
+
+      setFilteredIssues(filterIssuesByStatusId());
+    }
+
+    fetchIssues();
   }, []);
 
   const menuOptions = [
@@ -82,8 +113,17 @@ export const Board = () => {
       )}
       <TaskWrapper>
         {columns?.map((column: any) => (
-          <TasksCard title={column.code} key={column.id}>
-            <Ticket title='test' />
+          <TasksCard title={column.status.code} key={column.statusId}>
+            {filteredIssues[column.statusId]?.map((ticket: any) => {
+              return (
+                <Ticket
+                  title={ticket.name}
+                  key={ticket.id}
+                  assignedTo={ticket.assignUserId}
+                  issueId={ticket.id}
+                />
+              );
+            })}
           </TasksCard>
         ))}
       </TaskWrapper>
