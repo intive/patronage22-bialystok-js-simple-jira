@@ -1,17 +1,21 @@
 import { useCallback, useEffect, useState } from "react";
-import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
+
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+
+import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+
+import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
+import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import PageHeader from "@modules/PageHeader/PageHeader";
 import { BoardCard } from "@components/BoardCard/BoardCard";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
-import { useParams } from "react-router-dom";
-import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
-import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
 
@@ -30,6 +34,7 @@ async function importApiModule() {
 export const BoardsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
@@ -56,33 +61,39 @@ export const BoardsList = () => {
     const date = new Date();
     date.toISOString();
     FetchDataAPI.addData(API_ADD_NEW_BOARD, {
-      id: 0,
-      alias: inputValue,
-      name: inputValue,
-      description: inputValue,
-      projectId: projectId,
-      statusId: 0,
-      boardId: 1,
-      isActive: true,
-      createdOn: date,
-      modifiedOn: date,
-      board_Status: [
-        {
-          boardId: 0,
-          statusId: 0,
-        },
-      ],
-    }).then((res: any) =>
-      res.responseCode
-        ? setisAlertBoardSuccessOpen(true)
-        : setisAlertBoardErrorOpen(true)
-    );
+      data: {
+        id: 0,
+        alias: inputValue,
+        name: inputValue,
+        description: inputValue,
+        projectId: projectId,
+        statusId: 0,
+        boardId: 1,
+        isActive: true,
+        createdOn: date,
+        modifiedOn: date,
+        board_Status: [
+          {
+            boardId: 0,
+            statusId: 0,
+          },
+        ],
+      },
+    }).then((res: any) => {
+      if (res.responseCode) {
+        setisAlertBoardSuccessOpen(true);
+        setIsSuccess(!isSuccess);
+      } else {
+        setisAlertBoardErrorOpen(true);
+      }
+    });
   };
 
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
-      const boardsByID = res?.filter(
+      console.log(res);
+      const boardsByID = res?.data.filter(
         (board: any) =>
           board.projectId === Number(projectId) && board.isActive === true
       );
@@ -99,7 +110,8 @@ export const BoardsList = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, [isAlertBoardSuccessOpen]);
+    cleainingSuccessAlerts(setisAlertBoardSuccessOpen);
+  }, [isSuccess]);
 
   return (
     <>
@@ -108,7 +120,7 @@ export const BoardsList = () => {
           <PageHeader
             returnLinkName={t("projectsBackLink")}
             returnLink={"/projects"}
-            pageTitle={`${t("projectBoards")}`}
+            pageTitle={`${t("projectBoards")} ${projectName}`}
             interactiveElement={
               <Button onClick={() => setIsDialogOpen(true)}>
                 {t("newBoardBtn")}
