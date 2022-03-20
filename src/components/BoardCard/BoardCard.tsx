@@ -13,17 +13,18 @@ interface BoardCardProps {
   projectName: string;
   boardName: string;
   menuComponent?: React.ReactNode;
-  id?: string;
+  projectId?: string;
+  boardId?: string;
 }
-
 export const BoardCard = ({
   boardName,
   menuComponent,
   projectName,
-  id,
+  projectId,
+  boardId,
 }: BoardCardProps) => (
   <StyledCard>
-    <Link to={`/projects/${projectName}&${id}/${boardName}`}>
+    <Link to={`/projects/${projectName}&${projectId}/${boardName}&${boardId}`}>
       <Background />
     </Link>
     <Wrapper>

@@ -19,7 +19,7 @@ const App = () => {
             element={<BoardsList />}
           />
           <Route
-            path='projects/:projectName&:projectId/:board'
+            path='projects/:projectName&:projectId/:board&:boardId'
             element={<Board />}
           />
           <Route

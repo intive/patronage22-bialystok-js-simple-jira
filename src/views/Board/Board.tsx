@@ -1,25 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import { Alert } from "@mui/material";
+import { Button } from "@components/Button/Button";
+
 import PageHeader from "../../modules/PageHeader/PageHeader";
 import ThreeDotsMenu from "../../components/ThreeDotsMenu/ThreeDotsMenu";
 import { TaskWrapper } from "./Board.style";
 import { StyledPageWrapper } from "../Projects/Projects.style";
-import { mockBoards } from "../../mockData/mockBoardColumns";
-import { useTranslation } from "react-i18next";
 import TasksCard from "../../modules/TasksCard";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
-import { Alert } from "@mui/material";
-import { Button } from "@components/Button/Button";
 import Ticket from "../../modules/Ticket/Ticket";
 
+let FetchBoardStatusAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/boardStatus/mockBoardStatusApi");
+    FetchBoardStatusAPI = module.default;
+  } else {
+    const module = await import("../../api/boardStatus/boardStatusApi");
+    FetchBoardStatusAPI = module.default;
+  }
+}
+
 export const Board = () => {
-  const [boards, setBoards] = useState(mockBoards);
+  const [columns, setColumns] = useState<Array<object>>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { t } = useTranslation();
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { projectName: projectName, projectId: projectId } = useParams();
+  const { boardId, projectName, projectId } = useParams();
+  useEffect(() => {
+    async function fetchStatus() {
+      await importApiModule();
+      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardId);
+      setColumns(boardStatus);
+    }
+    fetchStatus();
+  }, []);
 
   const menuOptions = [
     {
@@ -60,8 +81,8 @@ export const Board = () => {
         </Alert>
       )}
       <TaskWrapper>
-        {boards.map((project) => (
-          <TasksCard title={project.name} key={project.name}>
+        {columns?.map((column: any) => (
+          <TasksCard title={column.code} key={column.id}>
             <Ticket title='test' />
           </TasksCard>
         ))}
