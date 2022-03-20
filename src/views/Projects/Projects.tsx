@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { StyledPageWrapper } from "./Projects.style";
 import { API_ADD_NEW_PROJECT, API_GET_PROJECTS_LIST } from "../../api/contsans";
+import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 import PageHeader from "@modules/PageHeader/PageHeader";
@@ -27,6 +28,7 @@ async function importApiModule() {
 export const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isDltDialogOpen, setIsDltDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
@@ -50,17 +52,20 @@ export const Projects = () => {
       name: inputValue,
       description: "We are not doing that, yet.",
       isActive: true,
-    }).then((res: any) =>
-      res.responseCode
-        ? setIsAlertProjectSuccessOpen(true)
-        : setIsAlertProjectErrorOpen(true)
-    );
+    }).then((res: any) => {
+      if (res.responseCode) {
+        setIsAlertProjectSuccessOpen(true);
+        setIsSuccess(!isSuccess);
+      } else {
+        setIsAlertProjectErrorOpen(true);
+      }
+    });
   };
 
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      setProjects(res);
+      setProjects(res.data);
       if (res === 0) {
         setIsListEmpty(true);
       } else {
@@ -71,9 +76,8 @@ export const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
-    setIsCreateDialogOpen(false);
-    setIsLoading(false);
-  }, [isAlertProjectSuccessOpen]);
+    cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
+  }, [isSuccess]);
 
   return (
     <>

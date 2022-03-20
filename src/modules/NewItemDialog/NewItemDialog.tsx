@@ -51,11 +51,13 @@ export const NewItemDialog = ({
 
   const handleClose = () => {
     setIsOpen(false);
+    setInputValue("");
   };
 
   const handleCreate = () => {
     inputValue && handleAdd(inputValue);
-    setIsLoading(true);
+    setIsOpen(false);
+    setInputValue("");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,13 +88,9 @@ export const NewItemDialog = ({
             <Button onClick={handleClose} variant='text'>
               {t("cancelBtn")}
             </Button>
-            {isLoading ? (
-              <LoadingButton sx={{ minWidth: "98.77px" }} loading={true} />
-            ) : (
-              <Button disabled={!!error || !inputValue} onClick={handleCreate}>
-                {t("createBtn")}
-              </Button>
-            )}
+            <Button disabled={!!error || !inputValue} onClick={handleCreate}>
+              {t("createBtn")}
+            </Button>
           </ButtonBox>
         </NewItemDialogContent>
       </BasicModal>
