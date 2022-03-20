@@ -27,6 +27,7 @@ async function importApiModule() {
 export const Projects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isDltDialogOpen, setIsDltDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
@@ -50,17 +51,20 @@ export const Projects = () => {
       name: inputValue,
       description: "We are not doing that, yet.",
       isActive: true,
-    }).then((res: any) =>
-      res.responseCode
-        ? setIsAlertProjectSuccessOpen(true)
-        : setIsAlertProjectErrorOpen(true)
-    );
+    }).then((res: any) => {
+      if (res.responseCode) {
+        setIsAlertProjectSuccessOpen(true);
+        setIsSuccess(!isSuccess);
+      } else {
+        setIsAlertProjectErrorOpen(true);
+      }
+    });
   };
 
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      setProjects(res);
+      setProjects(res.data);
       if (res === 0) {
         setIsListEmpty(true);
       } else {
@@ -73,7 +77,13 @@ export const Projects = () => {
     fetchProjects();
     setIsCreateDialogOpen(false);
     setIsLoading(false);
-  }, [isAlertProjectSuccessOpen]);
+    const alertProjectSuccessTimeout = setTimeout(() => {
+      setIsAlertProjectSuccessOpen(false);
+    }, 1500);
+    return () => {
+      clearTimeout(alertProjectSuccessTimeout);
+    };
+  }, [isSuccess]);
 
   return (
     <>

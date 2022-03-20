@@ -12,6 +12,7 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import TasksCard from "../../modules/TasksCard";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 
 let FetchBoardStatusAPI: any;
 
@@ -32,14 +33,6 @@ export const Board = () => {
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
   const { boardId, projectName, projectId } = useParams();
-  useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus);
-    }
-    fetchStatus();
-  }, []);
 
   const menuOptions = [
     {
@@ -56,6 +49,42 @@ export const Board = () => {
     },
   ];
 
+  //   const handleAddNewColumn = (inputValue: string) => {
+  //     FetchBoardStatusAPI.addData(API_ADD_NEW_BOARD, {
+  //       data: {
+  //         id: 0,
+  //         alias: inputValue,
+  //         name: inputValue,
+  //         description: inputValue,
+  //         projectId: projectId,
+  //         statusId: 0,
+  //         boardId: 1,
+  //         isActive: true,
+  //         createdOn: date,
+  //         modifiedOn: date,
+  //         board_Status: [
+  //           {
+  //             boardId: 0,
+  //             statusId: 0,
+  //           },
+  //         ],
+  //       },
+  //     }).then((res: any) =>
+  //       res.responseCode
+  //         ? setisAlertBoardSuccessOpen(true)
+  //         : setisAlertBoardErrorOpen(true)
+  //     );
+  //   };
+
+  useEffect(() => {
+    async function fetchStatus() {
+      await importApiModule();
+      const boardStatus = await FetchBoardStatusAPI.getBoardStatusById(boardId);
+      setColumns(boardStatus);
+    }
+    fetchStatus();
+  }, []);
+
   return (
     <StyledPageWrapper>
       <PageHeader
@@ -69,6 +98,13 @@ export const Board = () => {
           </Button>
         }
       />
+      {/* <NewItemDialog
+            isOpen={isDialogOpen}
+            setIsOpen={setIsDialogOpen}
+            dialogTitle={t("boardDialogTitle")}
+            dialogHelper={t("boardDialogHelperText")}
+            handleAdd={handleAddNewColumn}
+      /> */}
       {boardNumberAlert && (
         <Alert onClose={() => setBoardNumberAlert(false)} severity='error'>
           {t("boardAlertNumber")}

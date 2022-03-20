@@ -30,6 +30,7 @@ async function importApiModule() {
 export const BoardsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
@@ -74,17 +75,21 @@ export const BoardsList = () => {
           },
         ],
       },
-    }).then((res: any) =>
-      res.responseCode
-        ? setisAlertBoardSuccessOpen(true)
-        : setisAlertBoardErrorOpen(true)
-    );
+    }).then((res: any) => {
+      if (res.responseCode) {
+        setisAlertBoardSuccessOpen(true);
+        setIsSuccess(!isSuccess);
+      } else {
+        setisAlertBoardErrorOpen(true);
+      }
+    });
   };
 
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
-      const boardsByID = res?.filter(
+      console.log(res);
+      const boardsByID = res?.data.filter(
         (board: any) =>
           board.projectId === Number(projectId) && board.isActive === true
       );
@@ -101,7 +106,13 @@ export const BoardsList = () => {
 
   useEffect(() => {
     fetchProjects();
-  }, [isAlertBoardSuccessOpen]);
+    const alertProjectSuccessTimeout = setTimeout(() => {
+      setisAlertBoardSuccessOpen(false);
+    }, 1500);
+    return () => {
+      clearTimeout(alertProjectSuccessTimeout);
+    };
+  }, [isSuccess]);
 
   return (
     <>

@@ -5,7 +5,7 @@ const FetchDataAPI = {
     const response = await makeRequest(url, "GET", null);
     const fetchedData = await response.json();
     console.log("get data - status:", response.status);
-    return fetchedData.data;
+    return fetchedData;
   },
   addData: async function (url: string, dataToAdd: any) {
     const response = await makeRequest(url, "POST", dataToAdd);
