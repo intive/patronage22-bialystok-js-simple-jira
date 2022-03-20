@@ -144,7 +144,8 @@ export const BoardsList = () => {
                       menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
                       boardName={board.name}
                       projectName={`${projectName}`}
-                      id={projectId}
+                      projectId={projectId}
+                      boardId={board.id}
                     />
                   </Grid>
                 ))}
