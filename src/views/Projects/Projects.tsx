@@ -77,6 +77,7 @@ export const Projects = () => {
   useEffect(() => {
     fetchProjects();
     cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
+    setIsLoading(false);
   }, [isSuccess]);
 
   return (
