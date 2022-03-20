@@ -1,6 +1,6 @@
 import { mockProjects, ProjectType } from "../../mockData/mockProjects";
 
-const projects = [...mockProjects];
+let projects = [...mockProjects];
 
 function sleep(ms = 1000) {
   return new Promise((resolve) => {
@@ -14,16 +14,15 @@ const MockProjectsAPI = {
     console.log("Fetching projects... response.status:", 200);
     return [...projects];
   },
-  addData: async function (projectToAdd: ProjectType) {
+  addData: async function (url: string, projectToAdd: ProjectType) {
     await sleep();
     const addedProject = {
       ...projectToAdd,
       isActive: true,
       responseCode: 201,
     };
-    const newProjects = [...projects, projectToAdd];
+    projects = [...projects, projectToAdd];
     console.log(`Adding project... ${addedProject.name} response.status:`, 201);
-    console.log(newProjects);
     return addedProject;
   },
 };
