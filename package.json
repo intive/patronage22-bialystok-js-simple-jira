@@ -92,6 +92,5 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
   },
-  "packageManager": "yarn@1.22.17",
-  "proxy": "https://patronageapi.herokuapp.com"
+  "packageManager": "yarn@1.22.17"
 }

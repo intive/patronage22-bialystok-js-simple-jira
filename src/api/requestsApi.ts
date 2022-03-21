@@ -42,6 +42,11 @@ const FetchDataAPI = {
       return [filteredStatus, status.data];
     }
   },
+  deleteData: async function (url: string) {
+    const response = await makeRequest(url, "DELETE");
+    const fetchedData = await response.json();
+    console.log(`Delete project: response ${response.status}`);
+  },
 };
 
 export default FetchDataAPI;
