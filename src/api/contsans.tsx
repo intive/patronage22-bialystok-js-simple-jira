@@ -6,6 +6,8 @@ export const API_GET_PROJECTS_LIST =
   "https://patronageapi.herokuapp.com/api/project";
 export const API_ADD_NEW_PROJECT =
   "https://patronageapi.herokuapp.com/api/project";
+export const API_DELETE_A_PROJECT =
+  "https://patronageapi.herokuapp.com/api/project";
 export const API_GET_BOARD_STATUS =
   "https://patronageapi.herokuapp.com/api/boardStatus";
 export const API_GET_STATUS = "https://patronageapi.herokuapp.com/api/status";
