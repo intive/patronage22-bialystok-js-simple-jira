@@ -30,12 +30,6 @@ async function importApiModule() {
   }
 }
 
-interface Statuses {
-  id: number;
-  code: string;
-  board_Status: boolean | null;
-}
-
 export const Board = () => {
   const { t } = useTranslation();
 
@@ -54,9 +48,7 @@ export const Board = () => {
       setColumns(boardStatus);
     }
     fetchStatus();
-    return function cleanup() {
-      cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
-    };
+    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
   }, [isSuccess]);
 
   const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
