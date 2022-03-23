@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   AssignedTo,
   Assignee,
@@ -22,6 +22,7 @@ interface TicketProps {
 
 const Ticket = (props: TicketProps) => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [isAssigned, setIsAssigned] = React.useState(
     props.assignedTo ? true : false
   );
@@ -32,14 +33,12 @@ const Ticket = (props: TicketProps) => {
   props = { ...defaultProps, ...props };
 
   const handleClickTicket = () => {
-    navigate(
-      `/projects/:projectName&:projectId/:board/:issue&:${props.issueId}`
-    );
+    navigate(`${pathname}/${props.title}&${props.issueId}`);
   };
 
   return (
-    <StyledTicket>
-      <CardContentNoPadding onClick={handleClickTicket}>
+    <StyledTicket onClick={handleClickTicket}>
+      <CardContentNoPadding>
         <StyledTicketHeader>
           <Title>{props.title}</Title>
         </StyledTicketHeader>
