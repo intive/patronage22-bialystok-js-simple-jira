@@ -29,11 +29,10 @@ const FetchDataAPI = {
     if (boardStatusFilteredById.length < 1) {
       return [];
     } else {
-      const boardStatusIds = boardStatusFilteredById.reduce(
-        (statusIdsArray: [], currentStatus: DataObject) => {
-          return [...statusIdsArray, currentStatus.statusId];
-        },
-        []
+      const boardStatusIds = boardStatusFilteredById.map(
+        (boardStatus: DataObject) => {
+          return boardStatus.statusId;
+        }
       );
 
       const statusFilteredByBoardStatusId = status.data.filter(
