@@ -42,8 +42,8 @@ const FetchDataAPI = {
       return [filteredStatus, status.data];
     }
   },
-  deleteData: async function (url: string, dataToAdd?: any) {
-    const response = await makeRequest(url, "DELETE", dataToAdd);
+  deleteData: async function (url: string, additionalData?: any) {
+    const response = await makeRequest(url, "DELETE", additionalData);
     return response;
   },
 };
