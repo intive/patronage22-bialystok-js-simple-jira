@@ -12,7 +12,7 @@ const MockProjectsAPI = {
   getData: async function (url: string) {
     await sleep();
     console.log("Fetching projects... response.status:", 200);
-    return [...projects];
+    return { data: [...projects] };
   },
   addData: async function (url: string, projectToAdd: ProjectType) {
     await sleep();

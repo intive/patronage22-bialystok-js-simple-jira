@@ -21,11 +21,13 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
 
   const open = Boolean(anchorEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setAnchorEl(e.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleClose = (e: any) => {
+    e.stopPropagation();
     setAnchorEl(null);
   };
 
@@ -61,8 +63,8 @@ export default function ThreeDotsMenu({ menuItems }: ThreeDotsMenuProps) {
         {menuItems.map((item) => (
           <MenuItem
             key={item.id}
-            onClick={() => {
-              handleClose(), item.onClick();
+            onClick={(e) => {
+              handleClose(e), item.onClick();
             }}
           >
             {item.icon}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   AssignedTo,
   Assignee,
@@ -12,12 +13,16 @@ import {
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { mockMenuItems } from "../../mockData/menuItems";
 import { useTranslation } from "react-i18next";
+
 interface TicketProps {
   title: string;
   assignedTo?: string;
+  issueId: string;
 }
 
 const Ticket = (props: TicketProps) => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [isAssigned, setIsAssigned] = React.useState(
     props.assignedTo ? true : false
   );
@@ -27,8 +32,12 @@ const Ticket = (props: TicketProps) => {
   };
   props = { ...defaultProps, ...props };
 
+  const handleClickTicket = () => {
+    navigate(`${pathname}/${props.title}&${props.issueId}`);
+  };
+
   return (
-    <StyledTicket>
+    <StyledTicket onClick={handleClickTicket}>
       <CardContentNoPadding>
         <StyledTicketHeader>
           <Title>{props.title}</Title>

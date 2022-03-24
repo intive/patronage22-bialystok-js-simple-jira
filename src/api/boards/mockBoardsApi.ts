@@ -12,7 +12,7 @@ const MockBoardsAPI = {
   getData: async function () {
     await sleep();
     console.log("Fetching projects... response.status:", 200);
-    return [...boards];
+    return { data: [...boards] };
   },
 
   addData: async function (url: string, boardToAdd: BoardType) {

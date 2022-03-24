@@ -6,6 +6,7 @@ import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+import Ticket from "../../modules/Ticket/Ticket";
 
 import { StyledPageWrapper } from "../Projects/Projects.style";
 import { TaskWrapper } from "./Board.style";
@@ -36,40 +37,61 @@ interface Statuses {
 }
 
 export const Board = () => {
+  const { t } = useTranslation();
+
   const [columns, setColumns] = useState<Array<object>>([]);
   const [statuses, setStatuses] = useState<Statuses[]>([]);
+  const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { t } = useTranslation();
   const [isSuccess, setIsSuccess] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
+  const [boardNameAlert, setBoardNameAlert] = useState(false);
   const { boardId, projectName, projectId, board } = useParams();
+
+  useEffect(() => {
+    async function fetchStatus() {
+      await importApiModule();
+      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+      setColumns(boardStatus[0]);
+      setStatuses(boardStatus[1]);
+    }
+    fetchStatus();
+    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+  }, [isSuccess]);
+
   const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
     useState(false);
   const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
 
-  const menuOptions = [
-    {
-      id: 0,
-      icon: <ViewWeekOutlinedIcon />,
-      label: `${t("addColumn")}`,
-      onClick: () => {
-        if (columns?.length < 5 || columns == undefined) {
-          setIsDialogOpen(!isDialogOpen);
-        } else {
-          setBoardNumberAlert(true);
-        }
-      },
-    },
-    {
-      id: 1,
-      icon: <DeleteOutlineIcon />,
-      label: `${t("deleteBoard")}`,
-      onClick: () => console.log("column deleted"),
-    },
-  ];
+  useEffect(() => {
+    async function fetchIssues() {
+      await importApiModule();
+      const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
+
+      const filterIssuesByStatusId = () => {
+        const issuesFilteredByStatusId: any = {};
+
+        issues.reduce((_: any, issue: any) => {
+          if (!issuesFilteredByStatusId[issue.statusId]) {
+            issuesFilteredByStatusId[issue.statusId] = [];
+            issuesFilteredByStatusId[issue.statusId].push(issue);
+          } else {
+            issuesFilteredByStatusId[issue.statusId].push(issue);
+          }
+        }, issuesFilteredByStatusId);
+
+        return issuesFilteredByStatusId;
+      };
+
+      setFilteredIssues(filterIssuesByStatusId());
+    }
+    fetchIssues();
+  }, []);
 
   const handleAddNewColumn = (inputValue: string) => {
-    const index = statuses.find((status) => status.code === inputValue);
+    const index = statuses.find(
+      (status) => status.code.toLowerCase() === inputValue.toLowerCase()
+    );
 
     if (index == undefined) {
       FetchDataAPI.addData(`${API_ADD_NEW_STATUS}${inputValue}`).then(
@@ -102,16 +124,26 @@ export const Board = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus[0]);
-      setStatuses(boardStatus[1]);
-    }
-    fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
-  }, [isSuccess]);
+  const menuOptions = [
+    {
+      id: 0,
+      icon: <ViewWeekOutlinedIcon />,
+      label: `${t("addColumn")}`,
+      onClick: () => {
+        if (columns?.length < 5 || columns == undefined) {
+          setIsDialogOpen(!isDialogOpen);
+        } else {
+          setBoardNumberAlert(true);
+        }
+      },
+    },
+    {
+      id: 1,
+      icon: <DeleteOutlineIcon />,
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("column deleted"),
+    },
+  ];
 
   return (
     <StyledPageWrapper>
@@ -135,7 +167,18 @@ export const Board = () => {
       />
       <TaskWrapper>
         {columns?.map((column: any) => (
-          <TasksCard title={column.code} key={column.id} />
+          <TasksCard title={column.status.code} key={column.statusId}>
+            {filteredIssues[column.statusId]?.map((ticket: any) => {
+              return (
+                <Ticket
+                  title={ticket.name}
+                  key={ticket.id}
+                  assignedTo={ticket.assignUserId}
+                  issueId={ticket.id}
+                />
+              );
+            })}
+          </TasksCard>
         ))}
       </TaskWrapper>
       <AlertSuccess
