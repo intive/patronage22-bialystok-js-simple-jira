@@ -1,6 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
 import { StyledPageWrapper } from "./Projects.style";
-import { API_ADD_NEW_PROJECT, API_GET_PROJECTS_LIST } from "../../api/contsans";
+import {
+  API_ADD_NEW_PROJECT,
+  API_GET_PROJECTS_LIST,
+  API_DELETE_A_PROJECT,
+} from "../../api/contsans";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
@@ -26,6 +30,7 @@ async function importApiModule() {
 }
 
 export const Projects = () => {
+  const [useMock, setUseMock] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -39,11 +44,16 @@ export const Projects = () => {
 
   const { t } = useTranslation();
 
-  const deleteProjectHandler = (id: number) => {
-    const newProjectsList = projects.filter(
-      (element: any) => element.id !== id
-    );
-    setProjects(newProjectsList);
+  const deleteProjectHandler = async (id: number) => {
+    if (useMock) {
+      const newProjectsList = projects.filter(
+        (element: any) => element.id !== id
+      );
+      setProjects(newProjectsList);
+    } else {
+      await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`);
+      fetchProjects();
+    }
   };
 
   const handleAddNewProject = (inputValue: string) => {
@@ -65,7 +75,13 @@ export const Projects = () => {
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      setProjects(res.data);
+      if (localStorage["USE_MOCK"] === "true") {
+        setUseMock(true);
+        setProjects(res);
+      } else {
+        setProjects(res.data);
+      }
+
       if (res === 0) {
         setIsListEmpty(true);
       } else {
