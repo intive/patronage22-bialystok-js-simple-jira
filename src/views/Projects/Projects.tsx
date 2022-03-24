@@ -30,6 +30,7 @@ async function importApiModule() {
 }
 
 export const Projects = () => {
+  const [useMock, setUseMock] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -44,9 +45,15 @@ export const Projects = () => {
   const { t } = useTranslation();
 
   const deleteProjectHandler = async (id: number) => {
-    await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`);
-    const projectsFromApi = await FetchDataAPI.getData(API_GET_PROJECTS_LIST);
-    setProjects(projectsFromApi.data);
+    if (useMock) {
+      const newProjectsList = projects.filter(
+        (element: any) => element.id !== id
+      );
+      setProjects(newProjectsList);
+    } else {
+      await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`);
+      fetchProjects();
+    }
   };
 
   const handleAddNewProject = (inputValue: string) => {
@@ -68,7 +75,13 @@ export const Projects = () => {
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      setProjects(res.data);
+      if (localStorage["USE_MOCK"] === "true") {
+        setUseMock(true);
+        setProjects(res);
+      } else {
+        setProjects(res.data);
+      }
+
       if (res === 0) {
         setIsListEmpty(true);
       } else {
