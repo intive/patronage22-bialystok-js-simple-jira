@@ -62,6 +62,10 @@ const FetchDataAPI = {
     );
     return data.data.items;
   },
+  deleteData: async function (url: string, additionalData?: any) {
+    const response = await makeRequest(url, "DELETE", additionalData);
+    return response;
+  },
 };
 
 export default FetchDataAPI;
