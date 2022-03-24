@@ -23,7 +23,7 @@ const App = () => {
             element={<Board />}
           />
           <Route
-            path='projects/:projectName&:projectId/:board/:issue&:issueId'
+            path='projects/:projectName&:projectId/:board&:boardId/:issue&:issueId'
             element={<IssueDetails />}
           />
           <Route path='*' element={<Navigate to={toProjects} />} />
