@@ -24,7 +24,7 @@ const MockBoardStatusAPI = {
     });
 
     if (boardStatusFilteredById.length < 1) {
-      return [];
+      return [[], status.data];
     } else {
       const boardStatusIds = boardStatusFilteredById.map((boardStatus) => {
         return boardStatus.statusId;
@@ -48,7 +48,7 @@ const MockBoardStatusAPI = {
         }
       );
 
-      return boardStatusFilteredByIdWithStatus;
+      return [boardStatusFilteredByIdWithStatus, status.data];
     }
   },
   getIssuesByBoardStatusId: async function (id: number) {

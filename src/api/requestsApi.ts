@@ -27,7 +27,7 @@ const FetchDataAPI = {
     );
 
     if (boardStatusFilteredById.length < 1) {
-      return [];
+      return [[], status.data];
     } else {
       const boardStatusIds = boardStatusFilteredById.map(
         (boardStatus: DataObject) => {
@@ -53,7 +53,7 @@ const FetchDataAPI = {
         }
       );
 
-      return boardStatusFilteredByIdWithStatus;
+      return [boardStatusFilteredByIdWithStatus, status.data];
     }
   },
   getIssuesByBoardStatusId: async function (id: number) {

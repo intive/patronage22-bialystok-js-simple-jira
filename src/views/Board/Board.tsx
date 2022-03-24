@@ -30,10 +30,17 @@ async function importApiModule() {
   }
 }
 
+interface Statuses {
+  id: number;
+  code: string;
+  board_Status: boolean | null;
+}
+
 export const Board = () => {
   const { t } = useTranslation();
 
   const [columns, setColumns] = useState<Array<object>>([]);
+  const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -45,7 +52,8 @@ export const Board = () => {
     async function fetchStatus() {
       await importApiModule();
       const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus);
+      setColumns(boardStatus[0]);
+      setStatuses(boardStatus[1]);
     }
     fetchStatus();
     cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
@@ -81,8 +89,8 @@ export const Board = () => {
   }, []);
 
   const handleAddNewColumn = (inputValue: string) => {
-    const index: any = columns.find(
-      (column: any) => column.status.code === inputValue
+    const index = statuses.find(
+      (status) => status.code.toLowerCase() === inputValue.toLowerCase()
     );
 
     if (index == undefined) {
