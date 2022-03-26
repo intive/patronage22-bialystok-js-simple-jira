@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
-import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
+import { useAlerts } from "../../hooks/useAlerts";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -38,14 +38,15 @@ interface Statuses {
 
 export const Board = () => {
   const { t } = useTranslation();
+  const { isSuccessAlertActive, isErrorAlertActive, message, openAlert } =
+    useAlerts();
 
   const [columns, setColumns] = useState<Array<object>>([]);
   const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [boardNameAlert, setBoardNameAlert] = useState(false);
+
   const { boardId, projectName, projectId, board } = useParams();
 
   useEffect(() => {
@@ -56,36 +57,28 @@ export const Board = () => {
       setStatuses(boardStatus[1]);
     }
     fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+    fetchIssues();
   }, [isSuccess]);
 
-  const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
-    useState(false);
-  const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
+  const fetchIssues = useCallback(async () => {
+    await importApiModule();
+    const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
 
-  useEffect(() => {
-    async function fetchIssues() {
-      await importApiModule();
-      const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
+    const filterIssuesByStatusId = () => {
+      const issuesFilteredByStatusId: any = {};
 
-      const filterIssuesByStatusId = () => {
-        const issuesFilteredByStatusId: any = {};
+      issues.reduce((_: any, issue: any) => {
+        if (!issuesFilteredByStatusId[issue.statusId]) {
+          issuesFilteredByStatusId[issue.statusId] = [];
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        } else {
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        }
+      }, issuesFilteredByStatusId);
 
-        issues.reduce((_: any, issue: any) => {
-          if (!issuesFilteredByStatusId[issue.statusId]) {
-            issuesFilteredByStatusId[issue.statusId] = [];
-            issuesFilteredByStatusId[issue.statusId].push(issue);
-          } else {
-            issuesFilteredByStatusId[issue.statusId].push(issue);
-          }
-        }, issuesFilteredByStatusId);
-
-        return issuesFilteredByStatusId;
-      };
-
-      setFilteredIssues(filterIssuesByStatusId());
-    }
-    fetchIssues();
+      return issuesFilteredByStatusId;
+    };
+    setFilteredIssues(filterIssuesByStatusId());
   }, []);
 
   const handleAddNewColumn = (inputValue: string) => {
@@ -101,10 +94,10 @@ export const Board = () => {
             statusId: res.data,
           }).then((res: any) => {
             if (res.responseCode) {
-              setisAlertStatusSuccessOpen(true);
+              openAlert("success", t("NewBoardAddedWithSuccess"));
               setIsSuccess(!isSuccess);
             } else {
-              setisAlertStatusErrorOpen(true);
+              openAlert("error", t("NewBoardAddedWithError"));
             }
           });
         }
@@ -115,13 +108,27 @@ export const Board = () => {
         statusId: index.id,
       }).then((res: any) => {
         if (res.responseCode) {
-          setisAlertStatusSuccessOpen(true);
+          openAlert("success", t("NewBoardAddedWithSuccess"));
           setIsSuccess(!isSuccess);
         } else {
-          setisAlertStatusErrorOpen(true);
+          openAlert("error", t("NewBoardAddedWithError"));
         }
       });
     }
+  };
+
+  const handleDeleteTicket = (issueId: string) => {
+    async function deleteIssue() {
+      const response = await FetchDataAPI.deleteIssue(issueId);
+      if (response.status === 200) {
+        openAlert("success", t("IssueDeletedSuccess"));
+        setIsSuccess(!isSuccess);
+      } else {
+        openAlert("error", t("IssueDeletedError"));
+      }
+    }
+    deleteIssue();
+    fetchIssues();
   };
 
   const menuOptions = [
@@ -133,7 +140,7 @@ export const Board = () => {
         if (columns?.length < 5 || columns == undefined) {
           setIsDialogOpen(!isDialogOpen);
         } else {
-          setBoardNumberAlert(true);
+          openAlert("error", t("columnAlertNumber"));
         }
       },
     },
@@ -175,30 +182,15 @@ export const Board = () => {
                   key={ticket.id}
                   assignedTo={ticket.assignUserId}
                   issueId={ticket.id}
+                  handleDeleteTicket={handleDeleteTicket}
                 />
               );
             })}
           </TasksCard>
         ))}
       </TaskWrapper>
-      <AlertSuccess
-        isOpen={isAlertStatusSuccessOpen}
-        alertMsg={t("NewBoardAddedWithSuccess")}
-      />
-      <AlertError
-        isOpen={isAlertStatusErrorOpen}
-        alertMsg={t("NewBoardAddedWithError")}
-        handleClose={() => {
-          setisAlertStatusErrorOpen(false);
-        }}
-      />
-      <AlertError
-        isOpen={boardNumberAlert}
-        alertMsg={t("columnAlertNumber")}
-        handleClose={() => {
-          setBoardNumberAlert(false);
-        }}
-      />
+      <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
+      <AlertError isOpen={isErrorAlertActive} alertMsg={message} />
     </StyledPageWrapper>
   );
 };
