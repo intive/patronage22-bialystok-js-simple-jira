@@ -38,8 +38,13 @@ interface Statuses {
 
 export const Board = () => {
   const { t } = useTranslation();
-  const { isSuccessAlertActive, isErrorAlertActive, message, openAlert } =
-    useAlerts();
+  const {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  } = useAlerts();
 
   const [columns, setColumns] = useState<Array<object>>([]);
   const [statuses, setStatuses] = useState<Statuses[]>([]);
@@ -190,7 +195,11 @@ export const Board = () => {
         ))}
       </TaskWrapper>
       <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
-      <AlertError isOpen={isErrorAlertActive} alertMsg={message} />
+      <AlertError
+        isOpen={isErrorAlertActive}
+        alertMsg={message}
+        handleClose={() => closeErrorAlert()}
+      />
     </StyledPageWrapper>
   );
 };

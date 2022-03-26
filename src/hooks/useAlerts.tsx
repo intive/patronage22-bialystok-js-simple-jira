@@ -12,12 +12,7 @@ export const useAlerts = () => {
         setIsSuccessAlertActive(false);
       }, 3000);
     }
-    if (isErrorAlertActive === true) {
-      setTimeout(() => {
-        setIsErrorAlertActive(false);
-      }, 3000);
-    }
-  }, [isSuccessAlertActive, isErrorAlertActive]);
+  }, [isSuccessAlertActive]);
 
   const openAlert = (alertType: "success" | "error", msg: string) => {
     setMessage(msg);
@@ -29,5 +24,15 @@ export const useAlerts = () => {
     }
   };
 
-  return { isSuccessAlertActive, isErrorAlertActive, message, openAlert };
+  const closeErrorAlert = () => {
+    setIsErrorAlertActive(false);
+  };
+
+  return {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  };
 };
