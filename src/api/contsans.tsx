@@ -15,3 +15,5 @@ export const API_ADD_NEW_STATUS =
   "https://patronageapi.herokuapp.com/api/status?code=";
 export const API_GET_STATUSES_LIST =
   "https://patronageapi.herokuapp.com/api/status";
+export const API_UPTADE_TICKET =
+  "https://patronageapi.herokuapp.com/api/issue/";

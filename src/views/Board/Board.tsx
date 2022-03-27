@@ -1,8 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
+import {
+  API_ADD_NEW_STATUS,
+  API_GET_BOARD_STATUS,
+  API_UPTADE_TICKET,
+} from "../../api/contsans";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
+
+import { DragDropContext } from "react-beautiful-dnd";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -12,7 +18,7 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import { TaskWrapper } from "./Board.style";
 
 import PageHeader from "@modules/PageHeader/PageHeader";
-import TasksCard from "@modules/TasksCard";
+import TasksCard from "@modules/TasksCard/TasksCard";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
@@ -45,48 +51,39 @@ export const Board = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [boardNameAlert, setBoardNameAlert] = useState(false);
-  const { boardId, projectName, projectId, board } = useParams();
-
-  useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus[0]);
-      setStatuses(boardStatus[1]);
-    }
-    fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
-  }, [isSuccess]);
-
   const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
     useState(false);
   const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
+  const { boardId, projectName, projectId, board } = useParams();
 
-  useEffect(() => {
-    async function fetchIssues() {
-      await importApiModule();
-      const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
+  const fetchStatus = async () => {
+    await importApiModule();
+    const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+    setColumns(boardStatus[0]);
+    setStatuses(boardStatus[1]);
+  };
 
-      const filterIssuesByStatusId = () => {
-        const issuesFilteredByStatusId: any = {};
+  const fetchIssues = async () => {
+    await importApiModule();
+    const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
 
-        issues.reduce((_: any, issue: any) => {
-          if (!issuesFilteredByStatusId[issue.statusId]) {
-            issuesFilteredByStatusId[issue.statusId] = [];
-            issuesFilteredByStatusId[issue.statusId].push(issue);
-          } else {
-            issuesFilteredByStatusId[issue.statusId].push(issue);
-          }
-        }, issuesFilteredByStatusId);
+    const filterIssuesByStatusId = () => {
+      const issuesFilteredByStatusId: any = {};
 
-        return issuesFilteredByStatusId;
-      };
+      issues.reduce((_: any, issue: any) => {
+        if (!issuesFilteredByStatusId[issue.statusId]) {
+          issuesFilteredByStatusId[issue.statusId] = [];
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        } else {
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        }
+      }, issuesFilteredByStatusId);
 
-      setFilteredIssues(filterIssuesByStatusId());
-    }
-    fetchIssues();
-  }, []);
+      return issuesFilteredByStatusId;
+    };
+
+    setFilteredIssues(filterIssuesByStatusId());
+  };
 
   const handleAddNewColumn = (inputValue: string) => {
     const index = statuses.find(
@@ -145,6 +142,51 @@ export const Board = () => {
     },
   ];
 
+  const onDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    } else if (
+      destination.droppableID === source.droppableId &&
+      destination.index === source.index
+    ) {
+      return;
+    } else {
+      const newIssues = Object.assign({}, filteredIssues);
+      columns.map((column: any) => {
+        if (!filteredIssues[column.statusId]) {
+          newIssues[column.statusId] = [];
+          setFilteredIssues(newIssues);
+        }
+
+        newIssues[source.droppableId].forEach((issue: any, index: number) => {
+          if (issue.id === Number(draggableId)) {
+            newIssues[source.droppableId].splice(index, 1);
+            newIssues[destination.droppableId].push(issue);
+          }
+        });
+
+        setFilteredIssues(newIssues);
+      });
+
+      FetchDataAPI.updateTicket(`${API_UPTADE_TICKET}${draggableId}`, {
+        statusId: {
+          data: destination.droppableId,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+  }, [isSuccess]);
+
+  useEffect(() => {
+    fetchIssues();
+  }, []);
+
   return (
     <StyledPageWrapper>
       <PageHeader
@@ -165,22 +207,31 @@ export const Board = () => {
         dialogHelper={t("dialogCreateStatusHelperText")}
         handleAdd={handleAddNewColumn}
       />
-      <TaskWrapper>
-        {columns?.map((column: any) => (
-          <TasksCard title={column.status.code} key={column.statusId}>
-            {filteredIssues[column.statusId]?.map((ticket: any) => {
-              return (
-                <Ticket
-                  title={ticket.name}
-                  key={ticket.id}
-                  assignedTo={ticket.assignUserId}
-                  issueId={ticket.id}
-                />
-              );
-            })}
-          </TasksCard>
-        ))}
-      </TaskWrapper>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <TaskWrapper>
+          {columns?.map((column: any) => (
+            <TasksCard
+              title={column.status.code}
+              key={column.statusId}
+              id={column.statusId}
+            >
+              {filteredIssues[column.statusId]?.map(
+                (ticket: any, index: number) => {
+                  return (
+                    <Ticket
+                      title={ticket.name}
+                      key={ticket.id}
+                      assignedTo={ticket.assignUserId}
+                      issueId={ticket.id}
+                      index={index}
+                    />
+                  );
+                }
+              )}
+            </TasksCard>
+          ))}
+        </TaskWrapper>
+      </DragDropContext>
       <AlertSuccess
         isOpen={isAlertStatusSuccessOpen}
         alertMsg={t("NewBoardAddedWithSuccess")}

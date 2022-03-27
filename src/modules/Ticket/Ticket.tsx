@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Draggable } from "react-beautiful-dnd";
+
 import {
   AssignedTo,
   Assignee,
@@ -18,6 +20,7 @@ interface TicketProps {
   title: string;
   assignedTo?: string;
   issueId: string;
+  index: number;
 }
 
 const Ticket = (props: TicketProps) => {
@@ -26,7 +29,7 @@ const Ticket = (props: TicketProps) => {
   const [isAssigned, setIsAssigned] = React.useState(
     props.assignedTo ? true : false
   );
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const defaultProps = {
     assignedTo: t("unassigned"),
   };
@@ -37,20 +40,32 @@ const Ticket = (props: TicketProps) => {
   };
 
   return (
-    <StyledTicket onClick={handleClickTicket}>
-      <CardContentNoPadding>
-        <StyledTicketHeader>
-          <Title>{props.title}</Title>
-        </StyledTicketHeader>
-        <StyledTicketContent>
-          <StyledTicketContentText>
-            {isAssigned && <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>}
-            <Assignee>{props.assignedTo}</Assignee>
-          </StyledTicketContentText>
-          <ThreeDotsMenu menuItems={mockMenuItems} />
-        </StyledTicketContent>
-      </CardContentNoPadding>
-    </StyledTicket>
+    <Draggable draggableId={`${props.issueId}`} index={props.index}>
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <StyledTicket onClick={handleClickTicket}>
+            <CardContentNoPadding>
+              <StyledTicketHeader>
+                <Title>{props.title}</Title>
+              </StyledTicketHeader>
+              <StyledTicketContent>
+                <StyledTicketContentText>
+                  {isAssigned && (
+                    <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>
+                  )}
+                  <Assignee>{props.assignedTo}</Assignee>
+                </StyledTicketContentText>
+                <ThreeDotsMenu menuItems={mockMenuItems} />
+              </StyledTicketContent>
+            </CardContentNoPadding>
+          </StyledTicket>
+        </div>
+      )}
+    </Draggable>
   );
 };
 

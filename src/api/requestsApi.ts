@@ -11,11 +11,13 @@ const FetchDataAPI = {
     const fetchedData = await response.json();
     return fetchedData;
   },
+
   addData: async function (url: string, dataToAdd?: any) {
     const response = await makeRequest(url, "POST", dataToAdd);
     const addedData = await response.json();
     return addedData;
   },
+
   getBoardStatusById: async function (id: number) {
     const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
     const status = await FetchDataAPI.getData(API_GET_STATUS);
@@ -56,15 +58,21 @@ const FetchDataAPI = {
       return [boardStatusFilteredByIdWithStatus, status.data];
     }
   },
+
   getIssuesByBoardStatusId: async function (id: number) {
     const data = await FetchDataAPI.getData(
       `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=15`
     );
     return data.data.items;
   },
+
   deleteData: async function (url: string, additionalData?: any) {
     const response = await makeRequest(url, "DELETE", additionalData);
     return response;
+  },
+
+  updateTicket: async function (url: string, additionalData: any) {
+    await makeRequest(url, "PATCH", additionalData);
   },
 };
 
