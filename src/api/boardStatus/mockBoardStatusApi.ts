@@ -56,6 +56,11 @@ const MockBoardStatusAPI = {
     console.log("Fetching issues... response.status:", 200);
     return [...mockIssues];
   },
+  deleteIssue: async function (id: number) {
+    await sleep();
+    console.log(`Deleting issue with an id of ${id} response.status:`, 200);
+    return { data: mockIssues, status: 200 };
+  },
 };
 
 export default MockBoardStatusAPI;

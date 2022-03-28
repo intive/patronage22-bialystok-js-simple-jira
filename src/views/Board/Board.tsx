@@ -6,7 +6,7 @@ import {
   API_GET_BOARD_STATUS,
   API_UPDATE_TICKET,
 } from "../../api/contsans";
-import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
+import { useAlerts } from "../../hooks/useAlerts";
 
 import { DragDropContext } from "react-beautiful-dnd";
 
@@ -44,17 +44,22 @@ interface Statuses {
 
 export const Board = () => {
   const { t } = useTranslation();
+  const {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  } = useAlerts();
 
   const [columns, setColumns] = useState<Array<object>>([]);
   const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
-  const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
-    useState(false);
-  const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
+
   const { boardId, projectName, projectId, board } = useParams();
+  const [state, setState] = useState({});
 
   const fetchStatus = async () => {
     await importApiModule();
@@ -98,10 +103,10 @@ export const Board = () => {
             statusId: res.data,
           }).then((res: any) => {
             if (res.responseCode) {
-              setisAlertStatusSuccessOpen(true);
+              openAlert("success", t("NewBoardAddedWithSuccess"));
               setIsSuccess(!isSuccess);
             } else {
-              setisAlertStatusErrorOpen(true);
+              openAlert("error", t("NewBoardAddedWithError"));
             }
           });
         }
@@ -112,13 +117,28 @@ export const Board = () => {
         statusId: index.id,
       }).then((res: any) => {
         if (res.responseCode) {
-          setisAlertStatusSuccessOpen(true);
+          openAlert("success", t("NewBoardAddedWithSuccess"));
           setIsSuccess(!isSuccess);
         } else {
-          setisAlertStatusErrorOpen(true);
+          openAlert("error", t("NewBoardAddedWithError"));
         }
       });
     }
+    fetchIssues();
+  };
+
+  const handleDeleteTicket = (issueId: string) => {
+    async function deleteIssue() {
+      const response = await FetchDataAPI.deleteIssue(issueId);
+      if (response.status === 200) {
+        openAlert("success", t("IssueDeletedSuccess"));
+        setIsSuccess(!isSuccess);
+      } else {
+        openAlert("error", t("IssueDeletedError"));
+      }
+    }
+    deleteIssue();
+    fetchIssues();
   };
 
   const menuOptions = [
@@ -130,7 +150,7 @@ export const Board = () => {
         if (columns?.length < 5 || columns == undefined) {
           setIsDialogOpen(!isDialogOpen);
         } else {
-          setBoardNumberAlert(true);
+          openAlert("error", t("columnAlertNumber"));
         }
       },
     },
@@ -159,16 +179,16 @@ export const Board = () => {
           newIssues[column.statusId] = [];
           setFilteredIssues(newIssues);
         }
-
-        newIssues[source.droppableId].forEach((issue: any, index: number) => {
-          if (issue.id === Number(draggableId)) {
-            newIssues[source.droppableId].splice(index, 1);
-            newIssues[destination.droppableId].push(issue);
-          }
-        });
-
-        setFilteredIssues(newIssues);
       });
+
+      newIssues[source.droppableId].forEach((issue: any, index: number) => {
+        if (issue.id === Number(draggableId)) {
+          newIssues[source.droppableId].splice(index, 1);
+          newIssues[destination.droppableId].push(issue);
+        }
+      });
+
+      setFilteredIssues(newIssues);
 
       FetchDataAPI.updateTicket(`${API_UPDATE_TICKET}${draggableId}`, {
         statusId: {
@@ -180,7 +200,10 @@ export const Board = () => {
 
   useEffect(() => {
     fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+    fetchIssues();
+    return () => {
+      setState({});
+    };
   }, [isSuccess]);
 
   useEffect(() => {
@@ -224,6 +247,7 @@ export const Board = () => {
                       assignedTo={ticket.assignUserId}
                       issueId={ticket.id}
                       index={index}
+                      handleDeleteTicket={handleDeleteTicket}
                     />
                   );
                 }
@@ -232,23 +256,11 @@ export const Board = () => {
           ))}
         </TaskWrapper>
       </DragDropContext>
-      <AlertSuccess
-        isOpen={isAlertStatusSuccessOpen}
-        alertMsg={t("NewBoardAddedWithSuccess")}
-      />
+      <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
-        isOpen={isAlertStatusErrorOpen}
-        alertMsg={t("NewBoardAddedWithError")}
-        handleClose={() => {
-          setisAlertStatusErrorOpen(false);
-        }}
-      />
-      <AlertError
-        isOpen={boardNumberAlert}
-        alertMsg={t("columnAlertNumber")}
-        handleClose={() => {
-          setBoardNumberAlert(false);
-        }}
+        isOpen={isErrorAlertActive}
+        alertMsg={message}
+        handleClose={() => closeErrorAlert()}
       />
     </StyledPageWrapper>
   );
