@@ -47,6 +47,7 @@ export const Board = () => {
   const [boardNumberAlert, setBoardNumberAlert] = useState(false);
   const [boardNameAlert, setBoardNameAlert] = useState(false);
   const { boardId, projectName, projectId, board } = useParams();
+  const [state, setState] = useState({});
 
   useEffect(() => {
     async function fetchStatus() {
@@ -86,6 +87,9 @@ export const Board = () => {
       setFilteredIssues(filterIssuesByStatusId());
     }
     fetchIssues();
+    return () => {
+      setState({});
+    };
   }, []);
 
   const handleAddNewColumn = (inputValue: string) => {
