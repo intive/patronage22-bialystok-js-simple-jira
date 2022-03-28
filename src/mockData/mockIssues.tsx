@@ -19,6 +19,7 @@ export const mockIssues = [
     statusId: 1,
     id: 0,
     isActive: true,
+    assignUserId: "Han Solo",
   },
   {
     alias: "mock issue 2",
