@@ -59,5 +59,6 @@
   "LoginError": "Pola nie mogą być puste!",
   "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
   "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy",
-  "taskManagementTool": "System zarządzania zadaniami"
+  "taskManagementTool": "System zarządzania zadaniami",
+  "DltBoardConfirmation": "Czy na pewno chcesz usunąć tą Tablicę?"
 }

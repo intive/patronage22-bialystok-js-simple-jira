@@ -18,6 +18,7 @@ import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
+import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 
 let FetchDataAPI: any;
 
@@ -39,6 +40,7 @@ export const BoardsList = () => {
   const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
+  const [isDeleteBoardDialogOpen, setIsDeleteBoardDialogOpen] = useState(false);
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
 
@@ -53,7 +55,7 @@ export const BoardsList = () => {
       id: 1,
       icon: <DeleteOutlineIcon />,
       label: `${t("deleteBoard")}`,
-      onClick: () => console.log("board deleted"),
+      onClick: () => setIsDeleteBoardDialogOpen(true),
     },
   ];
 
@@ -87,6 +89,10 @@ export const BoardsList = () => {
         setisAlertBoardErrorOpen(true);
       }
     });
+  };
+
+  const handelDeleteBoard = () => {
+    console.log("This button  works");
   };
 
   const fetchProjects = useCallback(async () => {
@@ -134,6 +140,13 @@ export const BoardsList = () => {
             dialogHelper={t("boardDialogHelperText")}
             handleAdd={handleAddNewBoard}
           />
+          <ConfirmationDialog
+            isOpen={isDeleteBoardDialogOpen}
+            confirmHandler={() => handelDeleteBoard()}
+            handleClose={() => setIsDeleteBoardDialogOpen(false)}
+          >
+            {t("DltBoardConfirmation")}
+          </ConfirmationDialog>
           {isListEmpty ? (
             <EmptyListModule
               secondary={+true}
