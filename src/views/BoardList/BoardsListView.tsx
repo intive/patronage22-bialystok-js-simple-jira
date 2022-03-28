@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 
-import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+import { StyledBoardListView, StyledPageWrapper } from "./BoardsListView.style";
 
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
@@ -19,6 +19,7 @@ import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
+import { deleteBoard } from "../../api/boards/deleteBoard";
 
 let FetchDataAPI: any;
 
@@ -32,7 +33,11 @@ async function importApiModule() {
   }
 }
 
-export const BoardsList = () => {
+// export interface BoardListViewType {
+//   handelDeleteBoard: any;
+// }
+
+export const BoardsListView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -41,23 +46,9 @@ export const BoardsList = () => {
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
   const [isDeleteBoardDialogOpen, setIsDeleteBoardDialogOpen] = useState(false);
+  const [currentBoard, setCurrentBoard] = useState("");
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
-
-  const menuOptions = [
-    {
-      id: 0,
-      icon: <ViewWeekOutlinedIcon />,
-      label: `${t("addColumn")}`,
-      onClick: () => console.log("column added"),
-    },
-    {
-      id: 1,
-      icon: <DeleteOutlineIcon />,
-      label: `${t("deleteBoard")}`,
-      onClick: () => setIsDeleteBoardDialogOpen(true),
-    },
-  ];
 
   const handleAddNewBoard = (inputValue: string) => {
     const date = new Date();
@@ -91,10 +82,6 @@ export const BoardsList = () => {
     });
   };
 
-  const handelDeleteBoard = () => {
-    console.log("This button  works");
-  };
-
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
@@ -119,6 +106,10 @@ export const BoardsList = () => {
     cleainingSuccessAlerts(setisAlertBoardSuccessOpen);
   }, [isSuccess]);
 
+  const handelDeleteBoard = () => {
+    deleteBoard(currentBoard);
+    setIsDeleteBoardDialogOpen(false);
+  };
   return (
     <>
       <Content isLoading={isLoading}>
@@ -159,12 +150,32 @@ export const BoardsList = () => {
               setIsOpen={setIsDialogOpen}
             />
           ) : (
-            <StyledBoardList>
+            <StyledBoardListView>
               <Grid container spacing={3}>
                 {boardsList?.map((board: any, id: number) => (
                   <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
                     <BoardCard
-                      menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
+                      menuComponent={
+                        <ThreeDotsMenu
+                          menuItems={[
+                            {
+                              id: 0,
+                              icon: <ViewWeekOutlinedIcon />,
+                              label: `${t("addColumn")}`,
+                              onClick: () => console.log("column added"),
+                            },
+                            {
+                              id: 1,
+                              icon: <DeleteOutlineIcon />,
+                              label: `${t("deleteBoard")}`,
+                              onClick: () => {
+                                setIsDeleteBoardDialogOpen(true);
+                                setCurrentBoard(board.id);
+                              },
+                            },
+                          ]}
+                        />
+                      }
                       boardName={board.name}
                       projectName={`${projectName}`}
                       projectId={projectId}
@@ -173,7 +184,7 @@ export const BoardsList = () => {
                   </Grid>
                 ))}
               </Grid>
-            </StyledBoardList>
+            </StyledBoardListView>
           )}
         </StyledPageWrapper>
       </Content>
