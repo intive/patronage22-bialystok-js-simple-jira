@@ -53,6 +53,7 @@ export const Board = () => {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const { boardId, projectName, projectId, board } = useParams();
+  const [state, setState] = useState({});
 
   useEffect(() => {
     async function fetchStatus() {
@@ -63,6 +64,9 @@ export const Board = () => {
     }
     fetchStatus();
     fetchIssues();
+    return () => {
+      setState({});
+    };
   }, [isSuccess]);
 
   const fetchIssues = useCallback(async () => {
