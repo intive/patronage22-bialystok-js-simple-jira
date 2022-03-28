@@ -42,28 +42,25 @@ const Ticket = (props: TicketProps) => {
   return (
     <Draggable draggableId={`${props.issueId}`} index={props.index}>
       {(provided) => (
-        <div
+        <StyledTicket
+          onClick={handleClickTicket}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <StyledTicket onClick={handleClickTicket}>
-            <CardContentNoPadding>
-              <StyledTicketHeader>
-                <Title>{props.title}</Title>
-              </StyledTicketHeader>
-              <StyledTicketContent>
-                <StyledTicketContentText>
-                  {isAssigned && (
-                    <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>
-                  )}
-                  <Assignee>{props.assignedTo}</Assignee>
-                </StyledTicketContentText>
-                <ThreeDotsMenu menuItems={mockMenuItems} />
-              </StyledTicketContent>
-            </CardContentNoPadding>
-          </StyledTicket>
-        </div>
+          <CardContentNoPadding>
+            <StyledTicketHeader>
+              <Title>{props.title}</Title>
+            </StyledTicketHeader>
+            <StyledTicketContent>
+              <StyledTicketContentText>
+                {isAssigned && <AssignedTo>{t("assignedTo")}&nbsp;</AssignedTo>}
+                <Assignee>{props.assignedTo}</Assignee>
+              </StyledTicketContentText>
+              <ThreeDotsMenu menuItems={mockMenuItems} />
+            </StyledTicketContent>
+          </CardContentNoPadding>
+        </StyledTicket>
       )}
     </Draggable>
   );

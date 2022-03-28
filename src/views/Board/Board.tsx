@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
   API_GET_BOARD_STATUS,
-  API_UPTADE_TICKET,
+  API_UPDATE_TICKET,
 } from "../../api/contsans";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 
@@ -170,7 +170,7 @@ export const Board = () => {
         setFilteredIssues(newIssues);
       });
 
-      FetchDataAPI.updateTicket(`${API_UPTADE_TICKET}${draggableId}`, {
+      FetchDataAPI.updateTicket(`${API_UPDATE_TICKET}${draggableId}`, {
         statusId: {
           data: destination.droppableId,
         },
