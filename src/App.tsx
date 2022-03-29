@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Projects } from "./views/Projects/Projects";
-import { BoardsListView } from "./views/BoardList/BoardsListView";
+import { BoardsListView } from "./views/BoardView/BoardsListView";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
