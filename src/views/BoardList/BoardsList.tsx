@@ -2,23 +2,22 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
-import {
-  API_GET_BOARDS_LIST,
-  API_ADD_NEW_BOARD,
-  API_DELETE_BOARD,
-} from "../../api/contsans";
+import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
 
-import { StyledPageWrapper } from "./BoardsListView.style";
+import Grid from "@mui/material/Grid";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+
+import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
 
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import PageHeader from "@modules/PageHeader/PageHeader";
+import { BoardCard } from "@components/BoardCard/BoardCard";
+import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
-import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
-import { deleteBoard } from "../../api/boards/deleteBoard";
-import { BoardsList } from "@modules/BoardsList/BoardsList";
 
 let FetchDataAPI: any;
 
@@ -32,7 +31,7 @@ async function importApiModule() {
   }
 }
 
-export const BoardsListView = () => {
+export const BoardsList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -40,13 +39,23 @@ export const BoardsListView = () => {
   const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
-  const [isDeleteBoardDialogOpen, setIsDeleteBoardDialogOpen] = useState(false);
-  const [isDeleteBoardSuccessOpen, setIsDeleteBoardSuccessOpen] =
-    useState(false);
-  const [isDeleteBoardErrorOpen, setIsDeleteBoardErrorOpen] = useState(false);
-  const [currentBoard, setCurrentBoard] = useState("");
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
+
+  const menuOptions = [
+    {
+      id: 0,
+      icon: <ViewWeekOutlinedIcon />,
+      label: `${t("addColumn")}`,
+      onClick: () => console.log("column added"),
+    },
+    {
+      id: 1,
+      icon: <DeleteOutlineIcon />,
+      label: `${t("deleteBoard")}`,
+      onClick: () => console.log("board deleted"),
+    },
+  ];
 
   const handleAddNewBoard = (inputValue: string) => {
     const date = new Date();
@@ -80,9 +89,10 @@ export const BoardsListView = () => {
     });
   };
 
-  const fetchBoards = useCallback(async () => {
+  const fetchProjects = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
+      console.log(res);
       const boardsByID = res?.data.filter(
         (board: any) =>
           board.projectId === Number(projectId) && board.isActive === true
@@ -99,25 +109,10 @@ export const BoardsListView = () => {
   }, []);
 
   useEffect(() => {
-    fetchBoards();
+    fetchProjects();
     cleainingSuccessAlerts(setisAlertBoardSuccessOpen);
-    cleainingSuccessAlerts(setIsDeleteBoardSuccessOpen);
   }, [isSuccess]);
 
-  const handelDeleteBoard = (currentBoard: string) => {
-    console.log(API_DELETE_BOARD + currentBoard);
-    FetchDataAPI.deleteData(API_DELETE_BOARD + currentBoard).then(
-      (res: any) => {
-        if (res.status) {
-          setIsDeleteBoardSuccessOpen(true);
-          setIsSuccess(!isSuccess);
-        } else {
-          setIsDeleteBoardErrorOpen(true);
-        }
-      }
-    );
-    setIsDeleteBoardDialogOpen(false);
-  };
   return (
     <>
       <Content isLoading={isLoading}>
@@ -139,13 +134,6 @@ export const BoardsListView = () => {
             dialogHelper={t("boardDialogHelperText")}
             handleAdd={handleAddNewBoard}
           />
-          <ConfirmationDialog
-            isOpen={isDeleteBoardDialogOpen}
-            confirmHandler={() => handelDeleteBoard(currentBoard)}
-            handleClose={() => setIsDeleteBoardDialogOpen(false)}
-          >
-            {t("DltBoardConfirmation")}
-          </ConfirmationDialog>
           {isListEmpty ? (
             <EmptyListModule
               secondary={+true}
@@ -158,14 +146,21 @@ export const BoardsListView = () => {
               setIsOpen={setIsDialogOpen}
             />
           ) : (
-            <BoardsList
-              boards={boardsList}
-              deleteBoardHandler={(boardId: string) => {
-                setIsDeleteBoardDialogOpen(true);
-                setCurrentBoard(boardId);
-              }}
-              addColumnHandler={() => console.log("column added")}
-            />
+            <StyledBoardList>
+              <Grid container spacing={3}>
+                {boardsList?.map((board: any, id: number) => (
+                  <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                    <BoardCard
+                      menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
+                      boardName={board.name}
+                      projectName={`${projectName}`}
+                      projectId={projectId}
+                      boardId={board.id}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </StyledBoardList>
           )}
         </StyledPageWrapper>
       </Content>
@@ -178,17 +173,6 @@ export const BoardsListView = () => {
         alertMsg={t("NewBoardAddedWithError")}
         handleClose={() => {
           setisAlertBoardErrorOpen(false);
-        }}
-      />
-      <AlertSuccess
-        isOpen={isDeleteBoardSuccessOpen}
-        alertMsg={t("DltBoardSuccess")}
-      />
-      <AlertError
-        isOpen={isDeleteBoardErrorOpen}
-        alertMsg={t("DltBoardError")}
-        handleClose={() => {
-          setIsDeleteBoardErrorOpen(false);
         }}
       />
     </>
