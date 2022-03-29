@@ -1,3 +1,14 @@
+export interface IssueType {
+  alias: string;
+  name: string;
+  description: string;
+  projectId: number;
+  boardId: number;
+  statusId: number;
+  id: number;
+  isActive: boolean;
+}
+
 export const mockIssues = [
   {
     alias: "mock issue 1",
