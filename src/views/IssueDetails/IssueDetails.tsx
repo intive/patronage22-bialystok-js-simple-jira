@@ -26,7 +26,7 @@ let FetchDataAPI: any;
 
 async function importApiModule() {
   if (localStorage["USE_MOCK"] === "true") {
-    const module = await import("../../api/issues/mockIssuesStatusAPI");
+    const module = await import("../../api/issue/mockIssueDetails");
     FetchDataAPI = module.default;
   } else {
     const module = await import("../../api/requestsApi");
@@ -51,9 +51,7 @@ export const IssueDetails = () => {
   const { boardId, issueId, projectName } = useParams();
 
   const handleSelect = async (e: any) => {
-    if (localStorage["USE_MOCK"] === "true") {
-      setCurrentStatus(e.target.value);
-    } else {
+    if (localStorage["USE_MOCK"] === "false") {
       const newStatusId = statusesApi.filter(
         (el) => el.iStatus === e.target.value
       );
@@ -73,8 +71,8 @@ export const IssueDetails = () => {
         return addedData;
       };
       await patchData();
-      setCurrentStatus(e.target.value);
     }
+    setCurrentStatus(e.target.value);
   };
 
   const fetchIssueDetails = useCallback(async () => {
@@ -86,42 +84,41 @@ export const IssueDetails = () => {
     });
   }, []);
 
-  useEffect(() => {
-    fetchIssueDetails();
-    async function fetchStatus() {
-      if (localStorage["USE_MOCK"] === "true") {
-        const issueStatus = await MockIssuesStatusAPI.getIssueStatusById(
-          issueId
-        );
+  const fetchStatus = async () => {
+    if (localStorage["USE_MOCK"] === "true") {
+      const issueStatus = await MockIssuesStatusAPI.getIssueStatusById(issueId);
 
-        setCurrentStatus(issueStatus);
-        const availableStatuses = await MockIssuesStatusAPI.getStatuses();
-        setStatuses(availableStatuses);
-        return;
-      }
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      const statusesFromApi = boardStatus[0].map((el: any) => ({
-        statusId: el.statusId,
-        iStatus: el.status.code,
-      }));
-
-      setStatusesApi(statusesFromApi);
-
-      const statusesInString = statusesFromApi.map((el: any) => el.iStatus);
-      setStatuses(statusesInString);
-
-      const issueStatusId = await FetchDataAPI.getData(
-        `https://patronageapi.herokuapp.com/api/issue/${issueId}`
-      );
-
-      const issueStatusString = await FetchDataAPI.getData(
-        `https://patronageapi.herokuapp.com/api/status/id?id=${issueStatusId.data.statusId}`
-      );
-
-      setCurrentStatus(issueStatusString.data.code);
+      setCurrentStatus(issueStatus);
+      const availableStatuses = await MockIssuesStatusAPI.getStatuses();
+      setStatuses(availableStatuses);
+      return;
     }
+    await importApiModule();
+    const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+    const statusesFromApi = boardStatus[0].map((el: any) => ({
+      statusId: el.statusId,
+      iStatus: el.status.code,
+    }));
+
+    setStatusesApi(statusesFromApi);
+
+    const statusesInString = statusesFromApi.map((el: any) => el.iStatus);
+    setStatuses(statusesInString);
+
+    const issueStatusId = await FetchDataAPI.getData(
+      `https://patronageapi.herokuapp.com/api/issue/${issueId}`
+    );
+
+    const issueStatusString = await FetchDataAPI.getData(
+      `https://patronageapi.herokuapp.com/api/status/id?id=${issueStatusId.data.statusId}`
+    );
+
+    setCurrentStatus(issueStatusString.data.code);
+  };
+
+  useEffect(() => {
     fetchStatus();
+    fetchIssueDetails();
     return () => {
       setState({});
     };
