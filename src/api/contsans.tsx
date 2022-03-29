@@ -16,3 +16,5 @@ export const API_ADD_NEW_STATUS =
 export const API_GET_STATUSES_LIST =
   "https://patronageapi.herokuapp.com/api/status";
 export const API_ISSUE = "https://patronageapi.herokuapp.com/api/issue/";
+export const API_DELETE_BOARD =
+  "https://patronageapi.herokuapp.com/api/board/delete/";

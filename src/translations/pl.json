@@ -60,6 +60,9 @@
   "NewBoardAddedWithSuccess": "Dodano nową tablicę!",
   "NewBoardAddedWithError": "Wystąpił błąd podczas tworzenia nowej tablicy",
   "taskManagementTool": "System zarządzania zadaniami",
+  "DltBoardConfirmation": "Czy na pewno chcesz usunąć tą Tablicę?",
+  "DltBoardError": "Coś poszło nie tak podczas usuwania Tablicy",
+  "DltBoardSuccess": "Pomyślnie usunięto Tablicę",
   "deleteIssue": "Usuń Zadanie",
   "IssueDeletedSuccess": "Zadanie zostało pomyślnie usunięte",
   "IssueDeletedError": "Wystąpił błąd podczas usuwania zadania"
