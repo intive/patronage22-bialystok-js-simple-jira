@@ -3,6 +3,8 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
   minWidth: 300,
   width: "100vw",
   height: "67vh",

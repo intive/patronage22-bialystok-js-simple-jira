@@ -16,7 +16,11 @@ const TasksCard = ({ title, children, id }: IssuesCardProps) => {
       </Title>
       <Droppable droppableId={`${id}`}>
         {(provided) => (
-          <List ref={provided.innerRef} {...provided.droppableProps}>
+          <List
+            style={{ flex: 1 }}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
             {children}
             {provided.placeholder}
           </List>

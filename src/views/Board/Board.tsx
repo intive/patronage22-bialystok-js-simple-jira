@@ -167,10 +167,7 @@ export const Board = () => {
 
     if (!destination) {
       return;
-    } else if (
-      destination.droppableID === source.droppableId &&
-      destination.index === source.index
-    ) {
+    } else if (destination.droppableID === source.droppableId) {
       return;
     } else {
       const newIssues = Object.assign({}, filteredIssues);
