@@ -1,8 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
+import {
+  API_ADD_NEW_STATUS,
+  API_GET_BOARD_STATUS,
+  API_UPDATE_TICKET,
+} from "../../api/contsans";
 import { useAlerts } from "../../hooks/useAlerts";
+
+import { DragDropContext } from "react-beautiful-dnd";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
@@ -12,7 +18,7 @@ import { StyledPageWrapper } from "../Projects/Projects.style";
 import { TaskWrapper } from "./Board.style";
 
 import PageHeader from "@modules/PageHeader/PageHeader";
-import TasksCard from "@modules/TasksCard";
+import TasksCard from "@modules/TasksCard/TasksCard";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
@@ -55,21 +61,14 @@ export const Board = () => {
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
 
-  useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus[0]);
-      setStatuses(boardStatus[1]);
-    }
-    fetchStatus();
-    fetchIssues();
-    return () => {
-      setState({});
-    };
-  }, [isSuccess]);
+  const fetchStatus = async () => {
+    await importApiModule();
+    const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+    setColumns(boardStatus[0]);
+    setStatuses(boardStatus[1]);
+  };
 
-  const fetchIssues = useCallback(async () => {
+  const fetchIssues = async () => {
     await importApiModule();
     const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
 
@@ -87,8 +86,9 @@ export const Board = () => {
 
       return issuesFilteredByStatusId;
     };
+
     setFilteredIssues(filterIssuesByStatusId());
-  }, []);
+  };
 
   const handleAddNewColumn = (inputValue: string) => {
     const index = statuses.find(
@@ -124,6 +124,7 @@ export const Board = () => {
         }
       });
     }
+    fetchIssues();
   };
 
   const handleDeleteTicket = (issueId: string) => {
@@ -161,6 +162,51 @@ export const Board = () => {
     },
   ];
 
+  const onDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
+
+    if (!destination) {
+      return;
+    } else if (destination.droppableID === source.droppableId) {
+      return;
+    } else {
+      const newIssues = Object.assign({}, filteredIssues);
+      columns.map((column: any) => {
+        if (!filteredIssues[column.statusId]) {
+          newIssues[column.statusId] = [];
+          setFilteredIssues(newIssues);
+        }
+      });
+
+      newIssues[source.droppableId].forEach((issue: any, index: number) => {
+        if (issue.id === Number(draggableId)) {
+          newIssues[source.droppableId].splice(index, 1);
+          newIssues[destination.droppableId].push(issue);
+        }
+      });
+
+      setFilteredIssues(newIssues);
+
+      FetchDataAPI.updateTicket(`${API_UPDATE_TICKET}${draggableId}`, {
+        statusId: {
+          data: destination.droppableId,
+        },
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchStatus();
+    fetchIssues();
+    return () => {
+      setState({});
+    };
+  }, [isSuccess]);
+
+  useEffect(() => {
+    fetchIssues();
+  }, []);
+
   return (
     <StyledPageWrapper>
       <PageHeader
@@ -181,23 +227,32 @@ export const Board = () => {
         dialogHelper={t("dialogCreateStatusHelperText")}
         handleAdd={handleAddNewColumn}
       />
-      <TaskWrapper>
-        {columns?.map((column: any) => (
-          <TasksCard title={column.status.code} key={column.statusId}>
-            {filteredIssues[column.statusId]?.map((ticket: any) => {
-              return (
-                <Ticket
-                  title={ticket.name}
-                  key={ticket.id}
-                  assignedTo={ticket.assignUserId}
-                  issueId={ticket.id}
-                  handleDeleteTicket={handleDeleteTicket}
-                />
-              );
-            })}
-          </TasksCard>
-        ))}
-      </TaskWrapper>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <TaskWrapper>
+          {columns?.map((column: any) => (
+            <TasksCard
+              title={column.status.code}
+              key={column.statusId}
+              id={column.statusId}
+            >
+              {filteredIssues[column.statusId]?.map(
+                (ticket: any, index: number) => {
+                  return (
+                    <Ticket
+                      title={ticket.name}
+                      key={ticket.id}
+                      assignedTo={ticket.assignUserId}
+                      issueId={ticket.id}
+                      index={index}
+                      handleDeleteTicket={handleDeleteTicket}
+                    />
+                  );
+                }
+              )}
+            </TasksCard>
+          ))}
+        </TaskWrapper>
+      </DragDropContext>
       <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
         isOpen={isErrorAlertActive}

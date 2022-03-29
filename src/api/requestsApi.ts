@@ -11,6 +11,7 @@ const FetchDataAPI = {
     const fetchedData = await response.json();
     return fetchedData;
   },
+
   addData: async function (url: string, dataToAdd?: any) {
     const response = await makeRequest(url, "POST", dataToAdd);
     const addedData = await response.json();
@@ -60,6 +61,7 @@ const FetchDataAPI = {
       return [boardStatusFilteredByIdWithStatus, status.data];
     }
   },
+
   getIssuesByBoardStatusId: async function (id: number) {
     const data = await FetchDataAPI.getData(
       `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=15`
@@ -69,6 +71,10 @@ const FetchDataAPI = {
   deleteIssue: async function (id: string) {
     const data = await FetchDataAPI.deleteData(`${API_ISSUE}${id}`);
     return data;
+  },
+
+  updateTicket: async function (url: string, additionalData: any) {
+    await makeRequest(url, "PATCH", additionalData);
   },
 };
 
