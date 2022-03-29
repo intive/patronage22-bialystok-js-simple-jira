@@ -60,9 +60,6 @@
   "NewBoardAddedWithSuccess": "A new board has been successfully added!",
   "NewBoardAddedWithError": "An error occurred while creating the new board",
   "taskManagementTool": "Task management tool",
-  "DltBoardConfirmation": "Are you sure you want to delete this Board?",
-  "DltBoardError": "Error removing Board",
-  "DltBoardSuccess": "Board removed successfully",
   "deleteIssue": "Delete Issue",
   "IssueDeletedSuccess": "Issue has been successfully deleted",
   "IssueDeletedError": "A error occured while deleting issue"
