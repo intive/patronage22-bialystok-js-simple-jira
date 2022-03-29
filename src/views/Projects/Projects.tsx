@@ -76,8 +76,9 @@ export const Projects = () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
       if (localStorage["USE_MOCK"] === "true") {
+        console.log(res.data);
         setUseMock(true);
-        setProjects(res);
+        setProjects(res.data);
       } else {
         setProjects(res.data);
       }
