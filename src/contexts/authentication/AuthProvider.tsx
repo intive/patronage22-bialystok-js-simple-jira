@@ -3,13 +3,18 @@ import FetchDataAPI from "../../api/requestsApi";
 import { reducer } from "./reducer";
 import { Actions, State, StatusTypes } from "./types";
 import { logInError, logInSuccess, logOutCompleted } from "./actionCreators";
-import { retrieveRefreshToken } from "src/utils/localStorage";
 
 export const ACCESS_TOKEN_KEY = "accessToken";
 export const REFRESH_TOKEN_KEY = "refreshToken";
 export const REFRESH_TOKEN_INITIAL_VALUE = {
   token: "",
   validUntil: "",
+};
+
+export const retrieveRefreshToken = (): typeof REFRESH_TOKEN_INITIAL_VALUE => {
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
+
+  return refreshToken ? JSON.parse(refreshToken) : REFRESH_TOKEN_INITIAL_VALUE;
 };
 
 export const initialState = {
@@ -39,7 +44,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         password: state.password,
       });
 
-      if (response.ResponseCode !== 200) {
+      if (response.responseCode !== 200) {
         throw new Error(`Response status: ${response.Message}`);
       }
 
@@ -54,7 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     try {
       const response = await FetchDataAPI.addData("/api/user/signout");
 
-      if (response.ResponseCode !== 200) {
+      if (response.responseCode !== 200) {
         throw new Error(`Response status: ${response.Message}`);
       }
 
