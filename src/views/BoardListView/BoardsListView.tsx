@@ -31,7 +31,7 @@ async function importApiModule() {
   }
 }
 
-export const BoardsList = () => {
+export const BoardsListView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);

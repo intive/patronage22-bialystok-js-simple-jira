@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { Projects } from "./views/Projects/Projects";
-import { BoardsList } from "./views/BoardListView/BoardsListView";
+import { BoardsListView } from "./views/BoardListView/BoardsListView";
 import { Board } from "./views/Board/Board";
 import Navbar from "./components/Navbar/Navbar";
 import PrivateRoute from "./components/PrivateRoute";
@@ -16,7 +16,7 @@ const App = () => {
           <Route path={toProjects} element={<Projects />} />
           <Route
             path='projects/:projectName&:projectId'
-            element={<BoardsList />}
+            element={<BoardsListView />}
           />
           <Route
             path='projects/:projectName&:projectId/:board&:boardId'
