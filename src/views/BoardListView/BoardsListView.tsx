@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 
-import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+import { StyledBoardListView, StyledPageWrapper } from "./BoardsListView.style";
 
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
@@ -146,7 +146,7 @@ export const BoardsList = () => {
               setIsOpen={setIsDialogOpen}
             />
           ) : (
-            <StyledBoardList>
+            <StyledBoardListView>
               <Grid container spacing={3}>
                 {boardsList?.map((board: any, id: number) => (
                   <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -160,7 +160,7 @@ export const BoardsList = () => {
                   </Grid>
                 ))}
               </Grid>
-            </StyledBoardList>
+            </StyledBoardListView>
           )}
         </StyledPageWrapper>
       </Content>
