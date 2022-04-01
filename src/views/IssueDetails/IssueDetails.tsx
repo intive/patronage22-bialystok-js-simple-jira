@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Grid from "@mui/material/Grid";
@@ -15,25 +15,124 @@ import {
   TextNormal,
   TextOutlined,
 } from "./IssueDetails.style";
+import { useParams } from "react-router-dom";
+
+import makeRequest from "../../api/makeFetchRequest";
+
+import MockIssuesStatusAPI from "../../api/issues/mockIssuesStatusAPI";
+import { API_ISSUE } from "../../api/contsans";
+
+let FetchDataAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/issue/mockIssueDetails");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
+}
 
 export const IssueDetails = () => {
   const { t } = useTranslation();
-  const issueStatus = [t("ToDo"), t("InProgress"), t("Done")];
-  const [status, setStatus] = useState<string>(t("ToDo"));
 
-  const handleSelect = (e: any) => {
-    setStatus(e.target.value);
+  const [issueTitle, setIssueTitle] = useState("");
+  const [issueDescription, setIssueDescription] = useState("");
+  const [assigneeName, setAssigneeName] = useState("");
+  const reporterName = "Joe Doe";
+  const linkedIssues = "Apples & Oranges";
+  const [state, setState] = useState({});
+
+  const [currentStatus, setCurrentStatus] = useState<string>("");
+  const [statusesApi, setStatusesApi] = useState<any[]>([]);
+  const [statuses, setStatuses] = useState<string[]>([]);
+
+  const { boardId, issueId, projectName } = useParams();
+
+  const handleSelect = async (e: any) => {
+    if (localStorage["USE_MOCK"] === "false") {
+      const newStatusId = statusesApi.filter(
+        (el) => el.iStatus === e.target.value
+      );
+
+      const patchData = async () => {
+        const body = {
+          statusId: {
+            data: newStatusId[0].statusId,
+          },
+        };
+        const response = await makeRequest(
+          `https://patronageapi.herokuapp.com/api/issue/${issueId}`,
+          "PATCH",
+          body
+        );
+        const addedData = await response.json();
+        return addedData;
+      };
+      await patchData();
+    }
+    setCurrentStatus(e.target.value);
   };
+
+  const fetchIssueDetails = useCallback(async () => {
+    await importApiModule();
+    FetchDataAPI.getData(API_ISSUE.concat(issueId!)).then((res: any) => {
+      setIssueTitle(res.data.name);
+      setIssueDescription(res.data.description);
+      setAssigneeName(res.data.assignUserId);
+    });
+  }, []);
+
+  const fetchStatus = async () => {
+    if (localStorage["USE_MOCK"] === "true") {
+      const issueStatus = await MockIssuesStatusAPI.getIssueStatusById(issueId);
+
+      setCurrentStatus(issueStatus);
+      const availableStatuses = await MockIssuesStatusAPI.getStatuses();
+      setStatuses(availableStatuses);
+      return;
+    }
+    await importApiModule();
+    const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+    const statusesFromApi = boardStatus[0].map((el: any) => ({
+      statusId: el.statusId,
+      iStatus: el.status.code,
+    }));
+
+    setStatusesApi(statusesFromApi);
+
+    const statusesInString = statusesFromApi.map((el: any) => el.iStatus);
+    setStatuses(statusesInString);
+
+    const issueStatusId = await FetchDataAPI.getData(
+      `https://patronageapi.herokuapp.com/api/issue/${issueId}`
+    );
+
+    const issueStatusString = await FetchDataAPI.getData(
+      `https://patronageapi.herokuapp.com/api/status/id?id=${issueStatusId.data.statusId}`
+    );
+
+    setCurrentStatus(issueStatusString.data.code);
+  };
+
+  useEffect(() => {
+    fetchStatus();
+    fetchIssueDetails();
+    return () => {
+      setState({});
+    };
+  }, []);
 
   return (
     <StyledPageWrapper>
       <PageHeader
         returnLink='Return to Awesome project'
-        pageTitle='The Best Issue'
+        pageTitle={issueTitle}
         interactiveElement={
           <Select
-            options={issueStatus}
-            value={status}
+            options={statuses}
+            value={currentStatus}
             handleSelect={handleSelect}
           />
         }
@@ -42,20 +141,14 @@ export const IssueDetails = () => {
         <Grid container spacing={4}>
           <Grid item xs={8}>
             <Section>
-              <IssueTitle>{t("dialogCreateProjectTitle")}</IssueTitle>
+              <IssueTitle>{projectName}</IssueTitle>
               <Box>
                 <Label>{t("labelDescription")}</Label>
-                <TextNormal>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure
-                  iusto nostrum voluptatibus fugiat ducimus delectus officia
-                  aspernatur adipisci quibusdam consectetur, facere aut!
-                  Aspernatur quaerat dolorem repellat tempora possimus quas
-                  soluta!
-                </TextNormal>
+                <TextNormal>{issueDescription}</TextNormal>
               </Box>
               <Box>
                 <Label>{t("labelLinkedIssues")}</Label>
-                <TextOutlined>Apples & Oranges</TextOutlined>
+                <TextOutlined>{linkedIssues}</TextOutlined>
               </Box>
             </Section>
           </Grid>
@@ -63,11 +156,11 @@ export const IssueDetails = () => {
             <Section>
               <Box>
                 <Label>{t("labelAssignee")}</Label>
-                <TextOutlined>Han Solo</TextOutlined>
+                <TextOutlined>{assigneeName}</TextOutlined>
               </Box>
               <Box>
                 <Label>{t("labelReporter")}</Label>
-                <TextOutlined>Joe Doe</TextOutlined>
+                <TextOutlined>{reporterName}</TextOutlined>
               </Box>
             </Section>
           </Grid>

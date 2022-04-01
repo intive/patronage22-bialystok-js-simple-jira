@@ -2,7 +2,7 @@ import { ACCESS_TOKEN_KEY } from "src/contexts/authentication";
 
 type METHOD = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-async function makeRequest(url: string, method: METHOD, body: any) {
+async function makeRequest(url: string, method: METHOD, body?: any) {
   const jsonBody = body ? JSON.stringify(body) : undefined;
   const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
 

@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_ADD_NEW_STATUS, API_GET_BOARD_STATUS } from "../../api/contsans";
-import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
+import {
+  API_ADD_NEW_STATUS,
+  API_GET_BOARD_STATUS,
+  API_UPDATE_TICKET,
+} from "../../api/contsans";
+import { useAlerts } from "../../hooks/useAlerts";
+
+import { DragDropContext } from "react-beautiful-dnd";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
+import Ticket from "../../modules/Ticket/Ticket";
 
 import { StyledPageWrapper } from "../Projects/Projects.style";
 import { TaskWrapper } from "./Board.style";
 
 import PageHeader from "@modules/PageHeader/PageHeader";
-import TasksCard from "@modules/TasksCard";
+import TasksCard from "@modules/TasksCard/TasksCard";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
@@ -36,16 +43,103 @@ interface Statuses {
 }
 
 export const Board = () => {
+  const { t } = useTranslation();
+  const {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  } = useAlerts();
+
   const [columns, setColumns] = useState<Array<object>>([]);
   const [statuses, setStatuses] = useState<Statuses[]>([]);
+  const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { t } = useTranslation();
   const [isSuccess, setIsSuccess] = useState(false);
-  const [boardNumberAlert, setBoardNumberAlert] = useState(false);
+
   const { boardId, projectName, projectId, board } = useParams();
-  const [isAlertStatusSuccessOpen, setisAlertStatusSuccessOpen] =
-    useState(false);
-  const [isAlertStatusErrorOpen, setisAlertStatusErrorOpen] = useState(false);
+  const [state, setState] = useState({});
+
+  const fetchStatus = async () => {
+    await importApiModule();
+    const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
+    setColumns(boardStatus[0]);
+    setStatuses(boardStatus[1]);
+  };
+
+  const fetchIssues = async () => {
+    await importApiModule();
+    const issues = await FetchDataAPI.getIssuesByBoardStatusId(boardId);
+
+    const filterIssuesByStatusId = () => {
+      const issuesFilteredByStatusId: any = {};
+
+      issues.reduce((_: any, issue: any) => {
+        if (!issuesFilteredByStatusId[issue.statusId]) {
+          issuesFilteredByStatusId[issue.statusId] = [];
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        } else {
+          issuesFilteredByStatusId[issue.statusId].push(issue);
+        }
+      }, issuesFilteredByStatusId);
+
+      return issuesFilteredByStatusId;
+    };
+
+    setFilteredIssues(filterIssuesByStatusId());
+  };
+
+  const handleAddNewColumn = (inputValue: string) => {
+    const index = statuses.find(
+      (status) => status.code.toLowerCase() === inputValue.toLowerCase()
+    );
+
+    if (index == undefined) {
+      FetchDataAPI.addData(`${API_ADD_NEW_STATUS}${inputValue}`).then(
+        (res: any) => {
+          FetchDataAPI.addData(API_GET_BOARD_STATUS, {
+            boardId: boardId,
+            statusId: res.data,
+          }).then((res: any) => {
+            if (res.responseCode) {
+              openAlert("success", t("NewBoardAddedWithSuccess"));
+              setIsSuccess(!isSuccess);
+            } else {
+              openAlert("error", t("NewBoardAddedWithError"));
+            }
+          });
+        }
+      );
+    } else {
+      FetchDataAPI.addData(API_GET_BOARD_STATUS, {
+        boardId: boardId,
+        statusId: index.id,
+      }).then((res: any) => {
+        if (res.responseCode) {
+          openAlert("success", t("NewBoardAddedWithSuccess"));
+          setIsSuccess(!isSuccess);
+        } else {
+          openAlert("error", t("NewBoardAddedWithError"));
+        }
+      });
+    }
+    fetchIssues();
+  };
+
+  const handleDeleteTicket = (issueId: string) => {
+    async function deleteIssue() {
+      const response = await FetchDataAPI.deleteIssue(issueId);
+      if (response.status === 200) {
+        openAlert("success", t("IssueDeletedSuccess"));
+        setIsSuccess(!isSuccess);
+      } else {
+        openAlert("error", t("IssueDeletedError"));
+      }
+    }
+    deleteIssue();
+    fetchIssues();
+  };
 
   const menuOptions = [
     {
@@ -56,7 +150,7 @@ export const Board = () => {
         if (columns?.length < 5 || columns == undefined) {
           setIsDialogOpen(!isDialogOpen);
         } else {
-          setBoardNumberAlert(true);
+          openAlert("error", t("columnAlertNumber"));
         }
       },
     },
@@ -68,50 +162,50 @@ export const Board = () => {
     },
   ];
 
-  const handleAddNewColumn = (inputValue: string) => {
-    const index = statuses.find((status) => status.code === inputValue);
+  const onDragEnd = (result: any) => {
+    const { destination, source, draggableId } = result;
 
-    if (index == undefined) {
-      FetchDataAPI.addData(`${API_ADD_NEW_STATUS}${inputValue}`).then(
-        (res: any) => {
-          FetchDataAPI.addData(API_GET_BOARD_STATUS, {
-            boardId: boardId,
-            statusId: res.data,
-          }).then((res: any) => {
-            if (res.responseCode) {
-              setisAlertStatusSuccessOpen(true);
-              setIsSuccess(!isSuccess);
-            } else {
-              setisAlertStatusErrorOpen(true);
-            }
-          });
-        }
-      );
+    if (!destination) {
+      return;
+    } else if (destination.droppableID === source.droppableId) {
+      return;
     } else {
-      FetchDataAPI.addData(API_GET_BOARD_STATUS, {
-        boardId: boardId,
-        statusId: index.id,
-      }).then((res: any) => {
-        if (res.responseCode) {
-          setisAlertStatusSuccessOpen(true);
-          setIsSuccess(!isSuccess);
-        } else {
-          setisAlertStatusErrorOpen(true);
+      const newIssues = Object.assign({}, filteredIssues);
+      columns.map((column: any) => {
+        if (!filteredIssues[column.statusId]) {
+          newIssues[column.statusId] = [];
+          setFilteredIssues(newIssues);
         }
+      });
+
+      newIssues[source.droppableId].forEach((issue: any, index: number) => {
+        if (issue.id === Number(draggableId)) {
+          newIssues[source.droppableId].splice(index, 1);
+          newIssues[destination.droppableId].push(issue);
+        }
+      });
+
+      setFilteredIssues(newIssues);
+
+      FetchDataAPI.updateTicket(`${API_UPDATE_TICKET}${draggableId}`, {
+        statusId: {
+          data: destination.droppableId,
+        },
       });
     }
   };
 
   useEffect(() => {
-    async function fetchStatus() {
-      await importApiModule();
-      const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
-      setColumns(boardStatus[0]);
-      setStatuses(boardStatus[1]);
-    }
     fetchStatus();
-    cleainingSuccessAlerts(setisAlertStatusSuccessOpen);
+    fetchIssues();
+    return () => {
+      setState({});
+    };
   }, [isSuccess]);
+
+  useEffect(() => {
+    fetchIssues();
+  }, []);
 
   return (
     <StyledPageWrapper>
@@ -133,28 +227,37 @@ export const Board = () => {
         dialogHelper={t("dialogCreateStatusHelperText")}
         handleAdd={handleAddNewColumn}
       />
-      <TaskWrapper>
-        {columns?.map((column: any) => (
-          <TasksCard title={column.code} key={column.id} />
-        ))}
-      </TaskWrapper>
-      <AlertSuccess
-        isOpen={isAlertStatusSuccessOpen}
-        alertMsg={t("NewBoardAddedWithSuccess")}
-      />
+      <DragDropContext onDragEnd={onDragEnd}>
+        <TaskWrapper>
+          {columns?.map((column: any) => (
+            <TasksCard
+              title={column.status.code}
+              key={column.statusId}
+              id={column.statusId}
+            >
+              {filteredIssues[column.statusId]?.map(
+                (ticket: any, index: number) => {
+                  return (
+                    <Ticket
+                      title={ticket.name}
+                      key={ticket.id}
+                      assignedTo={ticket.assignUserId}
+                      issueId={ticket.id}
+                      index={index}
+                      handleDeleteTicket={handleDeleteTicket}
+                    />
+                  );
+                }
+              )}
+            </TasksCard>
+          ))}
+        </TaskWrapper>
+      </DragDropContext>
+      <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
-        isOpen={isAlertStatusErrorOpen}
-        alertMsg={t("NewBoardAddedWithError")}
-        handleClose={() => {
-          setisAlertStatusErrorOpen(false);
-        }}
-      />
-      <AlertError
-        isOpen={boardNumberAlert}
-        alertMsg={t("columnAlertNumber")}
-        handleClose={() => {
-          setBoardNumberAlert(false);
-        }}
+        isOpen={isErrorAlertActive}
+        alertMsg={message}
+        handleClose={() => closeErrorAlert()}
       />
     </StyledPageWrapper>
   );

@@ -6,6 +6,11 @@ export const StyledTicket = styled(Card)(({ theme }) => ({
   margin: "12px 0px",
   boxShadow: "0px 2px 6px rgba(98, 98, 98, 0.21)",
   borderRadius: theme.shape.borderRadius,
+  cursor: "pointer",
+  
+  "&:hover": {
+    backgroundColor: theme.palette.grey[50],
+}
 }));
 
 export const CardContentNoPadding = styled(CardContent)(({ theme }) => ({
