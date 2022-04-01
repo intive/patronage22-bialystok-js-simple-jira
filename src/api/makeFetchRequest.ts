@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN_KEY, retrieveAccessToken } from "src/contexts/authentication";
+import { retrieveAccessToken } from "src/contexts/authentication";
 
 type METHOD = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
