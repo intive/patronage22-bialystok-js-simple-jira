@@ -1,5 +1,10 @@
 import makeRequest from "./makeFetchRequest";
-import { API_GET_BOARD_STATUS, API_GET_STATUS, API_ISSUE } from "./contsans";
+import {
+  API_GET_BOARD_STATUS,
+  API_GET_STATUS,
+  API_ISSUE,
+  USER_LIST,
+} from "./contsans";
 
 interface DataObject {
   [key: string]: any;
@@ -19,6 +24,10 @@ const FetchDataAPI = {
   },
   deleteData: async function (url: string, additionalData?: any) {
     const response = await makeRequest(url, "DELETE", additionalData);
+    return response;
+  },
+  updateData: async function (url: string, additionalData?: any) {
+    const response = await makeRequest(url, "PUT", additionalData);
     return response;
   },
   getBoardStatusById: async function (id: number) {
@@ -75,6 +84,19 @@ const FetchDataAPI = {
 
   updateTicket: async function (url: string, additionalData: any) {
     await makeRequest(url, "PATCH", additionalData);
+  },
+  getIssueWithAssignedUser: async function (id: any) {
+    const issue = await FetchDataAPI.getData(API_ISSUE.concat(id!));
+    const users = await FetchDataAPI.getData(USER_LIST);
+    const assignedUser = users.data.find((user: any) => {
+      return user.id === issue.data.assignUserId;
+    });
+    const userNames = users.data.map((user: any) => user.userName);
+    return {
+      ...issue.data,
+      assigneeName: assignedUser?.userName || "",
+      userNames,
+    };
   },
 };
 
