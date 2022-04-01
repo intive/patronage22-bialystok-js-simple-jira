@@ -4,6 +4,7 @@ import { API_SIGN_IN, API_SIGN_OUT } from "../../api/contsans";
 import { reducer } from "./reducer";
 import { Actions, State, StatusTypes } from "./types";
 import { logInError, logInSuccess, logOutCompleted } from "./actionCreators";
+import { getLocalStorage } from "src/utils/localStorage";
 
 export const ACCESS_TOKEN_KEY = "accessToken";
 export const REFRESH_TOKEN_KEY = "refreshToken";
@@ -12,17 +13,24 @@ export const REFRESH_TOKEN_INITIAL_VALUE = {
   validUntil: "",
 };
 
+export const CREDENTIALS_INITIAL_VALUES = {
+  username: "",
+  password: "",
+};
+
 export const retrieveRefreshToken = (): typeof REFRESH_TOKEN_INITIAL_VALUE => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY);
 
   return refreshToken ? JSON.parse(refreshToken) : REFRESH_TOKEN_INITIAL_VALUE;
 };
 
+export const retrieveAccessToken = () =>
+  getLocalStorage(ACCESS_TOKEN_KEY) || "";
+
 export const initialState = {
   status: StatusTypes.INITIAL,
-  username: "",
-  password: "",
-  accessToken: localStorage.getItem(ACCESS_TOKEN_KEY) || "",
+  ...CREDENTIALS_INITIAL_VALUES,
+  accessToken: retrieveAccessToken(),
   refreshToken: retrieveRefreshToken(),
 };
 

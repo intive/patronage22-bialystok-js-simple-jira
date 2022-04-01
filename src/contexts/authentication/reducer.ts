@@ -1,4 +1,4 @@
-import { initialState, REFRESH_TOKEN_INITIAL_VALUE } from "./AuthProvider";
+import { CREDENTIALS_INITIAL_VALUES, initialState, REFRESH_TOKEN_INITIAL_VALUE } from "./AuthProvider";
 import { Actions, ActionTypes, State, StatusTypes } from "./types";
 
 export const reducer = (state: State, action: Actions) => {
@@ -15,6 +15,7 @@ export const reducer = (state: State, action: Actions) => {
       return {
         ...state,
         status: StatusTypes.SUCCESS,
+        ...CREDENTIALS_INITIAL_VALUES,
         accessToken: action.payload.accessToken,
         refreshToken: action.payload.refreshToken,
       };
@@ -23,6 +24,7 @@ export const reducer = (state: State, action: Actions) => {
       return {
         ...state,
         status: StatusTypes.ERROR,
+        ...CREDENTIALS_INITIAL_VALUES,
       };
 
     case ActionTypes.LOG_OUT:
