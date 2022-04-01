@@ -6,3 +6,5 @@ export const API_GET_BOARD_STATUS = "/api/boardStatus";
 export const API_GET_STATUS = "/api/status";
 export const API_ADD_NEW_STATUS = "/api/status?code=";
 export const API_GET_STATUSES_LIST = "/api/status";
+export const API_SIGN_IN = "/api/user/signin";
+export const API_SIGN_OUT = "/api/user/signout";

@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import FetchDataAPI from "../../api/requestsApi";
+import { API_SIGN_IN, API_SIGN_OUT } from "../../api/contsans";
 import { reducer } from "./reducer";
 import { Actions, State, StatusTypes } from "./types";
 import { logInError, logInSuccess, logOutCompleted } from "./actionCreators";
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const fetchToken = async () => {
     try {
-      const response = await FetchDataAPI.addData("/api/user/signin", {
+      const response = await FetchDataAPI.addData(API_SIGN_IN, {
         username: state.username,
         password: state.password,
       });
@@ -57,7 +58,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const fetchLogOut = async () => {
     try {
-      const response = await FetchDataAPI.addData("/api/user/signout");
+      const response = await FetchDataAPI.addData(API_SIGN_OUT);
 
       if (response.responseCode !== 200) {
         throw new Error(response.Message);
