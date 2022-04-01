@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       });
 
       if (response.responseCode !== 200) {
-        throw new Error(`Response status: ${response.Message}`);
+        throw new Error(response.Message);
       }
 
       dispatch(logInSuccess(response.data));
@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await FetchDataAPI.addData("/api/user/signout");
 
       if (response.responseCode !== 200) {
-        throw new Error(`Response status: ${response.Message}`);
+        throw new Error(response.Message);
       }
 
       dispatch(logOutCompleted());
