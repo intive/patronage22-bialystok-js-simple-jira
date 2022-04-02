@@ -17,7 +17,7 @@ const TasksCard = ({ title, children, id }: IssuesCardProps) => {
       <Droppable droppableId={`${id}`}>
         {(provided) => (
           <List
-            style={{ flex: 1 }}
+            style={{ flex: 1, paddingTop: 16 }}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
