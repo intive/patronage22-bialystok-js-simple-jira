@@ -1,5 +1,10 @@
 import makeRequest from "./makeFetchRequest";
-import { API_GET_BOARD_STATUS, API_GET_STATUS, API_ISSUE } from "./contsans";
+import {
+  API_GET_BOARD_STATUS,
+  API_GET_STATUS,
+  API_ISSUE,
+  USER_LIST,
+} from "./contsans";
 
 interface DataObject {
   [key: string]: any;
@@ -21,24 +26,24 @@ const FetchDataAPI = {
     const response = await makeRequest(url, "DELETE", additionalData);
     return response;
   },
+  updateData: async function (url: string, additionalData?: any) {
+    const response = await makeRequest(url, "PUT", additionalData);
+    return response;
+  },
   getBoardStatusById: async function (id: number) {
-    const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
+    const boardStatus = await FetchDataAPI.getData(
+      `${API_GET_BOARD_STATUS}?BoardId=${id}`
+    );
     const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const boardStatusFilteredById = boardStatus.data.filter(
-      (boardStatus: DataObject) => {
-        return boardStatus.boardId == id;
-      }
-    );
+    const boardStatusArray = boardStatus.data.items;
 
-    if (boardStatusFilteredById.length < 1) {
+    if (boardStatusArray.length < 1) {
       return [[], status.data];
     } else {
-      const boardStatusIds = boardStatusFilteredById.map(
-        (boardStatus: DataObject) => {
-          return boardStatus.statusId;
-        }
-      );
+      const boardStatusIds = boardStatusArray.map((boardStatus: DataObject) => {
+        return boardStatus.statusId;
+      });
 
       const statusFilteredByBoardStatusId = status.data.filter(
         (status: DataObject) => {
@@ -52,7 +57,7 @@ const FetchDataAPI = {
         statusObject[obj.id] = obj;
       });
 
-      const boardStatusFilteredByIdWithStatus = boardStatusFilteredById.map(
+      const boardStatusFilteredByIdWithStatus = boardStatusArray.map(
         (boardStatus: any) => {
           return { ...boardStatus, status: statusObject[boardStatus.statusId] };
         }
@@ -64,7 +69,7 @@ const FetchDataAPI = {
 
   getIssuesByBoardStatusId: async function (id: number) {
     const data = await FetchDataAPI.getData(
-      `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=15`
+      `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=20`
     );
     return data.data.items;
   },
@@ -75,6 +80,19 @@ const FetchDataAPI = {
 
   updateTicket: async function (url: string, additionalData: any) {
     await makeRequest(url, "PATCH", additionalData);
+  },
+  getIssueWithAssignedUser: async function (id: any) {
+    const issue = await FetchDataAPI.getData(API_ISSUE.concat(id!));
+    const users = await FetchDataAPI.getData(USER_LIST);
+    const assignedUser = users.data.find((user: any) => {
+      return user.id === issue.data.assignUserId;
+    });
+    const userNames = users.data.map((user: any) => user.userName);
+    return {
+      ...issue.data,
+      assigneeName: assignedUser?.userName || "",
+      userNames,
+    };
   },
 };
 

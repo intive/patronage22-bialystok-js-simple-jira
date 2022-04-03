@@ -1,5 +1,5 @@
 export const API_GET_BOARDS_LIST =
-  "https://patronageapi.herokuapp.com/api/board/list";
+  "https://patronageapi.herokuapp.com/api/board";
 export const API_ADD_NEW_BOARD =
   "https://patronageapi.herokuapp.com/api/board/create";
 export const API_REMOVE_BOARD = "https://patronageapi.herokuapp.com/api/board/";
@@ -19,3 +19,4 @@ export const API_GET_STATUSES_LIST =
 export const API_UPDATE_TICKET =
   "https://patronageapi.herokuapp.com/api/issue/";
 export const API_ISSUE = "https://patronageapi.herokuapp.com/api/issue/";
+export const USER_LIST = "https://patronageapi.herokuapp.com/api/user/list/";
