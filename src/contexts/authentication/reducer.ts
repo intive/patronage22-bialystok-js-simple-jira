@@ -35,7 +35,6 @@ export const reducer = (state: State, action: Actions) => {
 
     case ActionTypes.LOG_OUT_COMPLETED:
       return {
-        ...state,
         ...initialState,
         accessToken: "",
         refreshToken: REFRESH_TOKEN_INITIAL_VALUE,
