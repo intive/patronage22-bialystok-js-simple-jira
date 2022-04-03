@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useReducer } from "react";
 import { useTranslation } from "react-i18next";
 
 import Grid from "@mui/material/Grid";
@@ -20,7 +20,7 @@ import { useParams } from "react-router-dom";
 import makeRequest from "../../api/makeFetchRequest";
 
 import MockIssuesStatusAPI from "../../api/issues/mockIssuesStatusAPI";
-import { API_ISSUE } from "../../api/contsans";
+import { API_ISSUE, USER_LIST } from "../../api/contsans";
 
 let FetchDataAPI: any;
 
@@ -34,21 +34,63 @@ async function importApiModule() {
   }
 }
 
+const initialState = {
+  issueTitle: "",
+  issueDescription: "",
+  reporterName: "Joe Doe",
+  linkedIssues: "Apples & Oranges",
+  assigneeName: "",
+  userNames: [],
+};
+
+const reducer = (state: any, action: any) => {
+  if (action.type === "FILL_COMPONENT_WITH_DATA") {
+    return {
+      ...state,
+      assigneeName: action.payload.assigneeName,
+      issueTitle: action.payload.name,
+      issueDescription: action.payload.description,
+      reporterName: "Joe Doe",
+      linkedIssues: "Apples & Oranges",
+      userNames: action.payload.userNames,
+    };
+  }
+  if (action.type === "ASSIGN_USER") {
+    return {
+      ...state,
+      assigneeName: action.payload,
+    };
+  }
+};
+
 export const IssueDetails = () => {
   const { t } = useTranslation();
 
-  const [issueTitle, setIssueTitle] = useState("");
-  const [issueDescription, setIssueDescription] = useState("");
-  const [assigneeName, setAssigneeName] = useState("");
-  const reporterName = "Joe Doe";
-  const linkedIssues = "Apples & Oranges";
-  const [state, setState] = useState({});
+  const [issueDetailsState, dispatch] = useReducer(reducer, initialState);
 
+  const [state, setState] = useState({});
   const [currentStatus, setCurrentStatus] = useState<string>("");
   const [statusesApi, setStatusesApi] = useState<any[]>([]);
   const [statuses, setStatuses] = useState<string[]>([]);
+  const [users, setUsers] = useState<any[]>([]);
 
   const { boardId, issueId, projectName } = useParams();
+
+  useEffect(() => {
+    fetchUsers();
+    fetchIssueDetails();
+    fetchStatus();
+    return () => {
+      setState({});
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchIssueDetails();
+    return () => {
+      setState({});
+    };
+  }, [issueDetailsState.assigneeName]);
 
   const handleSelect = async (e: any) => {
     if (localStorage["USE_MOCK"] === "false") {
@@ -77,12 +119,44 @@ export const IssueDetails = () => {
 
   const fetchIssueDetails = useCallback(async () => {
     await importApiModule();
-    FetchDataAPI.getData(API_ISSUE.concat(issueId!)).then((res: any) => {
-      setIssueTitle(res.data.name);
-      setIssueDescription(res.data.description);
-      setAssigneeName(res.data.assignUserId);
+    FetchDataAPI.getIssueWithAssignedUser(issueId).then((data: any) => {
+      dispatch({ type: "FILL_COMPONENT_WITH_DATA", payload: data });
     });
   }, []);
+
+  const fetchUsers = useCallback(async () => {
+    await importApiModule();
+    const users = await FetchDataAPI.getData(USER_LIST);
+    setUsers(users.data);
+  }, []);
+
+  const handleChangeAssignee = (e: any) => {
+    const assignTask = async () => {
+      const assignedUser = users.find(
+        (user: any) => user.userName === e.target.value
+      );
+      if (assignedUser) {
+        await FetchDataAPI.updateData(
+          `https://patronageapi.herokuapp.com/api/issue/${issueId}/assign/${assignedUser.id}`
+        );
+        dispatch({ type: "ASSIGN_USER", payload: assignedUser.userName });
+      } else {
+        const response = await FetchDataAPI.getData(`${API_ISSUE}${issueId}`);
+        const updatedIssue = {
+          ...response.data,
+          assignUserId: null,
+          name: response.data.name + "1",
+          alias: response.data.alias + "1",
+        };
+        await FetchDataAPI.updateData(
+          `https://patronageapi.herokuapp.com/api/issue/${issueId}`,
+          updatedIssue
+        );
+        dispatch({ type: "ASSIGN_USER", payload: "" });
+      }
+    };
+    assignTask();
+  };
 
   const fetchStatus = async () => {
     if (localStorage["USE_MOCK"] === "true") {
@@ -116,19 +190,11 @@ export const IssueDetails = () => {
     setCurrentStatus(issueStatusString.data.code);
   };
 
-  useEffect(() => {
-    fetchStatus();
-    fetchIssueDetails();
-    return () => {
-      setState({});
-    };
-  }, []);
-
   return (
     <StyledPageWrapper>
       <PageHeader
         returnLink='Return to Awesome project'
-        pageTitle={issueTitle}
+        pageTitle={issueDetailsState.issueTitle}
         interactiveElement={
           <Select
             options={statuses}
@@ -144,11 +210,11 @@ export const IssueDetails = () => {
               <IssueTitle>{projectName}</IssueTitle>
               <Box>
                 <Label>{t("labelDescription")}</Label>
-                <TextNormal>{issueDescription}</TextNormal>
+                <TextNormal>{issueDetailsState.issueDescription}</TextNormal>
               </Box>
               <Box>
                 <Label>{t("labelLinkedIssues")}</Label>
-                <TextOutlined>{linkedIssues}</TextOutlined>
+                <TextOutlined>{issueDetailsState.linkedIssues}</TextOutlined>
               </Box>
             </Section>
           </Grid>
@@ -156,11 +222,15 @@ export const IssueDetails = () => {
             <Section>
               <Box>
                 <Label>{t("labelAssignee")}</Label>
-                <TextOutlined>{assigneeName}</TextOutlined>
+                <Select
+                  value={issueDetailsState.assigneeName}
+                  options={issueDetailsState.userNames}
+                  handleSelect={handleChangeAssignee}
+                />
               </Box>
               <Box>
                 <Label>{t("labelReporter")}</Label>
-                <TextOutlined>{reporterName}</TextOutlined>
+                <TextOutlined>{issueDetailsState.reporterName}</TextOutlined>
               </Box>
             </Section>
           </Grid>
