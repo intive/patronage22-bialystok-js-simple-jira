@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
@@ -24,6 +24,7 @@ import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import { usePrevLocation } from "src/hooks/usePrevLocation";
 
 let FetchDataAPI: any;
 
@@ -64,7 +65,8 @@ export const Board = () => {
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
   const navigate = useNavigate();
-  console.log(`projectId: ${projectId}`);
+  const location = useLocation();
+  const prevLocation = usePrevLocation();
   const fetchStatus = async () => {
     await importApiModule();
     const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
@@ -147,12 +149,13 @@ export const Board = () => {
   const dltBoardHandler = async (id: string | undefined) => {
     await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
       (res: any) => {
-        console.log(res.status);
-        if (res.status) {
+        console.log(res);
+        if (res.ok) {
           setIsDeleteBoardSuccess(true);
           setIsSuccess(!isSuccess);
-          console.log(projectName, projectId);
-          navigate(`projects/${projectName}&${projectId}`);
+          setTimeout(() => {
+            navigate(prevLocation);
+          }, 1500);
         } else {
           setIsDeleteBoardError(true);
         }
