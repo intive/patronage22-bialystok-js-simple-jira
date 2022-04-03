@@ -20,20 +20,22 @@ export const mockBoardsList = [
 ];
 
 export interface BoardType {
-  id: number;
-  alias: string;
-  name: string;
-  description: string;
-  projectId: number;
-  statusId: number;
-  boardId: number;
-  isActive: boolean;
-  createdOn: string;
-  modifiedOn: string;
-  board_Status: [
-    {
-      boardId: number;
-      statusId: number;
-    }
-  ];
+  data: {
+    id: number;
+    alias: string;
+    name: string;
+    description: string;
+    projectId: number;
+    statusId: number;
+    boardId: number;
+    isActive: boolean;
+    createdOn: string;
+    modifiedOn: string;
+    board_Status: [
+      {
+        boardId: number;
+        statusId: number;
+      }
+    ];
+  };
 }

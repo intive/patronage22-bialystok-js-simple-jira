@@ -12,15 +12,16 @@ const MockBoardsAPI = {
   getData: async function () {
     await sleep();
     console.log("Fetching projects... response.status:", 200);
-    return { data: [...boards] };
+    return { data: { items: [...boards] } };
   },
 
   addData: async function (url: string, boardToAdd: BoardType) {
     await sleep();
+    console.log(boardToAdd);
     const newIndex = {
       id: boards.length + 1,
-      name: boardToAdd.name,
-      projectId: Number(boardToAdd.projectId),
+      name: boardToAdd.data.name,
+      projectId: Number(boardToAdd.data.projectId),
       isActive: true,
       responseCode: 201,
     };

@@ -27,6 +27,7 @@
   "projectBoards": "Boards of project",
   "boardsBackLink": "Return to Boards",
   "projectsBackLink": "Return to Projects",
+  "boardBackLink": "Return to Board",
   "newIssueBtn": "Create issue",
   "boardDialogTitle": "Name your board",
   "boardDialogHelperText": "Board title has to be at least one character long and cannot begin/end with a whitespace",

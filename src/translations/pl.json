@@ -27,6 +27,7 @@
   "boardsTitle": "Tablica",
   "boardsBackLink": "Powrót do Tablic",
   "projectsBackLink": "Powrót do Projektów",
+  "boardBackLink": "Powrót do tablicy",
   "newIssueBtn": "Stwórz zgłoszenie",
   "boardDialogTitle": "Podaj nazwę tablicy",
   "boardDialogHelperText": "Nazwa tablicy musi składać się z co najmniej jednego znaku i nie może zaczynać/kończyć się białym znakiem",
