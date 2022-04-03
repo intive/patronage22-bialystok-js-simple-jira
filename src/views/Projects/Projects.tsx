@@ -41,6 +41,8 @@ export const Projects = () => {
   const [isAlertProjectSuccessOpen, setIsAlertProjectSuccessOpen] =
     useState(false);
   const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
+  const [isDeleteProjectError, setIsDeleteProjectError] = useState(false);
+  const [isDeleteProjectSuccess, setIsDeleteProjectSuccess] = useState(false);
 
   const { t } = useTranslation();
 
@@ -51,7 +53,16 @@ export const Projects = () => {
       );
       setProjects(newProjectsList);
     } else {
-      await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`);
+      const res = await FetchDataAPI.deleteData(
+        `${API_DELETE_A_PROJECT}/${id}`
+      );
+
+      if (res.status) {
+        setIsDeleteProjectSuccess(true);
+        setIsSuccess(!isSuccess);
+      } else {
+        setIsDeleteProjectError(true);
+      }
       fetchProjects();
     }
   };
@@ -76,7 +87,6 @@ export const Projects = () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
       if (localStorage["USE_MOCK"] === "true") {
-        console.log(res.data);
         setUseMock(true);
         setProjects(res.data);
       } else {
@@ -94,6 +104,7 @@ export const Projects = () => {
   useEffect(() => {
     fetchProjects();
     cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
+    cleainingSuccessAlerts(setIsDeleteProjectSuccess);
     setIsLoading(false);
   }, [isSuccess]);
 
@@ -158,6 +169,17 @@ export const Projects = () => {
         isOpen={isAlertProjectErrorOpen}
         alertMsg={t("alertProjectError")}
         handleClose={() => setIsAlertProjectErrorOpen(false)}
+      />
+      <AlertSuccess
+        isOpen={isDeleteProjectSuccess}
+        alertMsg={t("DeleteBoardSuccessMsg")}
+      />
+      <AlertError
+        isOpen={isDeleteProjectError}
+        alertMsg={t("DeleteBoardErrorMsg")}
+        handleClose={() => {
+          setIsDeleteProjectSuccess(false);
+        }}
       />
     </>
   );
