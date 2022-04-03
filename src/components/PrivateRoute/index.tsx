@@ -4,10 +4,10 @@ import { LoginView } from "src/views/Login/LoginView";
 
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const {
-    state: { token },
+    state: { accessToken },
   } = useContext(AuthContext);
 
-  return token ? children : <LoginView />;
+  return accessToken ? children : <LoginView />;
 };
 
 export default PrivateRoute;
