@@ -48,6 +48,7 @@ export const BoardsList = ({
                 projectName={projectName}
                 boardName={item.name}
                 boardId={item.id}
+                projectId={item.projectId}
               />
             </Grid>
           ))}

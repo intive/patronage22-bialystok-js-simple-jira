@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
   API_GET_BOARD_STATUS,
+  API_REMOVE_BOARD,
   API_UPDATE_TICKET,
 } from "../../api/contsans";
 import { useAlerts } from "../../hooks/useAlerts";
@@ -23,12 +24,13 @@ import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
+import { usePrevLocation } from "src/hooks/usePrevLocation";
 
 let FetchDataAPI: any;
 
 async function importApiModule() {
   if (localStorage["USE_MOCK"] === "true") {
-    const module = await import("../../api/boardStatus/mockBoardStatusApi");
+    const module = await import("../../api/boards/mockBoardsApi");
     FetchDataAPI = module.default;
   } else {
     const module = await import("../../api/requestsApi");
@@ -60,7 +62,8 @@ export const Board = () => {
 
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
-
+  const navigate = useNavigate();
+  const prevLocation = usePrevLocation();
   const fetchStatus = async () => {
     await importApiModule();
     const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
@@ -127,7 +130,7 @@ export const Board = () => {
     fetchIssues();
   };
 
-  const handleDeleteTicket = (issueId: string) => {
+  const handleDeleteTicket = (issueId?: string) => {
     async function deleteIssue() {
       const response = await FetchDataAPI.deleteIssue(issueId);
       if (response.status === 200) {
@@ -139,6 +142,20 @@ export const Board = () => {
     }
     deleteIssue();
     fetchIssues();
+  };
+  const dltBoardHandler = async (id: string | undefined) => {
+    await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
+      (res: any) => {
+        if (res.ok) {
+          openAlert("success", t("DeleteBoardSuccessMsg"));
+          setTimeout(() => {
+            navigate(prevLocation);
+          }, 1500);
+        } else {
+          openAlert("error", t("DeleteBoardErrorMsg"));
+        }
+      }
+    );
   };
 
   const menuOptions = [
@@ -158,7 +175,7 @@ export const Board = () => {
       id: 1,
       icon: <DeleteOutlineIcon />,
       label: `${t("deleteBoard")}`,
-      onClick: () => console.log("column deleted"),
+      onClick: () => dltBoardHandler(boardId),
     },
   ];
 
