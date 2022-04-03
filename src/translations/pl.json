@@ -62,5 +62,8 @@
   "taskManagementTool": "System zarządzania zadaniami",
   "deleteIssue": "Usuń Zadanie",
   "IssueDeletedSuccess": "Zadanie zostało pomyślnie usunięte",
-  "IssueDeletedError": "Wystąpił błąd podczas usuwania zadania"
+  "IssueDeletedError": "Wystąpił błąd podczas usuwania zadania",
+  "DeleteBoardErrorMsg": "Wystąpił błąd przy usuwaniu Tablicy",
+  "DeleteBoardSuccessMsg": "Pomyślnie usunięto Tablicę",
+  "deleteBoardWarning": "Czy na pewno chcesz usunąć tą Tablicę?"
 }
