@@ -85,7 +85,6 @@ export const BoardsListView = () => {
     fetchBoards();
   };
 
-  //BUG:When going back from Board view ProjectId gets undefined & we don't get Boards data
   const fetchBoards = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(

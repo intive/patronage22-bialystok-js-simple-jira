@@ -30,7 +30,7 @@ let FetchDataAPI: any;
 
 async function importApiModule() {
   if (localStorage["USE_MOCK"] === "true") {
-    const module = await import("../../api/boardStatus/mockBoardStatusApi");
+    const module = await import("../../api/boards/mockBoardsApi");
     FetchDataAPI = module.default;
   } else {
     const module = await import("../../api/requestsApi");
@@ -65,7 +65,6 @@ export const Board = () => {
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
   const navigate = useNavigate();
-  const location = useLocation();
   const prevLocation = usePrevLocation();
   const fetchStatus = async () => {
     await importApiModule();
@@ -149,7 +148,6 @@ export const Board = () => {
   const dltBoardHandler = async (id: string | undefined) => {
     await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
       (res: any) => {
-        console.log(res);
         if (res.ok) {
           setIsDeleteBoardSuccess(true);
           setIsSuccess(!isSuccess);
