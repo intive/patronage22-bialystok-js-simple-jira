@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import Input from "@components/Input/Input";
-import { useGetExampleToken } from "src/hooks/useGetExampleToken";
 import useForm from "src/hooks/useForm";
 import {
   StyledBoxForm,
@@ -10,13 +9,14 @@ import {
   StyledBoxPassword,
   StyledBoxContainer,
 } from "./LoginView.style";
+import { AuthContext, logIn } from "src/contexts/authentication";
 
 enum InputNames {
   LOGIN = "login",
   PASSWORD = "password",
 }
 
-const INITIAL_VALUES = {
+export const INITIAL_VALUES = {
   [InputNames.LOGIN]: "",
   [InputNames.PASSWORD]: "",
 };
@@ -26,11 +26,11 @@ const validate = (values: typeof INITIAL_VALUES) =>
 
 export const LoginView = () => {
   const { t } = useTranslation();
-  const getExampleToken = useGetExampleToken();
+  const { dispatch } = useContext(AuthContext);
 
   const { values, handleChange, handleSubmit, errors } = useForm(
     INITIAL_VALUES,
-    () => getExampleToken(values),
+    () => dispatch(logIn(values)),
     validate
   );
 

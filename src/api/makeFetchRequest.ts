@@ -1,14 +1,14 @@
-import { TOKEN_KEY } from "src/contexts/authentication";
+import { retrieveAccessToken } from "src/contexts/authentication";
 
 type METHOD = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
 async function makeRequest(url: string, method: METHOD, body?: any) {
   const jsonBody = body ? JSON.stringify(body) : undefined;
-  const token = localStorage.getItem(TOKEN_KEY);
+  const accessToken = retrieveAccessToken();
 
   const headers = {
     "Content-Type": "application/json",
-    Authentication: `Bearer ${token}`,
+    ...(accessToken && { Authorization: `Bearer ${accessToken}` }),
   };
 
   const response = await fetch(url, {
