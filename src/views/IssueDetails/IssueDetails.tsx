@@ -137,20 +137,12 @@ export const IssueDetails = () => {
       );
       if (assignedUser) {
         await FetchDataAPI.updateData(
-          `https://patronageapi.herokuapp.com/api/issue/${issueId}/assign/${assignedUser.id}`
+          `https://patronageapi.herokuapp.com/api/issue/${issueId}/assign/?userId=${assignedUser.id}`
         );
         dispatch({ type: "ASSIGN_USER", payload: assignedUser.userName });
       } else {
-        const response = await FetchDataAPI.getData(`${API_ISSUE}${issueId}`);
-        const updatedIssue = {
-          ...response.data,
-          assignUserId: null,
-          name: response.data.name + "1",
-          alias: response.data.alias + "1",
-        };
         await FetchDataAPI.updateData(
-          `https://patronageapi.herokuapp.com/api/issue/${issueId}`,
-          updatedIssue
+          `https://patronageapi.herokuapp.com/api/issue/${issueId}/assign`
         );
         dispatch({ type: "ASSIGN_USER", payload: "" });
       }
@@ -226,6 +218,8 @@ export const IssueDetails = () => {
                   value={issueDetailsState.assigneeName}
                   options={issueDetailsState.userNames}
                   handleSelect={handleChangeAssignee}
+                  secondary
+                  fullWidth
                 />
               </Box>
               <Box>
