@@ -45,12 +45,6 @@ export const BoardsList = () => {
   const menuOptions = [
     {
       id: 0,
-      icon: <ViewWeekOutlinedIcon />,
-      label: `${t("addColumn")}`,
-      onClick: () => console.log("column added"),
-    },
-    {
-      id: 1,
       icon: <DeleteOutlineIcon />,
       label: `${t("deleteBoard")}`,
       onClick: () => console.log("board deleted"),
@@ -91,19 +85,17 @@ export const BoardsList = () => {
 
   const fetchProjects = useCallback(async () => {
     await importApiModule();
-    FetchDataAPI.getData(API_GET_BOARDS_LIST).then((res: any) => {
-      console.log(res);
-      const boardsByID = res?.data.filter(
-        (board: any) =>
-          board.projectId === Number(projectId) && board.isActive === true
-      );
-      if (boardsByID.length === 0) {
-        setIsListEmpty(true);
-      } else {
-        setIsListEmpty(false);
-        setBoardsList(boardsByID);
+    FetchDataAPI.getData(`${API_GET_BOARDS_LIST}?ProjectId=${projectId}`).then(
+      (res: any) => {
+        const boardList = res.data.items;
+        if (boardList.length === 0) {
+          setIsListEmpty(true);
+        } else {
+          setIsListEmpty(false);
+          setBoardsList(boardList);
+        }
       }
-    });
+    );
     setIsDialogOpen(false);
     setIsLoading(false);
   }, []);
