@@ -95,9 +95,10 @@ export const BoardsListView = () => {
   };
 
   const dltBoardHandler = async (id: number) => {
-    await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`).then(
+    await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
       (res: any) => {
-        if (res.responseCode) {
+        console.log(res.status);
+        if (res.status) {
           setIsDeleteBoardSuccess(true);
           setIsSuccess(!isSuccess);
         } else {
