@@ -31,23 +31,19 @@ const FetchDataAPI = {
     return response;
   },
   getBoardStatusById: async function (id: number) {
-    const boardStatus = await FetchDataAPI.getData(API_GET_BOARD_STATUS);
+    const boardStatus = await FetchDataAPI.getData(
+      `${API_GET_BOARD_STATUS}?BoardId=${id}`
+    );
     const status = await FetchDataAPI.getData(API_GET_STATUS);
 
-    const boardStatusFilteredById = boardStatus.data.filter(
-      (boardStatus: DataObject) => {
-        return boardStatus.boardId == id;
-      }
-    );
+    const boardStatusArray = boardStatus.data.items;
 
-    if (boardStatusFilteredById.length < 1) {
+    if (boardStatusArray.length < 1) {
       return [[], status.data];
     } else {
-      const boardStatusIds = boardStatusFilteredById.map(
-        (boardStatus: DataObject) => {
-          return boardStatus.statusId;
-        }
-      );
+      const boardStatusIds = boardStatusArray.map((boardStatus: DataObject) => {
+        return boardStatus.statusId;
+      });
 
       const statusFilteredByBoardStatusId = status.data.filter(
         (status: DataObject) => {
@@ -61,7 +57,7 @@ const FetchDataAPI = {
         statusObject[obj.id] = obj;
       });
 
-      const boardStatusFilteredByIdWithStatus = boardStatusFilteredById.map(
+      const boardStatusFilteredByIdWithStatus = boardStatusArray.map(
         (boardStatus: any) => {
           return { ...boardStatus, status: statusObject[boardStatus.statusId] };
         }
@@ -73,7 +69,7 @@ const FetchDataAPI = {
 
   getIssuesByBoardStatusId: async function (id: number) {
     const data = await FetchDataAPI.getData(
-      `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=15`
+      `https://patronageapi.herokuapp.com/api/issue?BoardId=${id}&PageNumber=1&PageSize=20`
     );
     return data.data.items;
   },
