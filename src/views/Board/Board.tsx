@@ -59,8 +59,6 @@ export const Board = () => {
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [isDeleteBoardError, setIsDeleteBoardError] = useState(false);
-  const [isDeleteBoardSuccess, setIsDeleteBoardSuccess] = useState(false);
 
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
@@ -149,13 +147,12 @@ export const Board = () => {
     await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
       (res: any) => {
         if (res.ok) {
-          setIsDeleteBoardSuccess(true);
-          setIsSuccess(!isSuccess);
+          openAlert("success", t("DeleteBoardSuccessMsg"));
           setTimeout(() => {
             navigate(prevLocation);
           }, 1500);
         } else {
-          setIsDeleteBoardError(true);
+          openAlert("error", t("DeleteBoardErrorMsg"));
         }
       }
     );
@@ -278,17 +275,6 @@ export const Board = () => {
         isOpen={isErrorAlertActive}
         alertMsg={message}
         handleClose={() => closeErrorAlert()}
-      />
-      <AlertSuccess
-        isOpen={isDeleteBoardSuccess}
-        alertMsg={t("DeleteBoardSuccessMsg")}
-      />
-      <AlertError
-        isOpen={isDeleteBoardError}
-        alertMsg={t("DeleteBoardErrorMsg")}
-        handleClose={() => {
-          setIsDeleteBoardError(false);
-        }}
       />
     </StyledPageWrapper>
   );
