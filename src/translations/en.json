@@ -62,5 +62,8 @@
   "taskManagementTool": "Task management tool",
   "deleteIssue": "Delete Issue",
   "IssueDeletedSuccess": "Issue has been successfully deleted",
-  "IssueDeletedError": "A error occured while deleting issue"
+  "IssueDeletedError": "A error occurred while deleting issue",
+  "DeleteBoardErrorMsg": "Error removing Board",
+  "DeleteBoardSuccessMsg": "Board removed successfully",
+  "deleteBoardWarning": "Are you sure you want to delete this Board?"
 }

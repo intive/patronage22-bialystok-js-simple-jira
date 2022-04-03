@@ -2,13 +2,18 @@ import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
-import { API_GET_BOARDS_LIST, API_ADD_NEW_BOARD } from "../../api/contsans";
+import {
+  API_GET_BOARDS_LIST,
+  API_ADD_NEW_BOARD,
+  API_REMOVE_BOARD,
+  API_DELETE_A_PROJECT,
+} from "../../api/contsans";
 
 import Grid from "@mui/material/Grid";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import ViewWeekOutlinedIcon from "@mui/icons-material/ViewWeekOutlined";
 
-import { StyledBoardList, StyledPageWrapper } from "./BoardsList.style";
+import { StyledBoardListView, StyledPageWrapper } from "./BoardsListView.style";
 
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
@@ -18,6 +23,8 @@ import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
+import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
+import { BoardsList } from "@modules/BoardsList/BoardsList";
 
 let FetchDataAPI: any;
 
@@ -31,14 +38,18 @@ async function importApiModule() {
   }
 }
 
-export const BoardsList = () => {
+export const BoardsListView = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [boardsList, setBoardsList] = useState([]);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [current, setCurrent] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isAlertBoardSuccessOpen, setisAlertBoardSuccessOpen] = useState(false);
   const [isAlertBoardErrorOpen, setisAlertBoardErrorOpen] = useState(false);
+  const [isDeleteBoardError, setIsDeleteBoardError] = useState(false);
+  const [isDeleteBoardSuccess, setIsDeleteBoardSuccess] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
+  const [isDltDialogOpen, setIsDltDialogOpen] = useState(false);
   const { projectName: projectName, projectId: projectId } = useParams();
   const { t } = useTranslation();
 
@@ -83,7 +94,23 @@ export const BoardsList = () => {
     });
   };
 
-  const fetchProjects = useCallback(async () => {
+  const dltBoardHandler = async (id: number) => {
+    await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
+      (res: any) => {
+        console.log(res.status);
+        if (res.status) {
+          setIsDeleteBoardSuccess(true);
+          setIsSuccess(!isSuccess);
+        } else {
+          setIsDeleteBoardError(true);
+        }
+      }
+    );
+
+    fetchBoards();
+  };
+
+  const fetchBoards = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(`${API_GET_BOARDS_LIST}?ProjectId=${projectId}`).then(
       (res: any) => {
@@ -101,14 +128,25 @@ export const BoardsList = () => {
   }, []);
 
   useEffect(() => {
-    fetchProjects();
+    fetchBoards();
     cleainingSuccessAlerts(setisAlertBoardSuccessOpen);
+    cleainingSuccessAlerts(setIsDeleteBoardSuccess);
   }, [isSuccess]);
 
   return (
     <>
       <Content isLoading={isLoading}>
         <StyledPageWrapper>
+          <ConfirmationDialog
+            confirmHandler={() => {
+              dltBoardHandler(current);
+              setIsDltDialogOpen(false);
+            }}
+            isOpen={isDltDialogOpen}
+            handleClose={() => setIsDltDialogOpen(false)}
+          >
+            {t("deleteBoardWarning")}
+          </ConfirmationDialog>
           <PageHeader
             returnLinkName={t("projectsBackLink")}
             returnLink={"/projects"}
@@ -138,21 +176,15 @@ export const BoardsList = () => {
               setIsOpen={setIsDialogOpen}
             />
           ) : (
-            <StyledBoardList>
-              <Grid container spacing={3}>
-                {boardsList?.map((board: any, id: number) => (
-                  <Grid key={id} item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <BoardCard
-                      menuComponent={<ThreeDotsMenu menuItems={menuOptions} />}
-                      boardName={board.name}
-                      projectName={`${projectName}`}
-                      projectId={projectId}
-                      boardId={board.id}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-            </StyledBoardList>
+            <BoardsList
+              boards={boardsList}
+              dltBoardHandler={(boardId: any) => {
+                setCurrent(boardId);
+                setIsDltDialogOpen(true);
+              }}
+              // addColumnHandler={}
+              projectName={projectName}
+            />
           )}
         </StyledPageWrapper>
       </Content>
@@ -165,6 +197,17 @@ export const BoardsList = () => {
         alertMsg={t("NewBoardAddedWithError")}
         handleClose={() => {
           setisAlertBoardErrorOpen(false);
+        }}
+      />
+      <AlertSuccess
+        isOpen={isDeleteBoardSuccess}
+        alertMsg={t("DeleteBoardSuccessMsg")}
+      />
+      <AlertError
+        isOpen={isDeleteBoardError}
+        alertMsg={t("DeleteBoardErrorMsg")}
+        handleClose={() => {
+          setIsDeleteBoardError(false);
         }}
       />
     </>

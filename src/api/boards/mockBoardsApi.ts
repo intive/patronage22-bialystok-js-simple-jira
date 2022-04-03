@@ -29,6 +29,20 @@ const MockBoardsAPI = {
     console.log(boards);
     return newIndex;
   },
+  deleteData: async function (url: string) {
+    await sleep();
+    // const id = url[url.length - 1];
+
+    // boards = [...boards];
+    const res = {
+      responseCode: 200,
+      baseResponseError: null,
+      message: "Board was deleted successfully",
+      data: true,
+    };
+    console.log(`${res.message} response status:${res.responseCode}`);
+    return res;
+  },
 };
 
 export default MockBoardsAPI;
