@@ -18,8 +18,6 @@ import { StyledBoardListView, StyledPageWrapper } from "./BoardsListView.style";
 import { NewItemDialog } from "@modules/NewItemDialog/NewItemDialog";
 import { EmptyListModule } from "@modules/EmptyListModule/EmptyListModule";
 import PageHeader from "@modules/PageHeader/PageHeader";
-import { BoardCard } from "@components/BoardCard/BoardCard";
-import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import Content from "@components/Content/Content";
@@ -110,6 +108,7 @@ export const BoardsListView = () => {
     fetchBoards();
   };
 
+  //BUG:When going back from Board view ProjectId gets undefined & we don't get Boards data
   const fetchBoards = useCallback(async () => {
     await importApiModule();
     FetchDataAPI.getData(`${API_GET_BOARDS_LIST}?ProjectId=${projectId}`).then(

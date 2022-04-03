@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
   API_GET_BOARD_STATUS,
+  API_REMOVE_BOARD,
   API_UPDATE_TICKET,
 } from "../../api/contsans";
 import { useAlerts } from "../../hooks/useAlerts";
@@ -57,10 +58,13 @@ export const Board = () => {
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isDeleteBoardError, setIsDeleteBoardError] = useState(false);
+  const [isDeleteBoardSuccess, setIsDeleteBoardSuccess] = useState(false);
 
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
-
+  const navigate = useNavigate();
+  console.log(`projectId: ${projectId}`);
   const fetchStatus = async () => {
     await importApiModule();
     const boardStatus = await FetchDataAPI.getBoardStatusById(boardId);
@@ -127,7 +131,7 @@ export const Board = () => {
     fetchIssues();
   };
 
-  const handleDeleteTicket = (issueId: string) => {
+  const handleDeleteTicket = (issueId?: string) => {
     async function deleteIssue() {
       const response = await FetchDataAPI.deleteIssue(issueId);
       if (response.status === 200) {
@@ -139,6 +143,21 @@ export const Board = () => {
     }
     deleteIssue();
     fetchIssues();
+  };
+  const dltBoardHandler = async (id: string | undefined) => {
+    await FetchDataAPI.deleteData(`${API_REMOVE_BOARD}${id}`).then(
+      (res: any) => {
+        console.log(res.status);
+        if (res.status) {
+          setIsDeleteBoardSuccess(true);
+          setIsSuccess(!isSuccess);
+          console.log(projectName, projectId);
+          navigate(`projects/${projectName}&${projectId}`);
+        } else {
+          setIsDeleteBoardError(true);
+        }
+      }
+    );
   };
 
   const menuOptions = [
@@ -158,7 +177,7 @@ export const Board = () => {
       id: 1,
       icon: <DeleteOutlineIcon />,
       label: `${t("deleteBoard")}`,
-      onClick: () => console.log("column deleted"),
+      onClick: () => dltBoardHandler(boardId),
     },
   ];
 
@@ -258,6 +277,17 @@ export const Board = () => {
         isOpen={isErrorAlertActive}
         alertMsg={message}
         handleClose={() => closeErrorAlert()}
+      />
+      <AlertSuccess
+        isOpen={isDeleteBoardSuccess}
+        alertMsg={t("DeleteBoardSuccessMsg")}
+      />
+      <AlertError
+        isOpen={isDeleteBoardError}
+        alertMsg={t("DeleteBoardErrorMsg")}
+        handleClose={() => {
+          setIsDeleteBoardError(false);
+        }}
       />
     </StyledPageWrapper>
   );
