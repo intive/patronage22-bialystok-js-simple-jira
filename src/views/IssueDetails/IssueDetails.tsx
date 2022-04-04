@@ -20,7 +20,7 @@ import { useParams } from "react-router-dom";
 import makeRequest from "../../api/makeFetchRequest";
 
 import MockIssuesStatusAPI from "../../api/issues/mockIssuesStatusAPI";
-import { API_ISSUE, USER_LIST } from "../../api/contsans";
+import { USER_LIST } from "../../api/contsans";
 
 let FetchDataAPI: any;
 
@@ -68,29 +68,18 @@ export const IssueDetails = () => {
 
   const [issueDetailsState, dispatch] = useReducer(reducer, initialState);
 
-  const [state, setState] = useState({});
   const [currentStatus, setCurrentStatus] = useState<string>("");
   const [statusesApi, setStatusesApi] = useState<any[]>([]);
   const [statuses, setStatuses] = useState<string[]>([]);
   const [users, setUsers] = useState<any[]>([]);
 
-  const { boardId, issueId, projectName } = useParams();
+  const { boardId, issueId, projectName, projectId, board } = useParams();
 
   useEffect(() => {
     fetchUsers();
     fetchIssueDetails();
     fetchStatus();
-    return () => {
-      setState({});
-    };
   }, []);
-
-  useEffect(() => {
-    fetchIssueDetails();
-    return () => {
-      setState({});
-    };
-  }, [issueDetailsState.assigneeName]);
 
   const handleSelect = async (e: any) => {
     if (localStorage["USE_MOCK"] === "false") {
@@ -185,7 +174,8 @@ export const IssueDetails = () => {
   return (
     <StyledPageWrapper>
       <PageHeader
-        returnLink='Return to Awesome project'
+        returnLinkName={t("boardBackLink")}
+        returnLink={`/projects/${projectName}&${projectId}/${board}&${boardId}`}
         pageTitle={issueDetailsState.issueTitle}
         interactiveElement={
           <Select

@@ -1,7 +1,7 @@
 const BASE_API_URL = "https://patronageapi.herokuapp.com/api";
 
 export const API_GET_BOARDS_LIST = `${BASE_API_URL}/board`;
-export const API_ADD_NEW_BOARD = `${BASE_API_URL}/board/create`;
+export const API_ADD_NEW_BOARD = `${BASE_API_URL}/board`;
 export const API_REMOVE_BOARD = `${BASE_API_URL}/board/`;
 export const API_GET_PROJECTS_LIST = `${BASE_API_URL}/project`;
 export const API_ADD_NEW_PROJECT = `${BASE_API_URL}/project`;
