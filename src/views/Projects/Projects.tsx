@@ -96,6 +96,22 @@ export const Projects = () => {
       isActive: true,
     }).then((res: any) => {
       if (res.responseCode) {
+        openAlert("success", t("alertProjectCreated"));
+        setIsSuccess(!isSuccess);
+      } else {
+        openAlert("error", t("alertProjectError"));
+      }
+    });
+  };
+
+  const handleAddNewProject2 = (inputValue: string) => {
+    FetchDataAPI.addData(API_ADD_NEW_PROJECT, {
+      alias: inputValue,
+      name: inputValue,
+      description: "We are not doing that, yet.",
+      isActive: true,
+    }).then((res: any) => {
+      if (res.responseCode) {
         setIsAlertProjectSuccessOpen(true);
         setIsSuccess(!isSuccess);
       } else {
