@@ -7,6 +7,7 @@ import {
 } from "../../api/contsans";
 import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
+import { useAlerts } from "../../hooks/useAlerts";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 import PageHeader from "@modules/PageHeader/PageHeader";
 import Content from "@components/Content/Content";
@@ -43,7 +44,13 @@ export const Projects = () => {
   const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
   const [isDeleteProjectError, setIsDeleteProjectError] = useState(false);
   const [isDeleteProjectSuccess, setIsDeleteProjectSuccess] = useState(false);
-
+  const {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  } = useAlerts();
   const { t } = useTranslation();
 
   const deleteProjectHandler = async (id: number) => {
@@ -65,6 +72,20 @@ export const Projects = () => {
       }
       fetchProjects();
     }
+  };
+
+  const dltProjectHandler = async (id: number) => {
+    await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`).then(
+      (res: any) => {
+        if (res.status) {
+          openAlert("success", t("deleteProjectSuccessMsg"));
+          setIsSuccess(!isSuccess);
+        } else {
+          openAlert("error", t("deleteProjectErrorMsg"));
+        }
+      }
+    );
+    fetchProjects();
   };
 
   const handleAddNewProject = (inputValue: string) => {
@@ -114,7 +135,7 @@ export const Projects = () => {
         <StyledPageWrapper>
           <ConfirmationDialog
             confirmHandler={() => {
-              deleteProjectHandler(current);
+              dltProjectHandler(current);
               setIsDltDialogOpen(false);
             }}
             isOpen={isDltDialogOpen}
@@ -170,16 +191,11 @@ export const Projects = () => {
         alertMsg={t("alertProjectError")}
         handleClose={() => setIsAlertProjectErrorOpen(false)}
       />
-      <AlertSuccess
-        isOpen={isDeleteProjectSuccess}
-        alertMsg={t("DeleteBoardSuccessMsg")}
-      />
+      <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
-        isOpen={isDeleteProjectError}
-        alertMsg={t("DeleteBoardErrorMsg")}
-        handleClose={() => {
-          setIsDeleteProjectSuccess(false);
-        }}
+        isOpen={isErrorAlertActive}
+        alertMsg={message}
+        handleClose={() => closeErrorAlert()}
       />
     </>
   );
