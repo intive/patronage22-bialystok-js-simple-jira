@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
   API_GET_BOARD_STATUS,
+  API_ISSUE,
   API_REMOVE_BOARD,
   API_UPDATE_TICKET,
 } from "../../api/contsans";
@@ -157,6 +158,27 @@ export const Board = () => {
       }
     );
   };
+  const handleCreateIssue = async (
+    projectId: string | undefined,
+    boardID: string | undefined
+  ) => {
+    //TODO:move this function to CreateIssueDialog; for now I use static data to add Issue.
+    const mockIssueItem = {
+      data: {
+        alias: "banana 1",
+        name: "banana 1",
+        description: "banana 1",
+        projectId: projectId,
+        boardId: boardID,
+        statusId: 1,
+        assignUserId: null,
+        // createdOn: "2022-04-05T10:41:33.300Z",
+      },
+    };
+
+    const res = await FetchDataAPI.addData(API_ISSUE, mockIssueItem);
+    console.log(res);
+  };
 
   const menuOptions = [
     {
@@ -232,7 +254,7 @@ export const Board = () => {
         returnLinkName={t("boardsBackLink")}
         returnLink={`/projects/${projectName}&${projectId}`}
         interactiveElement={
-          <Button onClick={() => console.log("button clicked")}>
+          <Button onClick={() => handleCreateIssue(projectId, boardId)}>
             {t("newIssueBtn")}
           </Button>
         }
