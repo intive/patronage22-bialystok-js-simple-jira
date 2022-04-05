@@ -5,7 +5,6 @@ import {
   API_GET_PROJECTS_LIST,
   API_DELETE_A_PROJECT,
 } from "../../api/contsans";
-import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
 import { useAlerts } from "../../hooks/useAlerts";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
@@ -39,11 +38,6 @@ export const Projects = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [isAlertProjectSuccessOpen, setIsAlertProjectSuccessOpen] =
-    useState(false);
-  const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
-  const [isDeleteProjectError, setIsDeleteProjectError] = useState(false);
-  const [isDeleteProjectSuccess, setIsDeleteProjectSuccess] = useState(false);
   const {
     isSuccessAlertActive,
     isErrorAlertActive,
@@ -51,28 +45,8 @@ export const Projects = () => {
     openAlert,
     closeErrorAlert,
   } = useAlerts();
+
   const { t } = useTranslation();
-
-  const deleteProjectHandler = async (id: number) => {
-    if (useMock) {
-      const newProjectsList = projects.filter(
-        (element: any) => element.id !== id
-      );
-      setProjects(newProjectsList);
-    } else {
-      const res = await FetchDataAPI.deleteData(
-        `${API_DELETE_A_PROJECT}/${id}`
-      );
-
-      if (res.status) {
-        setIsDeleteProjectSuccess(true);
-        setIsSuccess(!isSuccess);
-      } else {
-        setIsDeleteProjectError(true);
-      }
-      fetchProjects();
-    }
-  };
 
   const dltProjectHandler = async (id: number) => {
     await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`).then(
@@ -104,22 +78,6 @@ export const Projects = () => {
     });
   };
 
-  const handleAddNewProject2 = (inputValue: string) => {
-    FetchDataAPI.addData(API_ADD_NEW_PROJECT, {
-      alias: inputValue,
-      name: inputValue,
-      description: "We are not doing that, yet.",
-      isActive: true,
-    }).then((res: any) => {
-      if (res.responseCode) {
-        setIsAlertProjectSuccessOpen(true);
-        setIsSuccess(!isSuccess);
-      } else {
-        setIsAlertProjectErrorOpen(true);
-      }
-    });
-  };
-
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
@@ -140,8 +98,6 @@ export const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
-    cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
-    cleainingSuccessAlerts(setIsDeleteProjectSuccess);
     setIsLoading(false);
   }, [isSuccess]);
 
@@ -198,15 +154,6 @@ export const Projects = () => {
           )}
         </StyledPageWrapper>
       </Content>
-      <AlertSuccess
-        isOpen={isAlertProjectSuccessOpen}
-        alertMsg={t("alertProjectCreated")}
-      />
-      <AlertError
-        isOpen={isAlertProjectErrorOpen}
-        alertMsg={t("alertProjectError")}
-        handleClose={() => setIsAlertProjectErrorOpen(false)}
-      />
       <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
         isOpen={isErrorAlertActive}
