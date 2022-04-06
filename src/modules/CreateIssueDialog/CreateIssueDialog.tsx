@@ -15,6 +15,20 @@ import {
 
 import useForm from "../../hooks/useForm";
 import { validateInfo } from "../../validation/validateCreateIssue";
+import { useParams } from "react-router-dom";
+import { API_ISSUE } from "../../api/contsans";
+
+let FetchDataAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/issue/mockIssueDetails");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
+}
 
 const initialValues = {
   reporter: "",
@@ -43,6 +57,8 @@ export default function CreateIssueDialog({
   handleClose,
 }: CreateIssueDialogProps) {
   const { t } = useTranslation();
+  const { boardId, projectName, projectId, board } = useParams();
+  importApiModule();
 
   const { handleChange, values, handleSubmit, errors } = useForm(
     initialValues,
@@ -51,6 +67,21 @@ export default function CreateIssueDialog({
   );
 
   function submitForm() {
+    console.log(values);
+
+    FetchDataAPI.addData(API_ISSUE, {
+      data: {
+        alias: values.summary,
+        name: values.summary,
+        description: values.description,
+        projectId,
+        boardId,
+        statusId: 1,
+        assignUserId: null,
+      },
+    }).then((res: any) => {
+      console.log(res);
+    });
     console.log("submitted");
     handleClose();
   }

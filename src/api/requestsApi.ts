@@ -19,6 +19,7 @@ const FetchDataAPI = {
 
   addData: async function (url: string, dataToAdd?: any) {
     const response = await makeRequest(url, "POST", dataToAdd);
+    console.log(response);
     const addedData = await response.json();
     return addedData;
   },
