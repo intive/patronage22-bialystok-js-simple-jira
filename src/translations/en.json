@@ -68,5 +68,7 @@
   "IssueCreateError": "Error occurred creating issue",
   "DeleteBoardErrorMsg": "Error removing Board",
   "DeleteBoardSuccessMsg": "Board removed successfully",
-  "deleteBoardWarning": "Are you sure you want to delete this Board?"
+  "deleteBoardWarning": "Are you sure you want to delete this Board?",
+  "deleteProjectErrorMsg": "An error occured while deleting a Project",
+  "deleteProjectSuccessMsg": "Project removed successfully"
 }
