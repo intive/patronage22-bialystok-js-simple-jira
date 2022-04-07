@@ -49,7 +49,7 @@ export const createIssueOptions = {
 
 interface CreateIssueDialogProps {
   isOpen: boolean;
-  handleClose: () => void;
+  handleClose: (res?: any) => void;
 }
 
 export default function CreateIssueDialog({
@@ -68,7 +68,7 @@ export default function CreateIssueDialog({
 
   function submitForm() {
     console.log(values);
-
+    let res;
     FetchDataAPI.addData(API_ISSUE, {
       data: {
         alias: values.summary,
@@ -80,10 +80,11 @@ export default function CreateIssueDialog({
         assignUserId: null,
       },
     }).then((res: any) => {
-      console.log(res);
+      res = res;
+      handleClose(res);
     });
     console.log("submitted");
-    handleClose();
+    // handleClose(res);
   }
 
   return (

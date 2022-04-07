@@ -214,6 +214,15 @@ export const Board = () => {
     }
   };
 
+  const handleAddIssueRes = (res: any) => {
+    //BUG: on success object has responseCode: 201 on fail ResponseCode:422 or something. Need to fix casing.
+    if (res.responseCode) {
+      openAlert("success", t("IssueCreateSuccess"));
+    } else {
+      openAlert("error", t("IssueCreateError"));
+    }
+  };
+
   useEffect(() => {
     fetchStatus();
     fetchIssues();
@@ -241,7 +250,11 @@ export const Board = () => {
       />
       <CreateIssueDialog
         isOpen={isCreateIssueDialog}
-        handleClose={() => setIsCreateIssueDialog(!isCreateIssueDialog)}
+        handleClose={(res?: any) => {
+          setIsCreateIssueDialog(!isCreateIssueDialog);
+          setIsSuccess(!isSuccess);
+          handleAddIssueRes(res);
+        }}
       />
       <NewItemDialog
         isOpen={isDialogOpen}
