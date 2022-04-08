@@ -59,6 +59,7 @@ export const LoginView = () => {
             variant='outlined'
             labelHelperText={t("LoginLabel")}
             fullWidth
+            role='login'
           />
         </StyledBoxLogin>
         <StyledBoxPassword>
@@ -70,6 +71,7 @@ export const LoginView = () => {
             type='password'
             labelHelperText={t("PasswordLabel")}
             fullWidth
+            role='password'
           />
         </StyledBoxPassword>
       </StyledBoxForm>

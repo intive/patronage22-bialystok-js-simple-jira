@@ -1,10 +1,22 @@
 import React, { createContext, useEffect, useReducer } from "react";
-import FetchDataAPI from "../../api/requestsApi";
+// import FetchDataAPI from "../../api/requestsApi";
 import { API_SIGN_IN, API_SIGN_OUT } from "../../api/contsans";
 import { reducer } from "./reducer";
 import { Actions, State, StatusTypes } from "./types";
 import { logInError, logInSuccess, logOutCompleted } from "./actionCreators";
 import { getLocalStorage } from "src/utils/localStorage";
+
+let FetchDataAPI: any;
+
+async function importApiModule() {
+  if (localStorage["USE_MOCK"] === "true") {
+    const module = await import("../../api/login/mockLogin");
+    FetchDataAPI = module.default;
+  } else {
+    const module = await import("../../api/requestsApi");
+    FetchDataAPI = module.default;
+  }
+}
 
 export const ACCESS_TOKEN_KEY = "accessToken";
 export const REFRESH_TOKEN_KEY = "refreshToken";
@@ -47,6 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const fetchToken = async () => {
+    await importApiModule();
     try {
       const response = await FetchDataAPI.addData(API_SIGN_IN, {
         username: state.username,
@@ -56,7 +69,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       if (response.responseCode !== 200) {
         throw new Error(response.Message);
       }
-
+      console.log(response.data);
       dispatch(logInSuccess(response.data));
     } catch (error) {
       console.error(error);

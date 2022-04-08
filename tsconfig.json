@@ -34,5 +34,10 @@
     "strictNullChecks": true
   },
   "exclude": ["node_modules"],
-  "include": ["src", "**/*.ts"]
+  "include": [
+    "src",
+    "**/*.ts",
+    "cypress/support/index.js",
+    "cypress/support/index.js"
+  ]
 }
