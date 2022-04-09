@@ -218,7 +218,7 @@ export const Board = () => {
     //BUG: on success object has responseCode: 201 on fail ResponseCode:422 or something. Need to fix casing.
     if (res.responseCode) {
       openAlert("success", t("IssueCreateSuccess"));
-    } else {
+    } else if (res.ResponseCode) {
       openAlert("error", t("IssueCreateError"));
     }
   };
