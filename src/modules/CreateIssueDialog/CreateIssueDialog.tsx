@@ -81,6 +81,7 @@ export default function CreateIssueDialog({
       },
     }).then((res: any) => {
       res = res;
+      console.log(res);
       handleClose(res);
     });
     console.log("submitted");
