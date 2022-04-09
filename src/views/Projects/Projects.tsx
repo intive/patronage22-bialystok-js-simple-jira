@@ -149,7 +149,6 @@ export const Projects = () => {
                 setIsDltDialogOpen(true);
                 setCurrent(projectId);
               }}
-              addColumnHandler={() => console.log("column added")}
             />
           )}
         </StyledPageWrapper>
