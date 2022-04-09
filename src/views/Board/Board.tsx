@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   API_ADD_NEW_STATUS,
   API_GET_BOARD_STATUS,
+  API_ISSUE,
   API_REMOVE_BOARD,
   API_UPDATE_TICKET,
 } from "../../api/contsans";
@@ -25,6 +26,7 @@ import { Button } from "@components/Button/Button";
 import { AlertError, AlertSuccess } from "@components/Alert/Alert";
 import ThreeDotsMenu from "@components/ThreeDotsMenu/ThreeDotsMenu";
 import { usePrevLocation } from "src/hooks/usePrevLocation";
+import CreateIssueDialog from "@modules/CreateIssueDialog/CreateIssueDialog";
 
 let FetchDataAPI: any;
 
@@ -59,7 +61,7 @@ export const Board = () => {
   const [filteredIssues, setFilteredIssues] = useState<any>({});
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
-
+  const [isCreateIssueDialog, setIsCreateIssueDialog] = useState(false);
   const { boardId, projectName, projectId, board } = useParams();
   const [state, setState] = useState({});
   const navigate = useNavigate();
@@ -212,6 +214,15 @@ export const Board = () => {
     }
   };
 
+  const handleAddIssueRes = (res: any) => {
+    //BUG: on success object has responseCode: 201 on fail ResponseCode:422 or something. Need to fix casing.
+    if (res.responseCode) {
+      openAlert("success", t("IssueCreateSuccess"));
+    } else if (res.ResponseCode) {
+      openAlert("error", t("IssueCreateError"));
+    }
+  };
+
   useEffect(() => {
     fetchStatus();
     fetchIssues();
@@ -232,10 +243,18 @@ export const Board = () => {
         returnLinkName={t("boardsBackLink")}
         returnLink={`/projects/${projectName}&${projectId}`}
         interactiveElement={
-          <Button onClick={() => console.log("button clicked")}>
+          <Button onClick={() => setIsCreateIssueDialog(true)}>
             {t("newIssueBtn")}
           </Button>
         }
+      />
+      <CreateIssueDialog
+        isOpen={isCreateIssueDialog}
+        handleClose={(res?: any) => {
+          setIsCreateIssueDialog(!isCreateIssueDialog);
+          setIsSuccess(!isSuccess);
+          handleAddIssueRes(res);
+        }}
       />
       <NewItemDialog
         isOpen={isDialogOpen}
