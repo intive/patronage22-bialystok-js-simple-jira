@@ -14,6 +14,7 @@ const MockProjectsAPI = {
     console.log("Fetching projects... response.status:", 200);
     return { data: [...projects] };
   },
+
   addData: async function (url: string, projectToAdd: ProjectType) {
     await sleep();
     const addedProject = {
@@ -24,6 +25,17 @@ const MockProjectsAPI = {
     projects = [...projects, projectToAdd];
     console.log(`Adding project... ${addedProject.name} response.status:`, 201);
     return addedProject;
+  },
+
+  deleteData: async function (url: string, additionalData?: any) {
+    await sleep();
+    const link = url.split("/");
+    const id = link[5];
+    const response = { status: 200 };
+    const projectsAfterDeleted = projects.filter((project) => project.id != id);
+    projects = projectsAfterDeleted;
+
+    return response;
   },
 };
 
