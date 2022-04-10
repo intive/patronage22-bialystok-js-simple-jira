@@ -28,7 +28,7 @@ const MockProjectsAPI = {
 
     projects = [...projects, addedProject];
     console.log(`Adding project... ${projectToAdd.name} response.status:`, 201);
-    return projectToAdd;
+    return addedProject;
   },
 
   deleteData: async function (url: string, additionalData?: any) {
