@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 export const StyledTasksCard = styled(Card)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  minWidth: 300,
-  width: "100vw",
+  minWidth: 250,
+  width: 300,
   height: "67vh",
   borderRadius: theme.shape.borderRadius,
   padding: 16,
