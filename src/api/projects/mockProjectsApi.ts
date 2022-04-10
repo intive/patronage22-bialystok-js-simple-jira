@@ -2,7 +2,7 @@ import { mockProjects, ProjectType } from "../../mockData/mockProjects";
 
 let projects = [...mockProjects];
 
-function sleep(ms = 1000) {
+function sleep(ms = 10000) {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   });
