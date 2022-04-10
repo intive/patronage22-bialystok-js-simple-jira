@@ -30,7 +30,6 @@ async function importApiModule() {
 }
 
 export const Projects = () => {
-  const [useMock, setUseMock] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -59,6 +58,7 @@ export const Projects = () => {
         }
       }
     );
+
     fetchProjects();
   };
 
@@ -81,14 +81,9 @@ export const Projects = () => {
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      if (localStorage["USE_MOCK"] === "true") {
-        setUseMock(true);
-        setProjects(res.data);
-      } else {
-        setProjects(res.data);
-      }
+      setProjects(res.data);
 
-      if (res === 0) {
+      if (res.data.length === 0) {
         setIsListEmpty(true);
       } else {
         setIsListEmpty(false);
