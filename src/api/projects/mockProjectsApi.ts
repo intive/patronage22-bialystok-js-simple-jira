@@ -12,22 +12,25 @@ const MockProjectsAPI = {
   getData: async function (url: string) {
     await sleep();
     console.log("Fetching projects... response.status:", 200);
+    console.log(projects);
     return { data: [...projects] };
   },
 
   addData: async function (url: string, projectToAdd: ProjectType) {
     await sleep();
+    projectToAdd.id = `${projects.length + 1}`;
     const addedProject = {
       ...projectToAdd,
-      isActive: true,
       responseCode: 201,
     };
-    projects = [...projects, projectToAdd];
-    console.log(`Adding project... ${addedProject.name} response.status:`, 201);
-    return addedProject;
+
+    projects = [...projects, addedProject];
+    console.log(`Adding project... ${projectToAdd.name} response.status:`, 201);
+    return projectToAdd;
   },
 
   deleteData: async function (url: string, additionalData?: any) {
+    console.log(url);
     await sleep();
     const link = url.split("/");
     const id = link[5];
