@@ -18,7 +18,9 @@ const MockProjectsAPI = {
 
   addData: async function (url: string, projectToAdd: ProjectType) {
     await sleep();
-    projectToAdd.id = `${projects.length + 10}`;
+    projectToAdd.id = `${
+      projects.length + Math.floor(Math.random() * (99 - 1)) + 1
+    }`;
     const addedProject = {
       ...projectToAdd,
       responseCode: 201,
