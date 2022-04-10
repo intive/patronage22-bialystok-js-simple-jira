@@ -23,26 +23,45 @@ describe("Projects page tests", () => {
     cy.get('input[name="password"]').type("Patronage2022@{enter}");
   });
 
-  it("clicking New Project button should open New Item Dialog", () => {
+  it("should open New Item Dialog when clicking New Project button", () => {
     cy.findByText(`Nowy Projekt`).click();
     cy.get(".MuiModal-root").should("exist");
   });
 
-  it("when inut is empty Create button should be disabled", () => {
+  it("should disable Create button when input is empty", () => {
     cy.findByText("Utwórz").should("be.disabled");
   });
 
-  it("when inut is not empty Create button should be enabled", () => {
+  it("should enable Create button when input is not empty", () => {
     cy.get("#styled-text-input").type(randomString);
     cy.findByText("Utwórz").should("be.not.disabled");
   });
 
-  it("when clicked in Create button New Item Dialog should be closed", () => {
+  it("should close New Item Dialog when clicked in Create button", () => {
     cy.findByText("Utwórz").click();
     cy.get(".MuiModal-root").should("not.exist");
   });
 
-  // it("get random Project and try to delete it", () => {
-  //     cy.get(".MuiModal-root").should("not.exist");
-  // });
+  it("should open Dialog when trying to delete project", () => {
+    cy.get(".MuiGrid-container")
+      .children()
+      .get("#three-dots-menu-button")
+      .click();
+    cy.findByText("Delete project").click();
+    cy.get(".MuiDialogContent-root").should("exist");
+  });
+
+  it("should close Dialog when confirm deletion", () => {
+    cy.findByText("Tak").click();
+    cy.get(".MuiDialogContent-root").should("not.exist");
+  });
+
+  it("should close Dialog when confirm deletion", () => {
+    cy.get(".MuiGrid-grid-xs-12").each(() => {
+      cy.get("#three-dots-menu-button").click();
+      cy.findByText("Delete project").click();
+      cy.findByText("Tak").click();
+    });
+    cy.get("article").should("exist");
+  });
 });

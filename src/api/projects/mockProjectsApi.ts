@@ -2,22 +2,21 @@ import { mockProjects, ProjectType } from "../../mockData/mockProjects";
 
 let projects = [...mockProjects];
 
-function sleep(ms = 1000) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
+// function sleep(ms = 1000) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, ms);
+//   });
+// }
 
 const MockProjectsAPI = {
   getData: async function (url: string) {
-    await sleep();
+    // await sleep();
     console.log("Fetching projects... response.status:", 200);
-    console.log(projects);
     return { data: [...projects] };
   },
 
   addData: async function (url: string, projectToAdd: ProjectType) {
-    await sleep();
+    // await sleep();
     projectToAdd.id = `${
       projects.length + Math.floor(Math.random() * (99 - 1)) + 1
     }`;
@@ -32,8 +31,7 @@ const MockProjectsAPI = {
   },
 
   deleteData: async function (url: string, additionalData?: any) {
-    console.log(url);
-    await sleep();
+    // await sleep();
     const link = url.split("/");
     const id = link[5];
     const response = { status: 200 };
