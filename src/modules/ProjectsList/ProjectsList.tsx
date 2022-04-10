@@ -9,13 +9,11 @@ import { ProjectType } from "src/mockData/mockProjects";
 interface ProjectsListType {
   projects: ProjectType[];
   dltProjectHandler: any;
-  addColumnHandler: any;
 }
 
 export const ProjectsList = ({
   projects,
   dltProjectHandler,
-  addColumnHandler,
 }: ProjectsListType) => {
   return (
     <StyledProjectsList>
@@ -30,12 +28,6 @@ export const ProjectsList = ({
                     menuItems={[
                       {
                         id: 0,
-                        icon: <ViewWeekOutlinedIcon />,
-                        label: "Add column",
-                        onClick: () => addColumnHandler(),
-                      },
-                      {
-                        id: 1,
                         icon: <DeleteOutlineIcon />,
                         label: "Delete project",
                         onClick: () => dltProjectHandler(project.id),

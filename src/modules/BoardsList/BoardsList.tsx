@@ -9,14 +9,12 @@ import { BoardCard } from "@components/BoardCard/BoardCard";
 interface BoardsListType {
   boards: BoardType[];
   dltBoardHandler?: any;
-  addColumnHandler?: any;
   projectName: any;
 }
 
 export const BoardsList = ({
   boards,
   dltBoardHandler,
-  addColumnHandler,
   projectName,
 }: BoardsListType) => {
   return (
@@ -32,12 +30,6 @@ export const BoardsList = ({
                     menuItems={[
                       {
                         id: 0,
-                        icon: <ViewWeekOutlinedIcon />,
-                        label: "Add column",
-                        onClick: () => addColumnHandler(),
-                      },
-                      {
-                        id: 1,
                         icon: <DeleteOutlineIcon />,
                         label: "Delete item",
                         onClick: () => dltBoardHandler(item.id),
