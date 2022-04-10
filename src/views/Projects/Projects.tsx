@@ -5,8 +5,8 @@ import {
   API_GET_PROJECTS_LIST,
   API_DELETE_A_PROJECT,
 } from "../../api/contsans";
-import { cleainingSuccessAlerts } from "../../scripts/cleaningSuccessAlerts";
 import { useTranslation } from "react-i18next";
+import { useAlerts } from "../../hooks/useAlerts";
 import { ConfirmationDialog } from "@modules/ConfirmationDialog/ConfirmationDialog";
 import PageHeader from "@modules/PageHeader/PageHeader";
 import Content from "@components/Content/Content";
@@ -30,7 +30,6 @@ async function importApiModule() {
 }
 
 export const Projects = () => {
-  const [useMock, setUseMock] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState<ProjectType[]>([]);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -38,22 +37,29 @@ export const Projects = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isListEmpty, setIsListEmpty] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [isAlertProjectSuccessOpen, setIsAlertProjectSuccessOpen] =
-    useState(false);
-  const [isAlertProjectErrorOpen, setIsAlertProjectErrorOpen] = useState(false);
+  const {
+    isSuccessAlertActive,
+    isErrorAlertActive,
+    message,
+    openAlert,
+    closeErrorAlert,
+  } = useAlerts();
 
   const { t } = useTranslation();
 
-  const deleteProjectHandler = async (id: number) => {
-    if (useMock) {
-      const newProjectsList = projects.filter(
-        (element: any) => element.id !== id
-      );
-      setProjects(newProjectsList);
-    } else {
-      await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`);
-      fetchProjects();
-    }
+  const dltProjectHandler = async (id: number) => {
+    await FetchDataAPI.deleteData(`${API_DELETE_A_PROJECT}/${id}`).then(
+      (res: any) => {
+        if (res.status) {
+          openAlert("success", t("deleteProjectSuccessMsg"));
+          setIsSuccess(!isSuccess);
+        } else {
+          openAlert("error", t("deleteProjectErrorMsg"));
+        }
+      }
+    );
+
+    fetchProjects();
   };
 
   const handleAddNewProject = (inputValue: string) => {
@@ -64,10 +70,10 @@ export const Projects = () => {
       isActive: true,
     }).then((res: any) => {
       if (res.responseCode) {
-        setIsAlertProjectSuccessOpen(true);
+        openAlert("success", t("alertProjectCreated"));
         setIsSuccess(!isSuccess);
       } else {
-        setIsAlertProjectErrorOpen(true);
+        openAlert("error", t("alertProjectError"));
       }
     });
   };
@@ -75,15 +81,9 @@ export const Projects = () => {
   const fetchProjects = useCallback(async () => {
     await importApiModule();
     await FetchDataAPI.getData(API_GET_PROJECTS_LIST).then((res: any) => {
-      if (localStorage["USE_MOCK"] === "true") {
-        console.log(res.data);
-        setUseMock(true);
-        setProjects(res.data);
-      } else {
-        setProjects(res.data);
-      }
+      setProjects(res.data);
 
-      if (res === 0) {
+      if (res.data.length === 0) {
         setIsListEmpty(true);
       } else {
         setIsListEmpty(false);
@@ -93,7 +93,6 @@ export const Projects = () => {
 
   useEffect(() => {
     fetchProjects();
-    cleainingSuccessAlerts(setIsAlertProjectSuccessOpen);
     setIsLoading(false);
   }, [isSuccess]);
 
@@ -103,7 +102,7 @@ export const Projects = () => {
         <StyledPageWrapper>
           <ConfirmationDialog
             confirmHandler={() => {
-              deleteProjectHandler(current);
+              dltProjectHandler(current);
               setIsDltDialogOpen(false);
             }}
             isOpen={isDltDialogOpen}
@@ -150,14 +149,11 @@ export const Projects = () => {
           )}
         </StyledPageWrapper>
       </Content>
-      <AlertSuccess
-        isOpen={isAlertProjectSuccessOpen}
-        alertMsg={t("alertProjectCreated")}
-      />
+      <AlertSuccess isOpen={isSuccessAlertActive} alertMsg={message} />
       <AlertError
-        isOpen={isAlertProjectErrorOpen}
-        alertMsg={t("alertProjectError")}
-        handleClose={() => setIsAlertProjectErrorOpen(false)}
+        isOpen={isErrorAlertActive}
+        alertMsg={message}
+        handleClose={() => closeErrorAlert()}
       />
     </>
   );
