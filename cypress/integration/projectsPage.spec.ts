@@ -45,7 +45,7 @@ describe("Get local", () => {
   });
 
   it("Delete project", () => {
-    cy.get("#three-dots-menu-button").wait(6000).click();
+    cy.get("#three-dots-menu-button").wait(5000).click();
     cy.get(".MuiButtonBase-root-JobBs").should("exist");
     cy.findByRole("menuitem", {
       name: /delete project/i,
@@ -53,7 +53,9 @@ describe("Get local", () => {
     cy.get("div[role=dialog]").should("exist");
     cy.findByRole("button", {
       name: /tak/i,
-    }).click();
+    })
+      .wait(3000)
+      .click();
 
     cy.get("div[role=dialog]").should("not.exist").wait(5000);
   });
