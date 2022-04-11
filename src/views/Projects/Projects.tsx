@@ -126,7 +126,7 @@ export const Projects = () => {
               </Button>
             }
           />
-          {isListEmpty ? (
+          {projects.length === 0 ? (
             <EmptyListModule
               secondary={+true}
               description={t("emptyProjectsListDescription")}
