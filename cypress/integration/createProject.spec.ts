@@ -36,10 +36,16 @@ describe("Create New Project flow in PL", function () {
     cy.get("div[role=dialog]").should("not.exist");
   });
   it("Delete Project", () => {
-    cy.get("#three-dots-menu-button").first().click();
+    cy.findByText("Project1")
+      .parent()
+      .parent()
+      .find("#three-dots-menu-button")
+      .first()
+      .click();
     cy.findByText("Delete project").click();
     cy.get("div[role=dialog]");
     cy.findByText(polish.yesBtn).click();
     cy.get("div[role=dialog]").should("not.exist");
+    cy.findByText("Project1").should("not.exist");
   });
 });
